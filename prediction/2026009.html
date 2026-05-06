@@ -1,0 +1,2986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdventHealth 400 — The Starting Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0B0D;
+  --bg-elev: #111316;
+  --bg-card: #14171B;
+  --bg-card-2: #1A1E23;
+  --line: #23272D;
+  --line-soft: #1B1F24;
+  --ink: #F2EFE7;
+  --ink-2: #C8C4B7;
+  --ink-3: #8E8B82;
+  --ink-4: #5A5852;
+  --accent: #F5B400;
+  --accent-ink: #0A0B0D;
+  --risk: #E63946;
+  --good: #6BD68A;
+  --info: #6BB1FF;
+  --radius: 4px;
+  --radius-lg: 8px;
+  --pad: 20px;
+  --col-gap: 20px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+body {
+  font: 14.5px/1.55 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+a { color: inherit; }
+.mono { font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-feature-settings: 'zero'; }
+.display { font-family: 'Inter Tight', 'Inter', sans-serif; letter-spacing: -0.02em; }
+
+.checker-band {
+  height: 6px;
+  background-image:
+    linear-gradient(45deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--accent) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--accent) 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+  opacity: .7;
+}
+
+/* ─── chrome ───────────────────────────────────────────── */
+.chrome {
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(10,11,13,.86);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--line-soft);
+}
+.chrome-inner {
+  max-width: 1320px; margin: 0 auto;
+  padding: 12px 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-mark {
+  width: 22px; height: 22px;
+  background-image:
+    linear-gradient(45deg, #fff 25%, transparent 25%),
+    linear-gradient(-45deg, #fff 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #fff 75%),
+    linear-gradient(-45deg, transparent 75%, #fff 75%);
+  background-color: var(--bg);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+  border-radius: 2px;
+}
+.brand-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700; letter-spacing: -.01em; font-size: 15px;
+  color: var(--ink);
+}
+.brand-name span { color: var(--ink-3); font-weight: 500; }
+.nav { display: flex; gap: 4px; margin-left: 8px; }
+.nav a {
+  color: var(--ink-3); text-decoration: none; font-size: 12.5px; font-weight: 500;
+  padding: 6px 10px; border-radius: 4px;
+}
+.nav a:hover { color: var(--ink); background: var(--bg-card); }
+.nav a.active { color: var(--ink); }
+.chrome-spacer { flex: 1; }
+.chip-live {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  color: var(--ink-2);
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.chip-live::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--good); box-shadow: 0 0 8px var(--good);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+.btn {
+  appearance: none; border: 0; cursor: pointer;
+  font: inherit; padding: 7px 12px; border-radius: 4px;
+  font-size: 12.5px; font-weight: 600;
+  background: var(--accent); color: var(--accent-ink);
+  text-decoration: none; display: inline-block;
+}
+.btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--ink-2); }
+
+/* ─── page shell ───────────────────────────────────────── */
+.page { max-width: 1320px; margin: 0 auto; padding: 0 24px 80px; }
+.breadcrumb {
+  margin: 18px 0 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .12em;
+}
+.breadcrumb a { color: inherit; text-decoration: none; }
+.breadcrumb a:hover { color: var(--ink-2); }
+.breadcrumb .here { color: var(--accent); }
+
+/* ─── race header (compact) ────────────────────────────── */
+.hero {
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.hero-top {
+  padding: 16px 22px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 22px;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .14em;
+  margin-bottom: 8px;
+}
+.hero-eyebrow .pill {
+  color: var(--accent); border: 1px solid var(--accent);
+  padding: 2px 8px; border-radius: 2px; font-weight: 600;
+}
+.hero h1 {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 30px; line-height: 1.04;
+  letter-spacing: -.025em; margin: 0;
+  color: var(--ink);
+}
+.hero h1 .race-name {
+  display: block; font-size: 15px; font-weight: 600;
+  color: var(--ink-3); letter-spacing: -.005em; margin-top: 4px;
+}
+.hero-meta {
+  display: flex; gap: 22px; margin-top: 10px;
+  font-size: 13px; color: var(--ink-2);
+  flex-wrap: wrap;
+}
+.hero-meta .lbl {
+  display: block; font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; color: var(--ink-4);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 2px;
+}
+.hero-meta .val { font-weight: 600; color: var(--ink); font-size: 13.5px; }
+
+.track-glyph {
+  width: 180px; height: 100px;
+  background: var(--bg-card-2);
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.track-glyph svg { width: 88%; height: 80%; }
+.track-glyph .tag {
+  position: absolute; bottom: 6px; left: 10px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  color: var(--ink-3); text-transform: uppercase; letter-spacing: .12em;
+}
+
+.hero-tabs {
+  display: flex; gap: 0;
+  border-top: 1px solid var(--line);
+  background: var(--bg-elev);
+}
+.hero-tabs button {
+  appearance: none; background: transparent; border: 0; cursor: pointer;
+  color: var(--ink-3); font: inherit; font-weight: 600; font-size: 13px;
+  padding: 12px 18px;
+  position: relative;
+}
+.hero-tabs button:hover { color: var(--ink-2); }
+.hero-tabs button.active { color: var(--ink); }
+.hero-tabs button.active::after {
+  content: ""; position: absolute; left: 18px; right: 18px; bottom: -1px; height: 2px;
+  background: var(--accent);
+}
+.hero-tabs button.locked { color: var(--ink-4); cursor: default; }
+.hero-tabs button .lock {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px; opacity: .85; margin-left: 6px; letter-spacing: .12em;
+}
+
+/* tab panes */
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* ─── grid layout ──────────────────────────────────────── */
+.row-2up {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--col-gap);
+  margin-bottom: var(--col-gap);
+}
+@media (max-width: 920px) { .row-2up { grid-template-columns: 1fr; } }
+
+.row-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--col-gap);
+  align-items: start;
+}
+@media (max-width: 1100px) { .row-grid { grid-template-columns: 1fr; } }
+
+/* ─── card ─────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--col-gap);
+  overflow: hidden;
+}
+.card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px var(--pad);
+  border-bottom: 1px solid var(--line-soft);
+  gap: 16px;
+}
+.card-head h2 {
+  margin: 0; font-family: 'Inter Tight', sans-serif;
+  font-size: 14px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .04em;
+  color: var(--ink);
+  display: flex; align-items: center; gap: 10px;
+}
+.card-head .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: var(--ink-4);
+  border: 1px solid var(--line); padding: 2px 6px; border-radius: 3px;
+}
+.card-head .tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: var(--ink-3);
+  letter-spacing: .04em;
+}
+.card-body { padding: var(--pad); }
+.card-body.np { padding: 0; }
+
+/* ─── model brief ──────────────────────────────────────── */
+.brief-headline {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 18px;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed var(--line);
+}
+.brief-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 72px; line-height: .9;
+  color: var(--accent);
+  letter-spacing: -.04em;
+  font-feature-settings: 'tnum';
+}
+.brief-headline-r .lbl {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em;
+}
+.brief-headline-r h3 {
+  margin: 4px 0 6px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 26px; font-weight: 700; letter-spacing: -.02em;
+}
+.brief-headline-r .why { color: var(--ink-2); font-size: 14px; line-height: 1.55; max-width: 60ch; }
+
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  padding-top: 14px;
+}
+.brief-cell {
+  padding: 12px 16px;
+  border-right: 1px dashed var(--line);
+  position: relative;
+}
+.brief-cell:nth-child(3n) { border-right: 0; padding-right: 0; }
+.brief-cell:nth-child(3n+1) { padding-left: 0; }
+.brief-cell:nth-child(n+4) { border-top: 1px dashed var(--line); padding-top: 14px; }
+@media (max-width: 720px) {
+  .brief-grid { grid-template-columns: 1fr; }
+  .brief-cell, .brief-cell:nth-child(n) {
+    border-right: 0; padding: 12px 0; border-top: 1px dashed var(--line);
+  }
+  .brief-cell:first-child { border-top: 0; padding-top: 0; }
+}
+.brief-cell .lbl {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--ink-3); text-transform: uppercase; letter-spacing: .04em;
+  display: flex; align-items: center; gap: 6px;
+}
+.brief-cell .lbl::before {
+  content: ""; width: 8px; height: 8px;
+  border: 1.5px solid var(--ink-4);
+  flex: none;
+}
+.brief-cell.alert .lbl::before { background: var(--risk); border-color: var(--risk); }
+.brief-cell.up    .lbl::before { background: var(--good); border-color: var(--good); }
+.brief-cell.safe  .lbl::before { background: var(--info); border-color: var(--info); }
+.brief-cell.mover .lbl::before { background: var(--accent); border-color: var(--accent); }
+.brief-cell.pick  .lbl::before { background: var(--accent); border-color: var(--accent); }
+.brief-cell.conf  .lbl::before { background: var(--ink-2); border-color: var(--ink-2); }
+.brief-cell .name {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 17px; font-weight: 700; margin-top: 6px; letter-spacing: -.01em;
+}
+.brief-cell .stat {
+  color: var(--ink-3); font-size: 12.5px; margin-top: 3px; line-height: 1.45;
+}
+.brief-cell .stat b { color: var(--ink); font-family: 'IBM Plex Mono', monospace; font-weight: 500; }
+.brief-cell.locked-cell { min-height: 92px; }
+.brief-cell.locked-cell .lockbar {
+  margin-top: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .14em;
+}
+.brief-cell.locked-cell .lock-blur {
+  filter: blur(4px); opacity: .55;
+  pointer-events: none; user-select: none;
+}
+
+/* ─── confidence module ────────────────────────────────── */
+.conf-stack { display: flex; flex-direction: column; gap: 14px; }
+.conf-headline {
+  display: flex; align-items: baseline; gap: 12px;
+  font-family: 'Inter Tight', sans-serif;
+  flex-wrap: wrap;
+}
+.conf-headline .big {
+  font-weight: 800; font-size: 40px; letter-spacing: -.03em;
+  color: var(--ink); font-family: 'IBM Plex Mono', monospace;
+}
+.conf-headline .big .small {
+  font-size: 18px; color: var(--ink-3);
+}
+.conf-headline .lvl {
+  font-size: 11.5px; color: var(--accent); font-weight: 600;
+  text-transform: uppercase; letter-spacing: .12em;
+  border: 1px solid var(--accent); padding: 3px 8px; border-radius: 2px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.conf-headline .lvl.low,
+.conf-headline .lvl.chaos { color: var(--risk); border-color: var(--risk); }
+.conf-headline .lvl.medium { color: var(--info); border-color: var(--info); }
+.conf-explain {
+  font-size: 12.5px; color: var(--ink-3); line-height: 1.5;
+}
+.conf-bars {
+  display: grid; grid-template-columns: 1fr; gap: 8px;
+}
+.conf-row {
+  display: grid; grid-template-columns: 150px 1fr 64px;
+  align-items: center; gap: 10px;
+}
+@media (max-width: 720px) { .conf-row { grid-template-columns: 100px 1fr 50px; } }
+.conf-row .lbl { font-size: 12px; color: var(--ink-2); }
+.conf-row .val { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink); text-align: right; }
+.bar { height: 6px; background: var(--bg-card-2); border-radius: 2px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; background: var(--accent); }
+.bar-fill.good { background: var(--good); }
+.bar-fill.risk { background: var(--risk); }
+.bar-fill.info { background: var(--info); }
+.chaos-warn {
+  display: flex; gap: 12px; padding: 12px 14px;
+  background: rgba(230,57,70,.08);
+  border: 1px solid rgba(230,57,70,.4);
+  border-radius: 4px;
+}
+.chaos-warn .ico {
+  width: 22px; height: 22px; flex: none;
+  background: var(--risk); color: #fff;
+  display: grid; place-items: center;
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 700;
+  border-radius: 2px;
+}
+.chaos-warn .txt { font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+.chaos-warn .txt b {
+  display: block; margin-bottom: 2px;
+  font-family: 'Inter Tight', sans-serif; letter-spacing: .04em;
+  text-transform: uppercase; font-size: 11px; color: var(--risk);
+}
+
+/* ─── locked module veil ───────────────────────────────── */
+.locked-card { position: relative; }
+.locked-veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,11,13,0) 0%, rgba(10,11,13,.85) 55%, rgba(10,11,13,.96) 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 28px;
+  z-index: 2;
+}
+.locked-cta {
+  text-align: center; max-width: 380px;
+}
+.locked-cta .lbl {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
+  color: var(--accent); text-transform: uppercase; letter-spacing: .16em;
+}
+.locked-cta h4 {
+  margin: 6px 0 8px;
+  font-family: 'Inter Tight', sans-serif; font-size: 22px; font-weight: 700;
+  letter-spacing: -.01em;
+}
+.locked-cta p { margin: 0 0 14px; color: var(--ink-2); font-size: 13px; line-height: 1.5; }
+.locked-blur { filter: blur(4px); user-select: none; pointer-events: none; opacity: .5; }
+.unavailable-msg {
+  font-size: 13px; color: var(--ink-3); padding: 24px; text-align: center;
+}
+.unavailable-msg b { display: block; color: var(--ink-2); margin-bottom: 6px; font-family: 'Inter Tight', sans-serif; }
+
+/* ─── driver spotlight ─────────────────────────────────── */
+.spot {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+@media (max-width: 920px) { .spot { grid-template-columns: 1fr; } }
+.spot-card {
+  padding: 22px;
+  border-right: 1px solid var(--line-soft);
+  display: flex; flex-direction: column; gap: 14px;
+  position: relative;
+}
+.spot-card:last-child { border-right: 0; }
+@media (max-width: 920px) {
+  .spot-card { border-right: 0; border-bottom: 1px solid var(--line-soft); }
+  .spot-card:last-child { border-bottom: 0; }
+}
+.spot-rank {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 800; font-size: 56px; line-height: .9;
+  color: var(--accent); letter-spacing: -.04em;
+}
+.spot-rank::before { content: "#"; font-size: 22px; color: var(--ink-3); margin-right: 4px; vertical-align: top; }
+.spot-num-car {
+  display: flex; align-items: baseline; gap: 8px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--ink-3); text-transform: uppercase; letter-spacing: .12em;
+}
+.spot-num-car .car {
+  background: var(--ink); color: var(--bg);
+  padding: 1px 6px; font-weight: 700; border-radius: 2px;
+  font-family: 'Inter Tight', sans-serif; letter-spacing: 0;
+}
+.spot-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 22px; font-weight: 700; letter-spacing: -.02em; line-height: 1.05;
+}
+.spot-team { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+.spot-stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+}
+.spot-stats div { font-size: 12px; color: var(--ink-2); display: flex; justify-content: space-between; }
+.spot-stats div span { color: var(--ink); font-family: 'IBM Plex Mono', monospace; }
+.spot-why {
+  font-size: 13px; color: var(--ink-2); line-height: 1.55;
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+}
+.spot-why .lead {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
+  color: var(--ink-4); text-transform: uppercase; letter-spacing: .14em;
+  display: block; margin-bottom: 6px;
+}
+.spot-why .watch { color: var(--risk); }
+
+/* ─── pick groups ──────────────────────────────────────── */
+.groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+@media (max-width: 920px) { .groups { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .groups { grid-template-columns: 1fr; } }
+.group {
+  border-right: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 16px 18px;
+  position: relative;
+}
+/* Remove right border on last column at each breakpoint */
+.group:nth-child(3n) { border-right: 0; }
+@media (max-width: 920px) {
+  .group:nth-child(3n) { border-right: 1px solid var(--line-soft); }
+  .group:nth-child(2n) { border-right: 0; }
+}
+@media (max-width: 600px) {
+  .group { border-right: 0 !important; }
+}
+.group-head {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--ink); margin-bottom: 12px;
+}
+.group-head .dot { width: 9px; height: 9px; background: var(--accent); flex: none; }
+.group.win .dot      { background: #6BD68A; }     /* green */
+.group.top3 .dot     { background: #FFA94D; }     /* orange */
+.group.top5 .dot     { background: var(--info); }  /* blue */
+.group.top10 .dot    { background: #B392F0; }     /* purple */
+.group.value .dot    { background: #20C997; }     /* teal */
+.group.risk .dot     { background: var(--risk); }  /* red */
+.group.practice .dot { background: #0DCAF0; }     /* cyan */
+.group.sleep .dot    { background: var(--accent); } /* amber */
+.gd { display: flex; flex-direction: column; gap: 10px; }
+.gd-row { display: grid; grid-template-columns: 1fr 60px; align-items: baseline; gap: 8px; }
+.gd-row.gd-row-wide { grid-template-columns: 1fr auto; gap: 10px; }
+.gd-name { font-size: 13.5px; font-weight: 600; }
+.gd-name .num { color: var(--ink-4); font-family: 'IBM Plex Mono', monospace; margin-right: 6px; font-size: 11px; }
+.gd-pct { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-2); text-align: right; }
+.gd-pct.gd-pct-wide { font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+.gd-meta { font-size: 11px; color: var(--ink-3); margin-top: -4px; line-height: 1.4; }
+.gd-locked {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px dashed var(--line);
+  border-radius: 3px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .12em;
+  text-align: center;
+}
+.gd-locked .accent { color: var(--accent); }
+
+/* ─── projections table ────────────────────────────────── */
+.proj-tabs {
+  display: flex; gap: 2px; padding: 0 var(--pad);
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--bg-elev);
+  overflow-x: auto;
+}
+.proj-tabs button {
+  appearance: none; background: transparent; border: 0; cursor: pointer;
+  font: inherit; color: var(--ink-3); font-size: 12px; font-weight: 600;
+  padding: 12px 14px; position: relative; white-space: nowrap;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.proj-tabs button.active { color: var(--ink); }
+.proj-tabs button.active::after {
+  content: ""; position: absolute; left: 14px; right: 14px; bottom: -1px; height: 2px; background: var(--accent);
+}
+.proj-tabs button.locked { color: var(--ink-4); cursor: default; }
+
+.table-wrap { overflow-x: auto; }
+table.proj.proj-view { display: none; }
+table.proj.proj-view.active { display: table; }
+table.proj { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.proj thead th[title] {
+  border-bottom-style: dashed;
+  cursor: help;
+}
+table.proj thead th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; font-weight: 500;
+  color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .1em;
+  text-align: right;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-elev);
+  white-space: nowrap;
+}
+table.proj thead th:first-child,
+table.proj thead th:nth-child(2),
+table.proj thead th:nth-child(3),
+table.proj thead th:nth-child(4) { text-align: left; }
+table.proj tbody td {
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: right;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--ink); white-space: nowrap;
+}
+/* Zebra rows */
+table.proj tbody tr:nth-child(even) td { background: rgba(255,255,255,.018); }
+/* Vertical column bands: group identity (cols 1-4), grid (5), EP (6), probabilities (7-10) */
+table.proj tbody td:nth-child(5),
+table.proj thead th:nth-child(5) { background: rgba(107,177,255,.05); }
+table.proj tbody tr:nth-child(even) td:nth-child(5) { background: rgba(107,177,255,.07); }
+table.proj tbody td:nth-child(6),
+table.proj thead th:nth-child(6) { background: rgba(245,180,0,.05); }
+table.proj tbody tr:nth-child(even) td:nth-child(6) { background: rgba(245,180,0,.07); }
+table.proj tbody td:nth-child(n+7),
+table.proj thead th:nth-child(n+7) { background: rgba(255,255,255,.025); }
+table.proj tbody tr:nth-child(even) td:nth-child(n+7) { background: rgba(255,255,255,.045); }
+/* Subtle vertical separator before grid/EP/prob bands */
+table.proj tbody td:nth-child(5),
+table.proj thead th:nth-child(5) { border-left: 1px solid var(--line-soft); }
+table.proj tbody td:nth-child(7),
+table.proj thead th:nth-child(7) { border-left: 1px solid var(--line-soft); }
+table.proj tbody td.l { text-align: left; }
+table.proj tbody td.driver { font-family: 'Inter', sans-serif; font-weight: 600; }
+table.proj tbody td.team   { color: var(--ink-3); font-family: 'Inter', sans-serif; font-size: 12px; }
+table.proj tbody tr:hover td { background: var(--bg-elev) !important; }
+table.proj td.win-cell { color: var(--accent); font-weight: 600; }
+table.proj td.dnf-cell { color: var(--risk); }
+table.proj .pos-pill {
+  display: inline-block; min-width: 22px; padding: 1px 6px;
+  border: 1px solid var(--line); border-radius: 2px;
+  background: var(--bg-card-2); font-size: 11px;
+}
+body[data-tier="free"] table.proj tbody tr.locked-row td {
+  filter: blur(5px);
+  user-select: none;
+  pointer-events: none;
+  color: var(--ink-3);
+}
+.proj-locked-overlay {
+  position: relative;
+}
+.proj-locked-overlay::after {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 100%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(10,11,13,0) 0%, rgba(10,11,13,.6) 60%, rgba(10,11,13,.95) 100%);
+}
+.proj-cta {
+  padding: 18px var(--pad);
+  border-top: 1px solid var(--line-soft);
+  display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;
+}
+.proj-cta .left { font-size: 13px; color: var(--ink-2); }
+.proj-cta .left b { color: var(--ink); font-family: 'Inter Tight', sans-serif; }
+.proj-cta .right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.proj-cta .csv {
+  color: var(--ink-3); border: 1px solid var(--line);
+  padding: 6px 10px; border-radius: 3px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .1em;
+}
+
+/* ─── column key (expandable) ──────────────────────────── */
+.col-key {
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--bg-elev);
+}
+.col-key > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px var(--pad);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; color: var(--ink-2);
+  text-transform: uppercase; letter-spacing: .12em;
+  display: flex; align-items: center; gap: 10px;
+  user-select: none;
+}
+.col-key > summary::-webkit-details-marker,
+.col-key > summary::marker { display: none; content: ""; }
+.col-key > summary:hover { color: var(--ink); background: var(--bg-card-2); }
+.col-key > summary .ico {
+  display: inline-grid;
+  place-items: center;
+  width: 22px; height: 22px;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px; line-height: 1;
+  transition: transform .15s ease;
+}
+.col-key[open] > summary .ico { transform: rotate(180deg); }
+.col-key > summary .ico::before { content: "v"; font-weight: 700; }
+.col-key > summary .hint { color: var(--ink-4); margin-left: auto; font-size: 10.5px; }
+.col-key-body {
+  padding: 4px var(--pad) 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 720px) {
+  .col-key-body { grid-template-columns: 1fr; gap: 14px; }
+}
+.col-key-head {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 11px; font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-bottom: 8px;
+}
+.col-key dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 6px 12px;
+  font-size: 12.5px; line-height: 1.5;
+}
+.col-key dt {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--ink); font-weight: 500;
+  white-space: nowrap;
+}
+.col-key dd {
+  margin: 0; color: var(--ink-2);
+}
+.col-key-note {
+  margin-top: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: var(--ink-4);
+  letter-spacing: .04em;
+}
+
+/* ─── tier gating (free vs paid) ───────────────────────── */
+body[data-tier="free"] .paid-only { display: none !important; }
+body[data-tier="paid"] .free-only { display: none !important; }
+
+/* Preview toggle (hidden unless ?preview=1 added it via JS) */
+.preview-toggle {
+  display: none;
+  align-items: center; gap: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em;
+  border: 1px solid var(--line); border-radius: 3px;
+  padding: 2px; margin-right: 4px;
+}
+.preview-toggle.show { display: inline-flex; }
+.preview-toggle button {
+  appearance: none; background: transparent; border: 0; cursor: pointer;
+  font: inherit; padding: 4px 8px; border-radius: 2px;
+  color: var(--ink-3);
+}
+.preview-toggle button.active {
+  background: var(--accent); color: var(--accent-ink);
+}
+
+/* ─── footer ───────────────────────────────────────────── */
+.foot {
+  margin-top: 40px;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 24px;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: space-between;
+  color: var(--ink-4); font-size: 11.5px;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase; letter-spacing: .1em;
+}
+
+/* ─── mobile sticky header ─────────────────────────────── */
+.m-sticky { display: none; }
+@media (max-width: 720px) {
+  .chrome-inner { padding: 10px 14px; }
+  .nav { display: none; }
+  .page { padding: 0 14px 60px; }
+  .hero-top { grid-template-columns: 1fr; padding: 16px; gap: 14px; }
+  .hero h1 { font-size: 26px; }
+  .track-glyph { width: 100%; height: 90px; }
+  .hero-meta { gap: 14px; }
+  .hero-tabs { overflow-x: auto; }
+  .hero-tabs button { padding: 12px 14px; flex: none; }
+  .brief-headline { grid-template-columns: 1fr; gap: 4px; }
+  .brief-num { font-size: 52px; }
+  .card-head h2 { font-size: 12.5px; }
+  .m-sticky {
+    display: flex;
+    position: sticky; top: 49px; z-index: 20;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 12px;
+    align-items: center; justify-content: space-between;
+    margin: 10px 0 14px;
+    font-size: 12px;
+  }
+  .m-sticky .l { font-family: 'Inter Tight', sans-serif; font-weight: 700; }
+  .m-sticky .r { font-family: 'IBM Plex Mono', monospace; color: var(--ink-3); font-size: 11px; }
+}
+</style>
+</head>
+<body data-tier="free">
+
+<div class="chrome">
+  <div class="chrome-inner">
+    <a class="brand" href="/the-starting-grid/">
+      <div class="brand-mark"></div>
+      <div class="brand-name">The Starting Grid <span>/ Cup Series</span></div>
+    </a>
+    <div class="nav">
+      <a class="active" href="/the-starting-grid/">This Week</a>
+    </div>
+    <div class="chrome-spacer"></div>
+    <div class="preview-toggle" id="previewToggle" role="group" aria-label="Preview tier">
+      <button data-set-tier="free" type="button">Free</button>
+      <button data-set-tier="paid" type="button">Paid</button>
+    </div>
+    <span class="chip-live">Model live</span>
+    <a class="btn free-only" href="#unlock">Subscribe</a>
+    <span class="chip-live paid-only" style="border-color:var(--accent);color:var(--accent)">SUBSCRIBER</span>
+  </div>
+  <div class="checker-band"></div>
+</div>
+<div class="page">
+  <div class="breadcrumb">
+    <a href="/the-starting-grid/">This Week</a> / Race 9 / 2026 / <span class="here">Kansas Speedway</span>
+  </div>
+
+  
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="pill">RACE 9 / 36</span>
+        <span>2026 CUP SERIES • POST-PRACTICE</span>
+      </div>
+      <h1>Kansas Speedway<span class="race-name">AdventHealth 400</span></h1>
+      <div class="hero-meta">
+        <div><span class="lbl">Date</span><span class="val">Sunday, April 19, 2026</span></div>
+        <div><span class="lbl">Track Type</span><span class="val">Intermediate</span></div>
+        <div><span class="lbl">Field</span><span class="val mono">37 drivers</span></div>
+        <div><span class="lbl">Model</span><span class="val mono">v2 / xgb</span></div>
+        <div><span class="lbl">Generated</span><span class="val mono">2026-04-19 21:19</span></div>
+      </div>
+    </div>
+    <div class="track-glyph">
+      <svg viewBox="0 0 200 120" fill="none"><ellipse cx="100" cy="60" rx="78" ry="36" stroke="var(--ink-3)" stroke-width="2"/><ellipse cx="100" cy="60" rx="62" ry="22" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="3 3"/><circle cx="22" cy="60" r="3" fill="var(--accent)"/></svg>
+      <span class="tag">INTERMEDIATE</span>
+    </div>
+  </div>
+  <div class="hero-tabs" role="tablist">
+    <button class="active" data-tab="overview" type="button">Overview</button>
+    <button class="locked" type="button" data-tab="dfs">DFS Lens<span class="lock">◦ SUBSCRIBER</span></button>
+    <button data-tab="full" type="button">Full Table</button>
+  </div>
+</div>
+  
+<div class="m-sticky">
+  <span class="l">Kansas Speedway</span>
+  <span class="r">Updated 2026-04-19 21:19 • Practice</span>
+</div>
+
+  <div class="tab-pane active" id="overview-pane">
+    
+<div class="card" id="brief">
+  <div class="card-head">
+    <h2><span class="num">01</span> Model Brief</h2>
+    <span class="tag">Generated 2026-04-19 21:19</span>
+  </div>
+  <div class="card-body">
+    <div class="brief-headline">
+      <div class="brief-num">#1</div>
+      <div class="brief-headline-r">
+        <span class="lbl">Model Pick • Win 44.9%</span>
+        <h3>Denny Hamlin <span style="color:var(--ink-3);font-size:16px;font-weight:600">• #11 Joe Gibbs Racing</span></h3>
+        <div class="why">Why: top-tier driver ELO, front-row start (P2), strong organization rating.</div>
+      </div>
+    </div>
+    <div class="brief-grid">
+      <div class="brief-cell pick">
+        <div class="lbl">Win Profile</div>
+        <div class="name">Denny Hamlin</div>
+        <div class="stat">Win <b>44.9%</b> • Top-5 <b>20%</b> • EP <b>6.77</b></div>
+      </div>
+      <div class="brief-cell safe free-only locked-cell">
+        <div class="lbl">Safest Play</div>
+        <div class="lock-blur">
+          <div class="name">Denny Hamlin</div>
+          <div class="stat">Top-10 prob <b>77%</b> • DNF <b>9.8%</b></div>
+        </div>
+        <div class="lockbar">◦ Subscriber</div>
+      </div>
+      <div class="brief-cell safe paid-only">
+        <div class="lbl">Safest Play</div>
+        <div class="name">Denny Hamlin</div>
+        <div class="stat">Top-10 prob <b>77%</b> • DNF <b>9.8%</b></div>
+      </div>
+      <div class="brief-cell up free-only locked-cell">
+        <div class="lbl">Upside Driver</div>
+        <div class="lock-blur">
+          <div class="name">Kyle Larson</div>
+          <div class="stat">Win prob <b>22.9%</b> • Started <b>P4</b></div>
+        </div>
+        <div class="lockbar">◦ Subscriber</div>
+      </div>
+      <div class="brief-cell up paid-only">
+        <div class="lbl">Upside Driver</div>
+        <div class="name">Kyle Larson</div>
+        <div class="stat">Win prob <b>22.9%</b> • Started <b>P4</b></div>
+      </div>
+      <div class="brief-cell mover free-only locked-cell">
+        <div class="lbl">Biggest Mover</div>
+        <div class="lock-blur">
+          <div class="name">— — — — —</div>
+          <div class="stat">+/- ranks Mon → Now</div>
+        </div>
+        <div class="lockbar">◦ Subscriber</div>
+      </div>
+      <div class="brief-cell mover paid-only">
+        <div class="lbl">Biggest Mover</div>
+        <div class="name" style="color:var(--ink-3);font-size:14px;font-weight:600">Waiting on practice</div>
+        <div class="stat">Movement activates once practice and qualifying snapshots come in.</div>
+      </div>
+      <div class="brief-cell alert">
+        <div class="lbl">Risk Flag</div>
+        <div class="name">Austin Cindric</div>
+        <div class="stat">DNF prob <b>21.5%</b></div>
+      </div>
+      <div class="brief-cell conf">
+        <div class="lbl">Race Confidence</div>
+        <div class="name">HIGH • 72/100</div>
+        <div class="stat">Confidence blends this track type's historical accuracy, race volatility, and model calibration.</div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="row-2up">
+      <div>
+<div class="card">
+  <div class="card-head">
+    <h2><span class="num">02</span> Track Confidence</h2>
+    <span class="tag">L12 of intermediate</span>
+  </div>
+  <div class="card-body">
+    <div class="conf-stack">
+      <div class="conf-headline">
+        <div class="big">72<span class="small">/100</span></div>
+        <div class="lvl ">HIGH</div>
+      </div>
+      <div class="conf-explain">Intermediates reward downforce-era setups and clean stops. Model performs reliably here.</div>
+      <div class="conf-bars">
+        <div class="conf-row">
+          <div class="lbl">Win pick hit rate</div>
+          <div class="bar"><div class="bar-fill" style="width:50%"></div></div>
+          <div class="val">25%</div>
+        </div>
+        <div class="conf-row">
+          <div class="lbl">Top-5 hit rate</div>
+          <div class="bar"><div class="bar-fill good" style="width:43%"></div></div>
+          <div class="val">43%</div>
+        </div>
+        <div class="conf-row"><div class="lbl">Avg Spearman ρ</div><div class="bar"><div class="bar-fill info" style="width:67%"></div></div><div class="val">0.47</div></div>
+      </div>
+      
+    </div>
+  </div>
+</div></div>
+      <div>
+<div class="card">
+  <div class="card-head">
+    <h2><span class="num">03</span> Forecast Movement</h2>
+    <span class="tag">Mon → Practice → Final</span>
+  </div>
+  <div class="card-body">
+    <div class="unavailable-msg">
+      <b>Forecast movement coming soon</b>
+      How the model changed as practice and qualifying came in. This module activates once we capture prediction snapshots through the race week — historical predictions remain immutable, so we don't fabricate movement we didn't record.
+    </div>
+  </div>
+</div></div>
+    </div>
+    <div class="row-grid">
+      <div>
+        
+<div class="card">
+  <div class="card-head">
+    <h2><span class="num">04</span> Driver Spotlight</h2>
+    <span class="tag">Top 3 by EP</span>
+  </div>
+  <div class="spot">
+    
+    <div class="spot-card ">
+      <div>
+        <div class="spot-num-car"><span class="car">#11</span> Joe Gibbs Racing</div>
+        <div class="spot-rank">1</div>
+        <div class="spot-name">Denny Hamlin</div>
+      </div>
+      <div class="spot-stats">
+        <div>Win <span>44.9%</span></div>
+        <div>Top-5 <span>20%</span></div>
+        <div>Exp pts <span>6.77</span></div>
+        <div>Start <span>P2</span></div>
+        <div>Driver ELO <span>1511</span></div>
+        <div>Track-type ELO <span>1509</span></div>
+      </div>
+      <div class="spot-why">
+        <span class="lead">Why this pick</span>
+        Why: top-tier driver ELO, front-row start (P2), strong organization rating.
+      </div>
+    </div>
+    <div class="spot-card free-only">
+      <div class="locked-blur">
+        <div class="spot-num-car"><span class="car">#19</span> Joe Gibbs Racing</div>
+        <div class="spot-rank">2</div>
+        <div class="spot-name">Chase Briscoe</div>
+      </div>
+      <div class="spot-stats locked-blur">
+        <div>Win <span>29.4%</span></div>
+        <div>Top-5 <span>34%</span></div>
+        <div>Exp pts <span>6.28</span></div>
+        <div>Start <span>P5</span></div>
+        <div>Driver ELO <span>1514</span></div>
+        <div>Track-type ELO <span>1508</span></div>
+      </div>
+      <div class="spot-why locked-blur">
+        <span class="lead">Why this pick</span>
+        Watch this driver's full breakdown — track-history, ELO trend, and risk flags — with a subscription.
+      </div>
+      <div class="locked-veil" style="position:absolute;"><div class="locked-cta"><div class="lbl">Subscriber Spotlight</div><h4>Full driver breakdowns</h4><p>Why this pick, watch-outs, and the features driving the rank.</p><a class="btn" href="#unlock">Unlock the full race sheet</a></div></div>
+    </div>
+    <div class="spot-card paid-only">
+      <div>
+        <div class="spot-num-car"><span class="car">#19</span> Joe Gibbs Racing</div>
+        <div class="spot-rank">2</div>
+        <div class="spot-name">Chase Briscoe</div>
+      </div>
+      <div class="spot-stats">
+        <div>Win <span>29.4%</span></div>
+        <div>Top-5 <span>34%</span></div>
+        <div>Exp pts <span>6.28</span></div>
+        <div>Start <span>P5</span></div>
+        <div>Driver ELO <span>1514</span></div>
+        <div>Track-type ELO <span>1508</span></div>
+      </div>
+      <div class="spot-why">
+        <span class="lead">Why this pick</span>
+        Why: top-tier driver ELO, front-row start (P5), strong organization rating.
+      </div>
+    </div>
+    <div class="spot-card free-only">
+      <div class="locked-blur">
+        <div class="spot-num-car"><span class="car">#54</span> Joe Gibbs Racing</div>
+        <div class="spot-rank">3</div>
+        <div class="spot-name">Ty Gibbs</div>
+      </div>
+      <div class="spot-stats locked-blur">
+        <div>Win <span>33.5%</span></div>
+        <div>Top-5 <span>16%</span></div>
+        <div>Exp pts <span>6.12</span></div>
+        <div>Start <span>P3</span></div>
+        <div>Driver ELO <span>1516</span></div>
+        <div>Track-type ELO <span>1513</span></div>
+      </div>
+      <div class="spot-why locked-blur">
+        <span class="lead">Why this pick</span>
+        Watch this driver's full breakdown — track-history, ELO trend, and risk flags — with a subscription.
+      </div>
+      <div class="locked-veil" style="position:absolute;"><div class="locked-cta"><div class="lbl">Subscriber Spotlight</div><h4>Full driver breakdowns</h4><p>Why this pick, watch-outs, and the features driving the rank.</p><a class="btn" href="#unlock">Unlock the full race sheet</a></div></div>
+    </div>
+    <div class="spot-card paid-only">
+      <div>
+        <div class="spot-num-car"><span class="car">#54</span> Joe Gibbs Racing</div>
+        <div class="spot-rank">3</div>
+        <div class="spot-name">Ty Gibbs</div>
+      </div>
+      <div class="spot-stats">
+        <div>Win <span>33.5%</span></div>
+        <div>Top-5 <span>16%</span></div>
+        <div>Exp pts <span>6.12</span></div>
+        <div>Start <span>P3</span></div>
+        <div>Driver ELO <span>1516</span></div>
+        <div>Track-type ELO <span>1513</span></div>
+      </div>
+      <div class="spot-why">
+        <span class="lead">Why this pick</span>
+        Why: strong track-type ELO, top-tier driver ELO, front-row start (P3).
+      </div>
+    </div>
+  </div>
+</div>
+        
+<div class="card">
+  <div class="card-head">
+    <h2><span class="num">05</span> Quick Picks</h2>
+    <span class="tag">Top 2 free • full list w/ subscriber</span>
+  </div>
+  <div class="card-body np">
+    <div class="groups">
+      
+    <div class="group win">
+      <div class="group-head"><span class="dot"></span>Best Win Picks</div>
+      <div class="gd">
+        
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#11</span>Denny Hamlin</div>
+            <div class="gd-pct">44.9%</div>
+          </div>
+          
+        </div>
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
+            <div class="gd-pct">33.5%</div>
+          </div>
+          
+        </div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#19</span>Chase Briscoe</div>
+            <div class="gd-pct">29.4%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#5</span>Kyle Larson</div>
+            <div class="gd-pct">22.9%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#17</span>Chris Buescher</div>
+            <div class="gd-pct">21.9%</div>
+          </div>
+          
+        </div></div>
+        
+        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
+      </div>
+    </div>
+      
+    <div class="group top3">
+      <div class="group-head"><span class="dot"></span>Best Top-3 Picks</div>
+      <div class="gd">
+        
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#11</span>Denny Hamlin</div>
+            <div class="gd-pct">54.9%</div>
+          </div>
+          
+        </div>
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#19</span>Chase Briscoe</div>
+            <div class="gd-pct">46.2%</div>
+          </div>
+          
+        </div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#5</span>Kyle Larson</div>
+            <div class="gd-pct">42.2%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
+            <div class="gd-pct">41.4%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#45</span>Tyler Reddick</div>
+            <div class="gd-pct">33.4%</div>
+          </div>
+          
+        </div></div>
+        
+        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
+      </div>
+    </div>
+      
+    <div class="group top5">
+      <div class="group-head"><span class="dot"></span>Best Top-5 Picks</div>
+      <div class="gd">
+        
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#11</span>Denny Hamlin</div>
+            <div class="gd-pct">65.0%</div>
+          </div>
+          
+        </div>
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#19</span>Chase Briscoe</div>
+            <div class="gd-pct">62.9%</div>
+          </div>
+          
+        </div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#5</span>Kyle Larson</div>
+            <div class="gd-pct">61.5%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
+            <div class="gd-pct">49.3%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#23</span>Bubba Wallace</div>
+            <div class="gd-pct">49.2%</div>
+          </div>
+          
+        </div></div>
+        
+        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
+      </div>
+    </div>
+      
+    <div class="group top10">
+      <div class="group-head"><span class="dot"></span>Best Top-10 Picks</div>
+      <div class="gd">
+        
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#11</span>Denny Hamlin</div>
+            <div class="gd-pct">77.4%</div>
+          </div>
+          
+        </div>
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#5</span>Kyle Larson</div>
+            <div class="gd-pct">74.4%</div>
+          </div>
+          
+        </div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#19</span>Chase Briscoe</div>
+            <div class="gd-pct">73.2%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#45</span>Tyler Reddick</div>
+            <div class="gd-pct">67.7%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#17</span>Chris Buescher</div>
+            <div class="gd-pct">66.9%</div>
+          </div>
+          
+        </div></div>
+        
+        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
+      </div>
+    </div>
+      
+    <div class="group value">
+      <div class="group-head"><span class="dot"></span>Best Value</div>
+      <div class="gd">
+        
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#11</span>Denny Hamlin</div>
+            <div class="gd-pct">6.11</div>
+          </div>
+          
+        </div>
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#19</span>Chase Briscoe</div>
+            <div class="gd-pct">5.65</div>
+          </div>
+          
+        </div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#17</span>Chris Buescher</div>
+            <div class="gd-pct">5.52</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#45</span>Tyler Reddick</div>
+            <div class="gd-pct">5.22</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
+            <div class="gd-pct">5.11</div>
+          </div>
+          
+        </div></div>
+        
+        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
+      </div>
+    </div>
+      
+    <div class="group risk">
+      <div class="group-head"><span class="dot"></span>Highest DNF Risk</div>
+      <div class="gd">
+        
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#2</span>Austin Cindric</div>
+            <div class="gd-pct">21.5%</div>
+          </div>
+          
+        </div>
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#88</span>Connor Zilisch</div>
+            <div class="gd-pct">20.6%</div>
+          </div>
+          
+        </div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#48</span>Alex Bowman</div>
+            <div class="gd-pct">20.0%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#10</span>Ty Dillon</div>
+            <div class="gd-pct">19.8%</div>
+          </div>
+          
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row">
+            <div class="gd-name"><span class="num">#67</span>Corey Heim</div>
+            <div class="gd-pct">19.5%</div>
+          </div>
+          
+        </div></div>
+        
+        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
+      </div>
+    </div>
+      
+    <div class="group practice">
+      <div class="group-head"><span class="dot"></span>Practice Risers</div>
+      <div class="gd">
+        
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#45</span>Tyler Reddick</div>
+            <div class="gd-pct gd-pct-wide">Top-5 • +0.37 (start P1)</div>
+          </div>
+        </div>
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#20</span>Christopher Bell</div>
+            <div class="gd-pct gd-pct-wide">Top-10 • +0.36 (start P11)</div>
+          </div>
+        </div><div class="paid-only">
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#17</span>Chris Buescher</div>
+            <div class="gd-pct gd-pct-wide">Top-5 • +0.33 (start P7)</div>
+          </div>
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#23</span>Bubba Wallace</div>
+            <div class="gd-pct gd-pct-wide">Top-10 • +0.31 (start P10)</div>
+          </div>
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
+            <div class="gd-pct gd-pct-wide">Top-5 • +0.28 (start P3)</div>
+          </div>
+        </div></div>
+        
+        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
+      </div>
+    </div>
+      
+    <div class="group sleep">
+      <div class="group-head"><span class="dot"></span>Track Sleepers</div>
+      <div class="gd">
+        
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#48</span>Alex Bowman</div>
+            <div class="gd-pct gd-pct-wide">Avg P10 • 11 starts (best P3)</div>
+          </div>
+        </div>
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#1</span>Ross Chastain</div>
+            <div class="gd-pct gd-pct-wide">Avg P11 • 10 starts (best P1)</div>
+          </div>
+        </div><div class="paid-only">
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#8</span>Kyle Busch</div>
+            <div class="gd-pct gd-pct-wide">Avg P15 • 12 starts (best P1)</div>
+          </div>
+        </div></div><div class="paid-only">
+        <div>
+          <div class="gd-row gd-row-wide">
+            <div class="gd-name"><span class="num">#3</span>Austin Dillon</div>
+            <div class="gd-pct gd-pct-wide">Avg P18 • 12 starts (best P10)</div>
+          </div>
+        </div></div>
+        
+        <div class="gd-locked free-only">+2 more <span class="accent">◦ subscriber</span></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+      </div>
+      <div>
+        
+<div class="card locked-card">
+  <div class="card-head">
+    <h2><span class="num">07</span> DFS Lens</h2>
+    <span class="tag">Subscriber</span>
+  </div>
+  <div class="card-body" style="min-height:240px;position:relative">
+    <div class="locked-blur">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <div style="height:60px;background:var(--bg-card-2);border:1px solid var(--line);border-radius:4px"></div>
+        <div style="height:60px;background:var(--bg-card-2);border:1px solid var(--line);border-radius:4px"></div>
+        <div style="height:60px;background:var(--bg-card-2);border:1px solid var(--line);border-radius:4px"></div>
+        <div style="height:60px;background:var(--bg-card-2);border:1px solid var(--line);border-radius:4px"></div>
+        <div style="height:60px;background:var(--bg-card-2);border:1px solid var(--line);border-radius:4px"></div>
+        <div style="height:60px;background:var(--bg-card-2);border:1px solid var(--line);border-radius:4px"></div>
+      </div>
+    </div>
+    <div class="locked-veil">
+      <div class="locked-cta">
+        <div class="lbl">Subscriber module</div>
+        <h4>DFS Lens</h4>
+        <p>Salary, projected fantasy points, value, floor / ceiling, and place-differential tags for cash and GPP builds.</p>
+        <a class="btn" href="#unlock">Get the full board</a>
+      </div>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="full-pane">
+    
+<div class="card" id="full">
+  <div class="card-head">
+    <h2><span class="num">06</span> Full Projections</h2>
+    <span class="tag"><span class="free-only">37 drivers • top 5 free</span><span class="paid-only">37 drivers • full board</span></span>
+  </div>
+  <div class="proj-tabs" data-proj-tabs>
+    <button class="active" type="button" data-proj-view="overview">Overview</button>
+    <button class="locked free-only" type="button">Probabilities <span class="mono" style="font-size:9.5px;margin-left:6px;letter-spacing:.1em">◦ SUB</span></button>
+    <button class="paid-only" type="button" data-proj-view="probabilities">Probabilities</button>
+    <button class="locked free-only" type="button">Ratings <span class="mono" style="font-size:9.5px;margin-left:6px;letter-spacing:.1em">◦ SUB</span></button>
+    <button class="paid-only" type="button" data-proj-view="ratings">Ratings</button>
+    <button class="locked" type="button">DFS <span class="mono" style="font-size:9.5px;margin-left:6px;letter-spacing:.1em">◦ DATA</span></button>
+  </div>
+  <details class="col-key">
+    <summary><span class="ico"></span> Column key — what these mean<span class="hint">tap to open</span></summary>
+    <div class="col-key-body">
+      <div class="col-key-section">
+        <div class="col-key-head">Identity</div>
+        <dl>
+          <dt>Rank</dt><dd>Predicted finish rank by Expected Points. The model's #1 pick is at the top.</dd>
+          <dt>#</dt><dd>Car number.</dd>
+          <dt>Q</dt><dd>Qualifying / starting position.</dd>
+        </dl>
+      </div>
+      <div class="col-key-section">
+        <div class="col-key-head">Model output</div>
+        <dl>
+          <dt>EP</dt><dd>Expected Points — Σ(bucket probability × bucket points). The model's primary signal. Higher = better projected finish; range 0–10.</dd>
+          <dt>Win%</dt><dd>Probability of winning the race.</dd>
+          <dt>T5%</dt><dd>Probability of finishing in the top 5.</dd>
+          <dt>T10% / T20%</dt><dd>Probability of finishing in the top 10 / top 20.</dd>
+          <dt>Made%</dt><dd>Probability of finishing 21st or worse but actually completing the race — the "ran in the back" bucket.</dd>
+          <dt>DNF%</dt><dd>Probability of not finishing (crash, mechanical, etc.).</dd>
+        </dl>
+        <div class="col-key-note">EP scoring: Win=10, Top5=7, Top10=5, Top20=3, Made=1, DNF=0.</div>
+      </div>
+      <div class="col-key-section">
+        <div class="col-key-head">Ratings &amp; features</div>
+        <dl>
+          <dt>Drv ELO</dt><dd>Overall driver ELO rating. 1500 = field average; the spread across the field is roughly 30 points (1490–1520).</dd>
+          <dt>TT ELO</dt><dd>Driver ELO at this specific track type (superspeedway / intermediate / short track / road course).</dd>
+          <dt>Org</dt><dd>Organization equipment rating — recent finish history of the team's cars overall. Higher = stronger team.</dd>
+          <dt>QualΔ</dt><dd>Qualifying delta vs the field average for this race. Negative = qualified better than average.</dd>
+          <dt>SFΔ</dt><dd>Rolling start-finish delta at this track type. Negative = the driver typically gains positions over the course of similar races.</dd>
+        </dl>
+      </div>
+    </div>
+  </details>
+  <div class="table-wrap">
+    <table class="proj proj-view active" data-proj-view-table="overview">
+      <thead>
+        <tr>
+          <th title="Predicted finish rank by Expected Points (model's #1 pick at the top)">Rank</th>
+          <th title="Car number">#</th>
+          <th>Driver</th>
+          <th>Team</th>
+          <th title="Qualifying / starting position">Q</th>
+          <th title="Expected Points — Σ(bucket prob × bucket points). Range 0–10.">EP</th>
+          <th title="Probability of winning the race">Win%</th>
+          <th title="Probability of finishing in the top 5">T5%</th>
+          <th title="Probability of finishing in the top 10">T10%</th>
+          <th title="Probability of not finishing (crash, mechanical, etc.)">DNF%</th>
+        </tr>
+      </thead>
+      <tbody><tr class="">
+          <td class="l"><span class="pos-pill">1</span></td>
+          <td class="l mono">11</td>
+          <td class="l driver">Denny Hamlin</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>P2</td>
+          <td>6.77</td>
+          <td class="win-cell">44.9%</td>
+          <td>20%</td>
+          <td>12%</td>
+          <td class="dnf-cell">9.8%</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">2</span></td>
+          <td class="l mono">19</td>
+          <td class="l driver">Chase Briscoe</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>P5</td>
+          <td>6.28</td>
+          <td class="win-cell">29.4%</td>
+          <td>34%</td>
+          <td>10%</td>
+          <td class="dnf-cell">10.0%</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">3</span></td>
+          <td class="l mono">54</td>
+          <td class="l driver">Ty Gibbs</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>P3</td>
+          <td>6.12</td>
+          <td class="win-cell">33.5%</td>
+          <td>16%</td>
+          <td>16%</td>
+          <td class="dnf-cell">16.5%</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">4</span></td>
+          <td class="l mono">17</td>
+          <td class="l driver">Chris Buescher</td>
+          <td class="l team">RFK Racing</td>
+          <td>P7</td>
+          <td>5.97</td>
+          <td class="win-cell">21.9%</td>
+          <td>21%</td>
+          <td>24%</td>
+          <td class="dnf-cell">7.6%</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">5</span></td>
+          <td class="l mono">45</td>
+          <td class="l driver">Tyler Reddick</td>
+          <td class="l team">23XI Racing</td>
+          <td>P1</td>
+          <td>5.78</td>
+          <td class="win-cell">20.3%</td>
+          <td>26%</td>
+          <td>21%</td>
+          <td class="dnf-cell">9.7%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">6</span></td>
+          <td class="l mono">20</td>
+          <td class="l driver">Christopher Bell</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>P11</td>
+          <td>5.55</td>
+          <td class="win-cell">13.9%</td>
+          <td>33%</td>
+          <td>16%</td>
+          <td class="dnf-cell">11.9%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">7</span></td>
+          <td class="l mono">5</td>
+          <td class="l driver">Kyle Larson</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>P4</td>
+          <td>5.47</td>
+          <td class="win-cell">22.9%</td>
+          <td>39%</td>
+          <td>13%</td>
+          <td class="dnf-cell">13.2%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">8</span></td>
+          <td class="l mono">23</td>
+          <td class="l driver">Bubba Wallace</td>
+          <td class="l team">23XI Racing</td>
+          <td>P10</td>
+          <td>5.37</td>
+          <td class="win-cell">5.5%</td>
+          <td>44%</td>
+          <td>15%</td>
+          <td class="dnf-cell">10.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">9</span></td>
+          <td class="l mono">24</td>
+          <td class="l driver">William Byron</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>P14</td>
+          <td>5.29</td>
+          <td class="win-cell">15.1%</td>
+          <td>29%</td>
+          <td>14%</td>
+          <td class="dnf-cell">10.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">10</span></td>
+          <td class="l mono">6</td>
+          <td class="l driver">Brad Keselowski</td>
+          <td class="l team">RFK Racing</td>
+          <td>P21</td>
+          <td>5.05</td>
+          <td class="win-cell">19.0%</td>
+          <td>28%</td>
+          <td>16%</td>
+          <td class="dnf-cell">11.3%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">11</span></td>
+          <td class="l mono">12</td>
+          <td class="l driver">Ryan Blaney</td>
+          <td class="l team">Team Penske</td>
+          <td>P9</td>
+          <td>4.95</td>
+          <td class="win-cell">15.6%</td>
+          <td>20%</td>
+          <td>21%</td>
+          <td class="dnf-cell">17.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">12</span></td>
+          <td class="l mono">9</td>
+          <td class="l driver">Chase Elliott</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>P13</td>
+          <td>4.86</td>
+          <td class="win-cell">15.0%</td>
+          <td>20%</td>
+          <td>21%</td>
+          <td class="dnf-cell">12.7%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">13</span></td>
+          <td class="l mono">22</td>
+          <td class="l driver">Joey Logano</td>
+          <td class="l team">Team Penske</td>
+          <td>P15</td>
+          <td>4.01</td>
+          <td class="win-cell">8.6%</td>
+          <td>19%</td>
+          <td>18%</td>
+          <td class="dnf-cell">10.9%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">14</span></td>
+          <td class="l mono">77</td>
+          <td class="l driver">Carson Hocevar</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>P6</td>
+          <td>3.71</td>
+          <td class="win-cell">8.7%</td>
+          <td>14%</td>
+          <td>19%</td>
+          <td class="dnf-cell">17.2%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">15</span></td>
+          <td class="l mono">60</td>
+          <td class="l driver">Ryan Preece</td>
+          <td class="l team">RFK Racing</td>
+          <td>P12</td>
+          <td>3.60</td>
+          <td class="win-cell">9.2%</td>
+          <td>11%</td>
+          <td>20%</td>
+          <td class="dnf-cell">16.2%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">16</span></td>
+          <td class="l mono">7</td>
+          <td class="l driver">Daniel Suarez</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>P8</td>
+          <td>3.39</td>
+          <td class="win-cell">4.7%</td>
+          <td>12%</td>
+          <td>16%</td>
+          <td class="dnf-cell">12.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">17</span></td>
+          <td class="l mono">48</td>
+          <td class="l driver">Alex Bowman</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>P33</td>
+          <td>2.94</td>
+          <td class="win-cell">4.8%</td>
+          <td>6%</td>
+          <td>19%</td>
+          <td class="dnf-cell">20.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">18</span></td>
+          <td class="l mono">97</td>
+          <td class="l driver">Shane van Gisbergen</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>P17</td>
+          <td>2.93</td>
+          <td class="win-cell">2.2%</td>
+          <td>10%</td>
+          <td>14%</td>
+          <td class="dnf-cell">11.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">19</span></td>
+          <td class="l mono">43</td>
+          <td class="l driver">Erik Jones</td>
+          <td class="l team">Legacy Motor Club</td>
+          <td>P19</td>
+          <td>2.92</td>
+          <td class="win-cell">3.3%</td>
+          <td>9%</td>
+          <td>12%</td>
+          <td class="dnf-cell">16.7%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">20</span></td>
+          <td class="l mono">2</td>
+          <td class="l driver">Austin Cindric</td>
+          <td class="l team">Team Penske</td>
+          <td>P34</td>
+          <td>2.81</td>
+          <td class="win-cell">4.5%</td>
+          <td>9%</td>
+          <td>15%</td>
+          <td class="dnf-cell">21.5%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">21</span></td>
+          <td class="l mono">1</td>
+          <td class="l driver">Ross Chastain</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>P31</td>
+          <td>2.69</td>
+          <td class="win-cell">2.5%</td>
+          <td>9%</td>
+          <td>13%</td>
+          <td class="dnf-cell">11.7%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">22</span></td>
+          <td class="l mono">71</td>
+          <td class="l driver">Michael McDowell</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>P18</td>
+          <td>2.68</td>
+          <td class="win-cell">2.9%</td>
+          <td>8%</td>
+          <td>13%</td>
+          <td class="dnf-cell">12.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">23</span></td>
+          <td class="l mono">47</td>
+          <td class="l driver">Ricky Stenhouse Jr.</td>
+          <td class="l team">Hyak Motorsports</td>
+          <td>P16</td>
+          <td>2.46</td>
+          <td class="win-cell">2.0%</td>
+          <td>6%</td>
+          <td>12%</td>
+          <td class="dnf-cell">10.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">24</span></td>
+          <td class="l mono">35</td>
+          <td class="l driver">Riley Herbst</td>
+          <td class="l team">23XI Racing</td>
+          <td>P22</td>
+          <td>2.39</td>
+          <td class="win-cell">1.2%</td>
+          <td>7%</td>
+          <td>8%</td>
+          <td class="dnf-cell">16.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">25</span></td>
+          <td class="l mono">3</td>
+          <td class="l driver">Austin Dillon</td>
+          <td class="l team">Richard Childress Racing</td>
+          <td>P20</td>
+          <td>2.35</td>
+          <td class="win-cell">1.6%</td>
+          <td>5%</td>
+          <td>11%</td>
+          <td class="dnf-cell">12.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">26</span></td>
+          <td class="l mono">42</td>
+          <td class="l driver">John Hunter Nemechek</td>
+          <td class="l team">Legacy Motor Club</td>
+          <td>P32</td>
+          <td>2.33</td>
+          <td class="win-cell">2.0%</td>
+          <td>2%</td>
+          <td>13%</td>
+          <td class="dnf-cell">18.9%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">27</span></td>
+          <td class="l mono">8</td>
+          <td class="l driver">Kyle Busch</td>
+          <td class="l team">Richard Childress Racing</td>
+          <td>P23</td>
+          <td>2.30</td>
+          <td class="win-cell">1.4%</td>
+          <td>3%</td>
+          <td>15%</td>
+          <td class="dnf-cell">14.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">28</span></td>
+          <td class="l mono">21</td>
+          <td class="l driver">Josh Berry</td>
+          <td class="l team">Wood Brothers Racing</td>
+          <td>P30</td>
+          <td>2.28</td>
+          <td class="win-cell">1.1%</td>
+          <td>4%</td>
+          <td>6%</td>
+          <td class="dnf-cell">11.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">29</span></td>
+          <td class="l mono">67</td>
+          <td class="l driver">Corey Heim</td>
+          <td class="l team">23XI Racing</td>
+          <td>P24</td>
+          <td>2.27</td>
+          <td class="win-cell">1.5%</td>
+          <td>3%</td>
+          <td>10%</td>
+          <td class="dnf-cell">19.5%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">30</span></td>
+          <td class="l mono">16</td>
+          <td class="l driver">A.J. Allmendinger</td>
+          <td class="l team">Kaulig Racing</td>
+          <td>P27</td>
+          <td>1.87</td>
+          <td class="win-cell">1.0%</td>
+          <td>3%</td>
+          <td>6%</td>
+          <td class="dnf-cell">15.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">31</span></td>
+          <td class="l mono">88</td>
+          <td class="l driver">Connor Zilisch</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>P36</td>
+          <td>1.84</td>
+          <td class="win-cell">1.1%</td>
+          <td>5%</td>
+          <td>5%</td>
+          <td class="dnf-cell">20.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">32</span></td>
+          <td class="l mono">4</td>
+          <td class="l driver">Noah Gragson</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>P28</td>
+          <td>1.80</td>
+          <td class="win-cell">1.0%</td>
+          <td>2%</td>
+          <td>6%</td>
+          <td class="dnf-cell">12.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">33</span></td>
+          <td class="l mono">38</td>
+          <td class="l driver">Zane Smith</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>P25</td>
+          <td>1.78</td>
+          <td class="win-cell">1.2%</td>
+          <td>3%</td>
+          <td>6%</td>
+          <td class="dnf-cell">9.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">34</span></td>
+          <td class="l mono">34</td>
+          <td class="l driver">Todd Gilliland</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>P26</td>
+          <td>1.63</td>
+          <td class="win-cell">0.9%</td>
+          <td>2%</td>
+          <td>6%</td>
+          <td class="dnf-cell">17.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">35</span></td>
+          <td class="l mono">10</td>
+          <td class="l driver">Ty Dillon</td>
+          <td class="l team">Kaulig Racing</td>
+          <td>P37</td>
+          <td>1.45</td>
+          <td class="win-cell">0.7%</td>
+          <td>2%</td>
+          <td>6%</td>
+          <td class="dnf-cell">19.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">36</span></td>
+          <td class="l mono">41</td>
+          <td class="l driver">Cole Custer</td>
+          <td class="l team">Haas Factory Team</td>
+          <td>P29</td>
+          <td>1.40</td>
+          <td class="win-cell">0.6%</td>
+          <td>1%</td>
+          <td>4%</td>
+          <td class="dnf-cell">14.4%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">37</span></td>
+          <td class="l mono">51</td>
+          <td class="l driver">Cody Ware</td>
+          <td class="l team">Rick Ware Racing</td>
+          <td>P35</td>
+          <td>1.00</td>
+          <td class="win-cell">0.4%</td>
+          <td>1%</td>
+          <td>2%</td>
+          <td class="dnf-cell">15.5%</td>
+        </tr></tbody>
+    </table>
+    <table class="proj proj-view" data-proj-view-table="probabilities">
+      <thead>
+        <tr>
+          <th title="Predicted finish rank by Expected Points">Rank</th>
+          <th title="Car number">#</th>
+          <th>Driver</th>
+          <th>Team</th>
+          <th title="Expected Points — Σ(bucket prob × bucket points). Range 0–10.">EP</th>
+          <th title="Probability of winning">Win%</th>
+          <th title="Probability of finishing in the top 5">T5%</th>
+          <th title="Probability of finishing in the top 10">T10%</th>
+          <th title="Probability of finishing in the top 20">T20%</th>
+          <th title="Probability of finishing 21st+ (running at the end but not contending)">Made%</th>
+          <th title="Probability of not finishing (DNF)">DNF%</th>
+        </tr>
+      </thead>
+      <tbody><tr class="">
+          <td class="l"><span class="pos-pill">1</span></td>
+          <td class="l mono">11</td>
+          <td class="l driver">Denny Hamlin</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>6.77</td>
+          <td class="win-cell">44.9%</td>
+          <td>20%</td>
+          <td>12%</td>
+          <td>10%</td>
+          <td>3%</td>
+          <td class="dnf-cell">9.8%</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">2</span></td>
+          <td class="l mono">19</td>
+          <td class="l driver">Chase Briscoe</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>6.28</td>
+          <td class="win-cell">29.4%</td>
+          <td>34%</td>
+          <td>10%</td>
+          <td>11%</td>
+          <td>6%</td>
+          <td class="dnf-cell">10.0%</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">3</span></td>
+          <td class="l mono">54</td>
+          <td class="l driver">Ty Gibbs</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>6.12</td>
+          <td class="win-cell">33.5%</td>
+          <td>16%</td>
+          <td>16%</td>
+          <td>13%</td>
+          <td>5%</td>
+          <td class="dnf-cell">16.5%</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">4</span></td>
+          <td class="l mono">17</td>
+          <td class="l driver">Chris Buescher</td>
+          <td class="l team">RFK Racing</td>
+          <td>5.97</td>
+          <td class="win-cell">21.9%</td>
+          <td>21%</td>
+          <td>24%</td>
+          <td>19%</td>
+          <td>7%</td>
+          <td class="dnf-cell">7.6%</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">5</span></td>
+          <td class="l mono">45</td>
+          <td class="l driver">Tyler Reddick</td>
+          <td class="l team">23XI Racing</td>
+          <td>5.78</td>
+          <td class="win-cell">20.3%</td>
+          <td>26%</td>
+          <td>21%</td>
+          <td>13%</td>
+          <td>10%</td>
+          <td class="dnf-cell">9.7%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">6</span></td>
+          <td class="l mono">20</td>
+          <td class="l driver">Christopher Bell</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>5.55</td>
+          <td class="win-cell">13.9%</td>
+          <td>33%</td>
+          <td>16%</td>
+          <td>15%</td>
+          <td>10%</td>
+          <td class="dnf-cell">11.9%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">7</span></td>
+          <td class="l mono">5</td>
+          <td class="l driver">Kyle Larson</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>5.47</td>
+          <td class="win-cell">22.9%</td>
+          <td>39%</td>
+          <td>13%</td>
+          <td>10%</td>
+          <td>3%</td>
+          <td class="dnf-cell">13.2%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">8</span></td>
+          <td class="l mono">23</td>
+          <td class="l driver">Bubba Wallace</td>
+          <td class="l team">23XI Racing</td>
+          <td>5.37</td>
+          <td class="win-cell">5.5%</td>
+          <td>44%</td>
+          <td>15%</td>
+          <td>16%</td>
+          <td>10%</td>
+          <td class="dnf-cell">10.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">9</span></td>
+          <td class="l mono">24</td>
+          <td class="l driver">William Byron</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>5.29</td>
+          <td class="win-cell">15.1%</td>
+          <td>29%</td>
+          <td>14%</td>
+          <td>17%</td>
+          <td>14%</td>
+          <td class="dnf-cell">10.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">10</span></td>
+          <td class="l mono">6</td>
+          <td class="l driver">Brad Keselowski</td>
+          <td class="l team">RFK Racing</td>
+          <td>5.05</td>
+          <td class="win-cell">19.0%</td>
+          <td>28%</td>
+          <td>16%</td>
+          <td>14%</td>
+          <td>11%</td>
+          <td class="dnf-cell">11.3%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">11</span></td>
+          <td class="l mono">12</td>
+          <td class="l driver">Ryan Blaney</td>
+          <td class="l team">Team Penske</td>
+          <td>4.95</td>
+          <td class="win-cell">15.6%</td>
+          <td>20%</td>
+          <td>21%</td>
+          <td>16%</td>
+          <td>10%</td>
+          <td class="dnf-cell">17.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">12</span></td>
+          <td class="l mono">9</td>
+          <td class="l driver">Chase Elliott</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>4.86</td>
+          <td class="win-cell">15.0%</td>
+          <td>20%</td>
+          <td>21%</td>
+          <td>21%</td>
+          <td>10%</td>
+          <td class="dnf-cell">12.7%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">13</span></td>
+          <td class="l mono">22</td>
+          <td class="l driver">Joey Logano</td>
+          <td class="l team">Team Penske</td>
+          <td>4.01</td>
+          <td class="win-cell">8.6%</td>
+          <td>19%</td>
+          <td>18%</td>
+          <td>28%</td>
+          <td>16%</td>
+          <td class="dnf-cell">10.9%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">14</span></td>
+          <td class="l mono">77</td>
+          <td class="l driver">Carson Hocevar</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>3.71</td>
+          <td class="win-cell">8.7%</td>
+          <td>14%</td>
+          <td>19%</td>
+          <td>21%</td>
+          <td>20%</td>
+          <td class="dnf-cell">17.2%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">15</span></td>
+          <td class="l mono">60</td>
+          <td class="l driver">Ryan Preece</td>
+          <td class="l team">RFK Racing</td>
+          <td>3.60</td>
+          <td class="win-cell">9.2%</td>
+          <td>11%</td>
+          <td>20%</td>
+          <td>29%</td>
+          <td>15%</td>
+          <td class="dnf-cell">16.2%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">16</span></td>
+          <td class="l mono">7</td>
+          <td class="l driver">Daniel Suarez</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>3.39</td>
+          <td class="win-cell">4.7%</td>
+          <td>12%</td>
+          <td>16%</td>
+          <td>33%</td>
+          <td>22%</td>
+          <td class="dnf-cell">12.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">17</span></td>
+          <td class="l mono">48</td>
+          <td class="l driver">Alex Bowman</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>2.94</td>
+          <td class="win-cell">4.8%</td>
+          <td>6%</td>
+          <td>19%</td>
+          <td>27%</td>
+          <td>24%</td>
+          <td class="dnf-cell">20.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">18</span></td>
+          <td class="l mono">97</td>
+          <td class="l driver">Shane van Gisbergen</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>2.93</td>
+          <td class="win-cell">2.2%</td>
+          <td>10%</td>
+          <td>14%</td>
+          <td>36%</td>
+          <td>27%</td>
+          <td class="dnf-cell">11.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">19</span></td>
+          <td class="l mono">43</td>
+          <td class="l driver">Erik Jones</td>
+          <td class="l team">Legacy Motor Club</td>
+          <td>2.92</td>
+          <td class="win-cell">3.3%</td>
+          <td>9%</td>
+          <td>12%</td>
+          <td>31%</td>
+          <td>28%</td>
+          <td class="dnf-cell">16.7%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">20</span></td>
+          <td class="l mono">2</td>
+          <td class="l driver">Austin Cindric</td>
+          <td class="l team">Team Penske</td>
+          <td>2.81</td>
+          <td class="win-cell">4.5%</td>
+          <td>9%</td>
+          <td>15%</td>
+          <td>22%</td>
+          <td>29%</td>
+          <td class="dnf-cell">21.5%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">21</span></td>
+          <td class="l mono">1</td>
+          <td class="l driver">Ross Chastain</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>2.69</td>
+          <td class="win-cell">2.5%</td>
+          <td>9%</td>
+          <td>13%</td>
+          <td>29%</td>
+          <td>35%</td>
+          <td class="dnf-cell">11.7%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">22</span></td>
+          <td class="l mono">71</td>
+          <td class="l driver">Michael McDowell</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>2.68</td>
+          <td class="win-cell">2.9%</td>
+          <td>8%</td>
+          <td>13%</td>
+          <td>33%</td>
+          <td>32%</td>
+          <td class="dnf-cell">12.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">23</span></td>
+          <td class="l mono">47</td>
+          <td class="l driver">Ricky Stenhouse Jr.</td>
+          <td class="l team">Hyak Motorsports</td>
+          <td>2.46</td>
+          <td class="win-cell">2.0%</td>
+          <td>6%</td>
+          <td>12%</td>
+          <td>38%</td>
+          <td>31%</td>
+          <td class="dnf-cell">10.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">24</span></td>
+          <td class="l mono">35</td>
+          <td class="l driver">Riley Herbst</td>
+          <td class="l team">23XI Racing</td>
+          <td>2.39</td>
+          <td class="win-cell">1.2%</td>
+          <td>7%</td>
+          <td>8%</td>
+          <td>38%</td>
+          <td>29%</td>
+          <td class="dnf-cell">16.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">25</span></td>
+          <td class="l mono">3</td>
+          <td class="l driver">Austin Dillon</td>
+          <td class="l team">Richard Childress Racing</td>
+          <td>2.35</td>
+          <td class="win-cell">1.6%</td>
+          <td>5%</td>
+          <td>11%</td>
+          <td>34%</td>
+          <td>36%</td>
+          <td class="dnf-cell">12.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">26</span></td>
+          <td class="l mono">42</td>
+          <td class="l driver">John Hunter Nemechek</td>
+          <td class="l team">Legacy Motor Club</td>
+          <td>2.33</td>
+          <td class="win-cell">2.0%</td>
+          <td>2%</td>
+          <td>13%</td>
+          <td>35%</td>
+          <td>29%</td>
+          <td class="dnf-cell">18.9%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">27</span></td>
+          <td class="l mono">8</td>
+          <td class="l driver">Kyle Busch</td>
+          <td class="l team">Richard Childress Racing</td>
+          <td>2.30</td>
+          <td class="win-cell">1.4%</td>
+          <td>3%</td>
+          <td>15%</td>
+          <td>30%</td>
+          <td>36%</td>
+          <td class="dnf-cell">14.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">28</span></td>
+          <td class="l mono">21</td>
+          <td class="l driver">Josh Berry</td>
+          <td class="l team">Wood Brothers Racing</td>
+          <td>2.28</td>
+          <td class="win-cell">1.1%</td>
+          <td>4%</td>
+          <td>6%</td>
+          <td>30%</td>
+          <td>46%</td>
+          <td class="dnf-cell">11.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">29</span></td>
+          <td class="l mono">67</td>
+          <td class="l driver">Corey Heim</td>
+          <td class="l team">23XI Racing</td>
+          <td>2.27</td>
+          <td class="win-cell">1.5%</td>
+          <td>3%</td>
+          <td>10%</td>
+          <td>38%</td>
+          <td>28%</td>
+          <td class="dnf-cell">19.5%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">30</span></td>
+          <td class="l mono">16</td>
+          <td class="l driver">A.J. Allmendinger</td>
+          <td class="l team">Kaulig Racing</td>
+          <td>1.87</td>
+          <td class="win-cell">1.0%</td>
+          <td>3%</td>
+          <td>6%</td>
+          <td>25%</td>
+          <td>50%</td>
+          <td class="dnf-cell">15.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">31</span></td>
+          <td class="l mono">88</td>
+          <td class="l driver">Connor Zilisch</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>1.84</td>
+          <td class="win-cell">1.1%</td>
+          <td>5%</td>
+          <td>5%</td>
+          <td>24%</td>
+          <td>44%</td>
+          <td class="dnf-cell">20.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">32</span></td>
+          <td class="l mono">4</td>
+          <td class="l driver">Noah Gragson</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>1.80</td>
+          <td class="win-cell">1.0%</td>
+          <td>2%</td>
+          <td>6%</td>
+          <td>19%</td>
+          <td>60%</td>
+          <td class="dnf-cell">12.0%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">33</span></td>
+          <td class="l mono">38</td>
+          <td class="l driver">Zane Smith</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>1.78</td>
+          <td class="win-cell">1.2%</td>
+          <td>3%</td>
+          <td>6%</td>
+          <td>26%</td>
+          <td>54%</td>
+          <td class="dnf-cell">9.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">34</span></td>
+          <td class="l mono">34</td>
+          <td class="l driver">Todd Gilliland</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>1.63</td>
+          <td class="win-cell">0.9%</td>
+          <td>2%</td>
+          <td>6%</td>
+          <td>21%</td>
+          <td>52%</td>
+          <td class="dnf-cell">17.6%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">35</span></td>
+          <td class="l mono">10</td>
+          <td class="l driver">Ty Dillon</td>
+          <td class="l team">Kaulig Racing</td>
+          <td>1.45</td>
+          <td class="win-cell">0.7%</td>
+          <td>2%</td>
+          <td>6%</td>
+          <td>12%</td>
+          <td>59%</td>
+          <td class="dnf-cell">19.8%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">36</span></td>
+          <td class="l mono">41</td>
+          <td class="l driver">Cole Custer</td>
+          <td class="l team">Haas Factory Team</td>
+          <td>1.40</td>
+          <td class="win-cell">0.6%</td>
+          <td>1%</td>
+          <td>4%</td>
+          <td>19%</td>
+          <td>61%</td>
+          <td class="dnf-cell">14.4%</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">37</span></td>
+          <td class="l mono">51</td>
+          <td class="l driver">Cody Ware</td>
+          <td class="l team">Rick Ware Racing</td>
+          <td>1.00</td>
+          <td class="win-cell">0.4%</td>
+          <td>1%</td>
+          <td>2%</td>
+          <td>5%</td>
+          <td>77%</td>
+          <td class="dnf-cell">15.5%</td>
+        </tr></tbody>
+    </table>
+    <table class="proj proj-view" data-proj-view-table="ratings">
+      <thead>
+        <tr>
+          <th title="Predicted finish rank by Expected Points">Rank</th>
+          <th title="Car number">#</th>
+          <th>Driver</th>
+          <th>Team</th>
+          <th title="Qualifying / starting position">Q</th>
+          <th title="Expected Points — Σ(bucket prob × bucket points). Range 0–10.">EP</th>
+          <th title="Driver ELO — overall driver rating. 1500 = average; field spread is ~30 points.">Drv ELO</th>
+          <th title="Track-type ELO — driver rating at this specific track type">TT ELO</th>
+          <th title="Organization equipment rating (higher = stronger team)">Org</th>
+          <th title="Qualifying delta vs field average (negative = qualified better than average)">QualΔ</th>
+          <th title="Rolling start-finish delta at this track type (negative = gains positions on average)">SFΔ</th>
+        </tr>
+      </thead>
+      <tbody><tr class="">
+          <td class="l"><span class="pos-pill">1</span></td>
+          <td class="l mono">11</td>
+          <td class="l driver">Denny Hamlin</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>P2</td>
+          <td>6.77</td>
+          <td>1511</td>
+          <td>1509</td>
+          <td>27.6</td>
+          <td>+17.0</td>
+          <td>+2.5</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">2</span></td>
+          <td class="l mono">19</td>
+          <td class="l driver">Chase Briscoe</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>P5</td>
+          <td>6.28</td>
+          <td>1514</td>
+          <td>1508</td>
+          <td>27.6</td>
+          <td>+14.0</td>
+          <td>+8.2</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">3</span></td>
+          <td class="l mono">54</td>
+          <td class="l driver">Ty Gibbs</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>P3</td>
+          <td>6.12</td>
+          <td>1516</td>
+          <td>1513</td>
+          <td>27.6</td>
+          <td>+16.0</td>
+          <td>-3.7</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">4</span></td>
+          <td class="l mono">17</td>
+          <td class="l driver">Chris Buescher</td>
+          <td class="l team">RFK Racing</td>
+          <td>P7</td>
+          <td>5.97</td>
+          <td>1509</td>
+          <td>1511</td>
+          <td>27.1</td>
+          <td>+12.0</td>
+          <td>-1.0</td>
+        </tr><tr class="">
+          <td class="l"><span class="pos-pill">5</span></td>
+          <td class="l mono">45</td>
+          <td class="l driver">Tyler Reddick</td>
+          <td class="l team">23XI Racing</td>
+          <td>P1</td>
+          <td>5.78</td>
+          <td>1514</td>
+          <td>1515</td>
+          <td>22.5</td>
+          <td>+18.0</td>
+          <td>-1.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">6</span></td>
+          <td class="l mono">20</td>
+          <td class="l driver">Christopher Bell</td>
+          <td class="l team">Joe Gibbs Racing</td>
+          <td>P11</td>
+          <td>5.55</td>
+          <td>1499</td>
+          <td>1504</td>
+          <td>27.6</td>
+          <td>+8.0</td>
+          <td>+2.3</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">7</span></td>
+          <td class="l mono">5</td>
+          <td class="l driver">Kyle Larson</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>P4</td>
+          <td>5.47</td>
+          <td>1515</td>
+          <td>1495</td>
+          <td>24.9</td>
+          <td>+15.0</td>
+          <td>-9.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">8</span></td>
+          <td class="l mono">23</td>
+          <td class="l driver">Bubba Wallace</td>
+          <td class="l team">23XI Racing</td>
+          <td>P10</td>
+          <td>5.37</td>
+          <td>1510</td>
+          <td>1494</td>
+          <td>22.5</td>
+          <td>+9.0</td>
+          <td>-7.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">9</span></td>
+          <td class="l mono">24</td>
+          <td class="l driver">William Byron</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>P14</td>
+          <td>5.29</td>
+          <td>1497</td>
+          <td>1511</td>
+          <td>24.9</td>
+          <td>+5.0</td>
+          <td>-6.3</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">10</span></td>
+          <td class="l mono">6</td>
+          <td class="l driver">Brad Keselowski</td>
+          <td class="l team">RFK Racing</td>
+          <td>P21</td>
+          <td>5.05</td>
+          <td>1508</td>
+          <td>1515</td>
+          <td>27.1</td>
+          <td>-2.0</td>
+          <td>+10.3</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">11</span></td>
+          <td class="l mono">12</td>
+          <td class="l driver">Ryan Blaney</td>
+          <td class="l team">Team Penske</td>
+          <td>P9</td>
+          <td>4.95</td>
+          <td>1516</td>
+          <td>1514</td>
+          <td>25.0</td>
+          <td>+10.0</td>
+          <td>-0.7</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">12</span></td>
+          <td class="l mono">9</td>
+          <td class="l driver">Chase Elliott</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>P13</td>
+          <td>4.86</td>
+          <td>1502</td>
+          <td>1506</td>
+          <td>24.9</td>
+          <td>+6.0</td>
+          <td>-0.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">13</span></td>
+          <td class="l mono">22</td>
+          <td class="l driver">Joey Logano</td>
+          <td class="l team">Team Penske</td>
+          <td>P15</td>
+          <td>4.01</td>
+          <td>1513</td>
+          <td>1494</td>
+          <td>25.0</td>
+          <td>+4.0</td>
+          <td>+1.8</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">14</span></td>
+          <td class="l mono">77</td>
+          <td class="l driver">Carson Hocevar</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>P6</td>
+          <td>3.71</td>
+          <td>1511</td>
+          <td>1514</td>
+          <td>21.8</td>
+          <td>+13.0</td>
+          <td>-0.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">15</span></td>
+          <td class="l mono">60</td>
+          <td class="l driver">Ryan Preece</td>
+          <td class="l team">RFK Racing</td>
+          <td>P12</td>
+          <td>3.60</td>
+          <td>1512</td>
+          <td>1507</td>
+          <td>27.1</td>
+          <td>+7.0</td>
+          <td>+6.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">16</span></td>
+          <td class="l mono">7</td>
+          <td class="l driver">Daniel Suarez</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>P8</td>
+          <td>3.39</td>
+          <td>1509</td>
+          <td>1512</td>
+          <td>21.8</td>
+          <td>+11.0</td>
+          <td>+1.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">17</span></td>
+          <td class="l mono">48</td>
+          <td class="l driver">Alex Bowman</td>
+          <td class="l team">Hendrick Motorsports</td>
+          <td>P33</td>
+          <td>2.94</td>
+          <td>1493</td>
+          <td>1501</td>
+          <td>24.9</td>
+          <td>-14.0</td>
+          <td>+2.7</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">18</span></td>
+          <td class="l mono">97</td>
+          <td class="l driver">Shane van Gisbergen</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>P17</td>
+          <td>2.93</td>
+          <td>1495</td>
+          <td>1507</td>
+          <td>21.3</td>
+          <td>+2.0</td>
+          <td>+1.3</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">19</span></td>
+          <td class="l mono">43</td>
+          <td class="l driver">Erik Jones</td>
+          <td class="l team">Legacy Motor Club</td>
+          <td>P19</td>
+          <td>2.92</td>
+          <td>1501</td>
+          <td>1509</td>
+          <td>19.7</td>
+          <td>+0.0</td>
+          <td>+0.0</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">20</span></td>
+          <td class="l mono">2</td>
+          <td class="l driver">Austin Cindric</td>
+          <td class="l team">Team Penske</td>
+          <td>P34</td>
+          <td>2.81</td>
+          <td>1507</td>
+          <td>1514</td>
+          <td>25.0</td>
+          <td>-15.0</td>
+          <td>+4.8</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">21</span></td>
+          <td class="l mono">1</td>
+          <td class="l driver">Ross Chastain</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>P31</td>
+          <td>2.69</td>
+          <td>1504</td>
+          <td>1505</td>
+          <td>21.3</td>
+          <td>-12.0</td>
+          <td>-0.5</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">22</span></td>
+          <td class="l mono">71</td>
+          <td class="l driver">Michael McDowell</td>
+          <td class="l team">Spire Motorsports</td>
+          <td>P18</td>
+          <td>2.68</td>
+          <td>1501</td>
+          <td>1503</td>
+          <td>21.8</td>
+          <td>+1.0</td>
+          <td>+4.5</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">23</span></td>
+          <td class="l mono">47</td>
+          <td class="l driver">Ricky Stenhouse Jr.</td>
+          <td class="l team">Hyak Motorsports</td>
+          <td>P16</td>
+          <td>2.46</td>
+          <td>1505</td>
+          <td>1496</td>
+          <td>17.9</td>
+          <td>+3.0</td>
+          <td>-7.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">24</span></td>
+          <td class="l mono">35</td>
+          <td class="l driver">Riley Herbst</td>
+          <td class="l team">23XI Racing</td>
+          <td>P22</td>
+          <td>2.39</td>
+          <td>1503</td>
+          <td>1493</td>
+          <td>22.5</td>
+          <td>-3.0</td>
+          <td>-3.5</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">25</span></td>
+          <td class="l mono">3</td>
+          <td class="l driver">Austin Dillon</td>
+          <td class="l team">Richard Childress Racing</td>
+          <td>P20</td>
+          <td>2.35</td>
+          <td>1505</td>
+          <td>1499</td>
+          <td>20.0</td>
+          <td>-1.0</td>
+          <td>-4.3</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">26</span></td>
+          <td class="l mono">42</td>
+          <td class="l driver">John Hunter Nemechek</td>
+          <td class="l team">Legacy Motor Club</td>
+          <td>P32</td>
+          <td>2.33</td>
+          <td>1494</td>
+          <td>1498</td>
+          <td>19.7</td>
+          <td>-13.0</td>
+          <td>+1.3</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">27</span></td>
+          <td class="l mono">8</td>
+          <td class="l driver">Kyle Busch</td>
+          <td class="l team">Richard Childress Racing</td>
+          <td>P23</td>
+          <td>2.30</td>
+          <td>1501</td>
+          <td>1502</td>
+          <td>20.0</td>
+          <td>-4.0</td>
+          <td>-0.5</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">28</span></td>
+          <td class="l mono">21</td>
+          <td class="l driver">Josh Berry</td>
+          <td class="l team">Wood Brothers Racing</td>
+          <td>P30</td>
+          <td>2.28</td>
+          <td>1496</td>
+          <td>1505</td>
+          <td>17.2</td>
+          <td>-11.0</td>
+          <td>-9.8</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">29</span></td>
+          <td class="l mono">67</td>
+          <td class="l driver">Corey Heim</td>
+          <td class="l team">23XI Racing</td>
+          <td>P24</td>
+          <td>2.27</td>
+          <td>1499</td>
+          <td>1493</td>
+          <td>21.4</td>
+          <td>-5.0</td>
+          <td>+2.2</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">30</span></td>
+          <td class="l mono">16</td>
+          <td class="l driver">A.J. Allmendinger</td>
+          <td class="l team">Kaulig Racing</td>
+          <td>P27</td>
+          <td>1.87</td>
+          <td>1507</td>
+          <td>1497</td>
+          <td>17.9</td>
+          <td>-8.0</td>
+          <td>-2.0</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">31</span></td>
+          <td class="l mono">88</td>
+          <td class="l driver">Connor Zilisch</td>
+          <td class="l team">Trackhouse Racing</td>
+          <td>P36</td>
+          <td>1.84</td>
+          <td>1495</td>
+          <td>1503</td>
+          <td>21.3</td>
+          <td>-17.0</td>
+          <td>+8.6</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">32</span></td>
+          <td class="l mono">4</td>
+          <td class="l driver">Noah Gragson</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>P28</td>
+          <td>1.80</td>
+          <td>1500</td>
+          <td>1499</td>
+          <td>17.8</td>
+          <td>-9.0</td>
+          <td>+0.8</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">33</span></td>
+          <td class="l mono">38</td>
+          <td class="l driver">Zane Smith</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>P25</td>
+          <td>1.78</td>
+          <td>1504</td>
+          <td>1502</td>
+          <td>17.8</td>
+          <td>-6.0</td>
+          <td>-5.5</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">34</span></td>
+          <td class="l mono">34</td>
+          <td class="l driver">Todd Gilliland</td>
+          <td class="l team">Front Row Motorsports</td>
+          <td>P26</td>
+          <td>1.63</td>
+          <td>1513</td>
+          <td>1501</td>
+          <td>17.8</td>
+          <td>-7.0</td>
+          <td>+4.8</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">35</span></td>
+          <td class="l mono">10</td>
+          <td class="l driver">Ty Dillon</td>
+          <td class="l team">Kaulig Racing</td>
+          <td>P37</td>
+          <td>1.45</td>
+          <td>1498</td>
+          <td>1495</td>
+          <td>17.9</td>
+          <td>-18.0</td>
+          <td>+4.7</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">36</span></td>
+          <td class="l mono">41</td>
+          <td class="l driver">Cole Custer</td>
+          <td class="l team">Haas Factory Team</td>
+          <td>P29</td>
+          <td>1.40</td>
+          <td>1498</td>
+          <td>1498</td>
+          <td>16.6</td>
+          <td>-10.0</td>
+          <td>+3.7</td>
+        </tr><tr class="locked-row">
+          <td class="l"><span class="pos-pill">37</span></td>
+          <td class="l mono">51</td>
+          <td class="l driver">Cody Ware</td>
+          <td class="l team">Rick Ware Racing</td>
+          <td>P35</td>
+          <td>1.00</td>
+          <td>1497</td>
+          <td>1493</td>
+          <td>12.5</td>
+          <td>-16.0</td>
+          <td>-1.3</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="proj-cta free-only" id="unlock">
+    <div class="left">
+      <b>32 more drivers behind the paywall.</b>
+      <div style="color:var(--ink-3);font-size:12px;margin-top:4px">Full sortable table, all probabilities, CSV download, and the Betting/DFS lenses ship with the Race Week Pass.</div>
+    </div>
+    <div class="right">
+      <span class="csv">Download CSV ◦ subscriber</span>
+      <a class="btn" href="#unlock">Unlock the full race sheet</a>
+    </div>
+  </div>
+  <div class="proj-cta paid-only">
+    <div class="left">
+      <b>Full board.</b>
+      <div style="color:var(--ink-3);font-size:12px;margin-top:4px">All 37 drivers, every probability, plus CSV.</div>
+    </div>
+    <div class="right">
+      <a class="csv" href="/the-starting-grid/data/2026009.csv" download>Download CSV ↓</a>
+    </div>
+  </div>
+</div>
+  </div>
+
+  
+<div class="foot">
+  <span>The Starting Grid • Cup Series Model v2 (XGBoost)</span>
+  <span>Generated 2026-04-19 21:19 • Practice blended</span>
+</div>
+</div>
+
+<script>
+(function() {
+  // ---------- Tier (free / paid) ----------
+  const params = new URLSearchParams(window.location.search);
+  const urlTier = params.get('tier');
+  const showPreview = params.get('preview') === '1' ||
+                      localStorage.getItem('sg_preview') === '1';
+  let tier = urlTier || localStorage.getItem('sg_tier') || 'free';
+  if (tier !== 'paid') tier = 'free';
+  if (urlTier) localStorage.setItem('sg_tier', tier);
+  if (params.get('preview') === '1') localStorage.setItem('sg_preview', '1');
+
+  function applyTier(t) {
+    document.body.setAttribute('data-tier', t);
+    document.querySelectorAll('.preview-toggle button').forEach(b => {
+      b.classList.toggle('active', b.dataset.setTier === t);
+    });
+  }
+  applyTier(tier);
+
+  // Reveal toggle if ?preview=1 (or persisted)
+  if (showPreview) {
+    document.querySelectorAll('.preview-toggle').forEach(el => el.classList.add('show'));
+  }
+
+  // Wire toggle buttons
+  document.querySelectorAll('.preview-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.dataset.setTier;
+      localStorage.setItem('sg_tier', t);
+      applyTier(t);
+    });
+  });
+
+  // ---------- Projections sub-tabs (Overview / Probabilities / Ratings) ----------
+  const projTabs = document.querySelector('[data-proj-tabs]');
+  if (projTabs) {
+    const projButtons = projTabs.querySelectorAll('button[data-proj-view]');
+    const projTables = document.querySelectorAll('[data-proj-view-table]');
+    projButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view = btn.dataset.projView;
+        // Clear active on all sibling buttons (incl. paid/free duplicate labels)
+        projTabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        // Mark all matching-view buttons active (free + paid versions if both exist)
+        projTabs.querySelectorAll('button[data-proj-view="' + view + '"]')
+          .forEach(b => b.classList.add('active'));
+        projTables.forEach(t => {
+          t.classList.toggle('active', t.dataset.projViewTable === view);
+        });
+      });
+    });
+  }
+
+  // ---------- Hero tabs (Overview / Full Table) ----------
+  const buttons = document.querySelectorAll('.hero-tabs button[data-tab]');
+  const overview = document.getElementById('overview-pane');
+  const full = document.getElementById('full-pane');
+  if (buttons.length && overview && full) {
+    buttons.forEach(b => {
+      b.addEventListener('click', () => {
+        if (b.classList.contains('locked')) return;
+        buttons.forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        const t = b.dataset.tab;
+        if (t === 'overview') {
+          overview.classList.add('active');
+          full.classList.remove('active');
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        } else if (t === 'full') {
+          overview.classList.remove('active');
+          full.classList.add('active');
+          full.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

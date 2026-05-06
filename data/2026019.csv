@@ -1,0 +1,2 @@
+ep_rank,driver,car_number,team,organization,make,start,expected_points,prob_Win,prob_Top5,prob_Top10,prob_Top20,prob_Made,prob_DNF,driver_elo,track_type_elo,rolling_sf_delta,org_rating,qual_diff
+1,,,,,,20.0,3.015,0.08,0.0877,0.0903,0.3196,0.1921,0.2304,1500.0,1500.0,0.0,21.0,0.0

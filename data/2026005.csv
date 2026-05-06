@@ -1,0 +1,37 @@
+ep_rank,driver,car_number,team,organization,make,start,expected_points,prob_Win,prob_Top5,prob_Top10,prob_Top20,prob_Made,prob_DNF,driver_elo,track_type_elo,rolling_sf_delta,org_rating,qual_diff
+1,Denny Hamlin,11,Joe Gibbs Racing,Joe Gibbs Racing,Toyota,2,6.497,0.3731,0.2677,0.1221,0.0823,0.0353,0.1196,1513.79,1507.07,7.67,26.75,16.5
+2,Kyle Larson,5,Hendrick Motorsports,Hendrick Motorsports,Chevrolet,5,5.544,0.1716,0.3252,0.2227,0.1348,0.0338,0.1119,1515.01,1494.44,-4.67,25.19,13.5
+3,Tyler Reddick,45,23XI Racing,23XI Racing,Toyota,7,5.415,0.2427,0.2638,0.1654,0.0735,0.0948,0.1598,1511.06,1514.29,-4.0,22.24,11.5
+4,Chase Briscoe,19,Joe Gibbs Racing,Joe Gibbs Racing,Toyota,18,5.341,0.2828,0.2091,0.08,0.1742,0.127,0.127,1492.23,1514.08,2.0,26.75,0.5
+5,Bubba Wallace,23,23XI Racing,23XI Racing,Toyota,4,5.221,0.2519,0.1834,0.1914,0.121,0.0979,0.1544,1513.41,1511.19,-0.5,22.24,14.5
+6,Ryan Blaney,12,Team Penske,Team Penske,Ford,6,5.087,0.1487,0.2809,0.238,0.1226,0.0766,0.1333,1516.99,1508.97,2.17,23.82,12.5
+7,Christopher Bell,20,Joe Gibbs Racing,Joe Gibbs Racing,Toyota,1,4.987,0.1622,0.2496,0.1784,0.2156,0.0792,0.115,1515.81,1501.77,0.0,26.75,17.5
+8,William Byron,24,Hendrick Motorsports,Hendrick Motorsports,Chevrolet,9,4.739,0.0434,0.394,0.1769,0.1896,0.0932,0.1029,1512.56,1497.02,-11.5,25.19,9.5
+9,Chase Elliott,9,Hendrick Motorsports,Hendrick Motorsports,Chevrolet,15,4.531,0.1473,0.1836,0.1837,0.2464,0.1158,0.1233,1501.26,1509.6,3.17,25.19,3.5
+10,Ryan Preece,60,RFK Racing,RFK Racing,Ford,8,4.495,0.1447,0.1511,0.2392,0.2206,0.133,0.1114,1508.48,1509.99,11.0,26.88,10.5
+11,Joey Logano,22,Team Penske,Team Penske,Ford,21,4.388,0.0835,0.2511,0.1882,0.2337,0.1526,0.0908,1496.38,1503.38,-2.33,23.82,-2.5
+12,Brad Keselowski,6,RFK Racing,RFK Racing,Ford,28,4.332,0.149,0.1804,0.1589,0.1981,0.1899,0.1237,1507.04,1504.9,11.17,26.88,-9.5
+13,Ty Gibbs,54,Joe Gibbs Racing,Joe Gibbs Racing,Toyota,3,4.328,0.05,0.307,0.1923,0.206,0.0995,0.1452,1514.51,1491.42,-10.67,26.75,15.5
+14,Daniel Suarez,7,Spire Motorsports,Spire Motorsports,Chevrolet,13,3.899,0.1639,0.0756,0.1542,0.2672,0.1575,0.1815,1498.36,1513.44,0.67,21.69,5.5
+15,Chris Buescher,17,RFK Racing,RFK Racing,Ford,10,3.55,0.0461,0.1001,0.2317,0.3545,0.166,0.1016,1509.18,1506.44,-1.5,26.88,8.5
+16,Ross Chastain,1,Trackhouse Racing,Trackhouse Racing,Chevrolet,17,3.287,0.0611,0.1265,0.158,0.258,0.226,0.1703,1499.09,1514.84,-3.83,22.11,1.5
+17,Shane van Gisbergen,97,Trackhouse Racing,Trackhouse Racing,Chevrolet,16,3.147,0.0305,0.0926,0.1645,0.391,0.1993,0.1222,1509.16,1511.61,-1.83,22.11,2.5
+18,Zane Smith,38,Front Row Motorsports,Front Row Motorsports,Ford,12,3.001,0.0394,0.0924,0.161,0.29,0.2863,0.131,1499.62,1512.11,-3.5,17.64,6.5
+19,Austin Cindric,2,Team Penske,Team Penske,Ford,31,2.716,0.0379,0.0608,0.1066,0.3721,0.2623,0.1603,1495.03,1498.17,0.5,23.82,-12.5
+20,Carson Hocevar,77,Spire Motorsports,Spire Motorsports,Chevrolet,19,2.626,0.0525,0.0626,0.1088,0.2994,0.2201,0.2566,1504.66,1512.65,0.83,20.84,-0.5
+21,Erik Jones,43,Legacy Motor Club,Legacy Motor Club,Toyota,14,2.608,0.0171,0.0684,0.1101,0.3769,0.277,0.1505,1511.09,1500.53,-4.17,19.94,4.5
+22,Austin Dillon,3,Richard Childress Racing,Richard Childress Racing,Chevrolet,11,2.537,0.0121,0.0588,0.0953,0.4103,0.2976,0.1259,1506.0,1498.43,-7.0,20.66,7.5
+23,A.J. Allmendinger,16,Kaulig Racing,Kaulig Racing,Chevrolet,29,2.4,0.0206,0.056,0.1188,0.2732,0.3892,0.1423,1504.12,1508.8,-1.83,18.38,-10.5
+24,Riley Herbst,35,23XI Racing,23XI Racing,Toyota,20,2.389,0.0255,0.0422,0.0933,0.3608,0.2894,0.1888,1506.38,1495.67,1.17,22.24,-1.5
+25,Connor Zilisch,88,Trackhouse Racing,Trackhouse Racing,Chevrolet,25,2.37,0.0116,0.043,0.1329,0.324,0.3171,0.1715,1498.31,1495.98,12.0,22.11,-6.5
+26,Justin Allgaier,48,Hendrick Motorsports,Hendrick Motorsports,Chevrolet,22,2.336,0.0098,0.0761,0.0474,0.3926,0.2905,0.1836,1493.95,1506.78,-11.33,17.5,-3.5
+27,Kyle Busch,8,Richard Childress Racing,Richard Childress Racing,Chevrolet,24,2.322,0.014,0.0429,0.1018,0.3238,0.401,0.1164,1505.37,1493.81,2.67,20.66,-5.5
+28,Michael McDowell,71,Spire Motorsports,Spire Motorsports,Chevrolet,30,2.318,0.0119,0.0508,0.1124,0.2928,0.4021,0.1299,1511.08,1503.42,1.17,20.84,-11.5
+29,John Hunter Nemechek,42,Legacy Motor Club,Legacy Motor Club,Toyota,26,2.294,0.0334,0.0317,0.1132,0.2778,0.3388,0.2052,1500.21,1503.44,9.83,19.94,-7.5
+30,Ricky Stenhouse Jr.,47,Hyak Motorsports,Hyak Motorsports,Chevrolet,23,2.197,0.0102,0.0199,0.0717,0.4283,0.3135,0.1565,1502.97,1493.04,-4.0,18.2,-4.5
+31,Josh Berry,21,Wood Brothers Racing,Wood Brothers Racing,Ford,32,1.84,0.0084,0.0337,0.0682,0.226,0.5008,0.1629,1496.45,1491.65,-18.17,17.15,-13.5
+32,Ty Dillon,10,Kaulig Racing,Kaulig Racing,Chevrolet,36,1.777,0.0141,0.0443,0.0583,0.1793,0.4965,0.2075,1500.0,1504.78,2.5,18.38,-17.5
+33,Todd Gilliland,34,Front Row Motorsports,Front Row Motorsports,Ford,27,1.73,0.0077,0.0384,0.0497,0.1869,0.5752,0.1421,1509.74,1500.59,7.17,17.64,-8.5
+34,Cole Custer,41,Haas Factory Team,Haas Factory Team,Chevrolet,35,1.61,0.0072,0.0294,0.0447,0.1625,0.6209,0.1352,1494.19,1501.76,1.67,17.02,-16.5
+35,Noah Gragson,4,Front Row Motorsports,Front Row Motorsports,Ford,34,1.601,0.0091,0.0279,0.0514,0.1508,0.6058,0.1551,1493.77,1506.52,0.33,17.64,-15.5
+36,Cody Ware,51,Rick Ware Racing,Rick Ware Racing,Chevrolet,33,1.304,0.0046,0.0075,0.0223,0.1359,0.6866,0.1432,1501.61,1497.31,-1.33,13.02,-14.5
