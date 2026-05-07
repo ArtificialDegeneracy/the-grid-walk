@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pennzoil 400 presented by Jiffy Lube — The Starting Grid</title>
+<title>Pennzoil 400 presented by Jiffy Lube — Grid Walk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -809,12 +809,12 @@ body[data-tier="paid"] .free-only { display: none !important; }
 
 <div class="chrome">
   <div class="chrome-inner">
-    <a class="brand" href="/the-starting-grid/">
+    <a class="brand" href="/">
       <div class="brand-mark"></div>
-      <div class="brand-name">The Starting Grid <span>/ Cup Series</span></div>
+      <div class="brand-name">Grid Walk <span>/ Cup Series</span></div>
     </a>
     <div class="nav">
-      <a class="active" href="/the-starting-grid/">This Week</a>
+      <a class="active" href="/">This Week</a>
     </div>
     <div class="chrome-spacer"></div>
     <div class="preview-toggle" id="previewToggle" role="group" aria-label="Preview tier">
@@ -829,7 +829,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
 </div>
 <div class="page">
   <div class="breadcrumb">
-    <a href="/the-starting-grid/">This Week</a> / Race 5 / 2026 / <span class="here">Las Vegas Motor Speedway</span>
+    <a href="/">This Week</a> / Race 5 / 2026 / <span class="here">Las Vegas Motor Speedway</span>
   </div>
 
   
@@ -2785,7 +2785,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
       <div style="color:var(--ink-3);font-size:12px;margin-top:4px">All 36 drivers, every probability, plus CSV.</div>
     </div>
     <div class="right">
-      <a class="csv" href="/the-starting-grid/data/2026005.csv" download>Download CSV ↓</a>
+      <a class="csv" href="/data/2026005.csv" download>Download CSV ↓</a>
     </div>
   </div>
 </div>
@@ -2793,7 +2793,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
 
   
 <div class="foot">
-  <span>The Starting Grid • Cup Series Model v2 (XGBoost)</span>
+  <span>Grid Walk • Cup Series Model v2 (XGBoost)</span>
   <span>Generated 2026-03-17 09:08</span>
 </div>
 </div>
@@ -2804,11 +2804,11 @@ body[data-tier="paid"] .free-only { display: none !important; }
   const params = new URLSearchParams(window.location.search);
   const urlTier = params.get('tier');
   const showPreview = params.get('preview') === '1' ||
-                      localStorage.getItem('sg_preview') === '1';
-  let tier = urlTier || localStorage.getItem('sg_tier') || 'free';
+                      localStorage.getItem('gw_preview') === '1';
+  let tier = urlTier || localStorage.getItem('gw_tier') || 'free';
   if (tier !== 'paid') tier = 'free';
-  if (urlTier) localStorage.setItem('sg_tier', tier);
-  if (params.get('preview') === '1') localStorage.setItem('sg_preview', '1');
+  if (urlTier) localStorage.setItem('gw_tier', tier);
+  if (params.get('preview') === '1') localStorage.setItem('gw_preview', '1');
 
   function applyTier(t) {
     document.body.setAttribute('data-tier', t);
@@ -2827,7 +2827,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
   document.querySelectorAll('.preview-toggle button').forEach(btn => {
     btn.addEventListener('click', () => {
       const t = btn.dataset.setTier;
-      localStorage.setItem('sg_tier', t);
+      localStorage.setItem('gw_tier', t);
       applyTier(t);
     });
   });
