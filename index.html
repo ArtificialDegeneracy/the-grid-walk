@@ -762,6 +762,306 @@ body[data-tier="paid"] .free-only { display: none !important; }
   background: var(--accent); color: var(--accent-ink);
 }
 
+/* ─── homepage ─────────────────────────────────────────── */
+
+.home-page { padding-top: 0; }
+
+/* Button size + disabled variants */
+.btn.btn-lg {
+  padding: 11px 18px;
+  font-size: 14px;
+  letter-spacing: .01em;
+}
+.btn.btn-disabled {
+  background: var(--bg-card-2);
+  color: var(--ink-3);
+  cursor: not-allowed;
+  border: 1px solid var(--line);
+}
+
+/* Hero */
+.home-hero {
+  padding: 56px 0 32px;
+  border-bottom: 1px solid var(--line-soft);
+  margin-bottom: 36px;
+}
+.home-hero-eyebrow {
+  font-size: 11px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .14em;
+  margin-bottom: 18px;
+}
+.home-hero-h1 {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 64px; line-height: 1.0;
+  letter-spacing: -.035em; margin: 0 0 18px;
+  color: var(--ink); max-width: 18ch;
+}
+.home-hero-sub {
+  font-size: 17px; color: var(--ink-2);
+  line-height: 1.55; max-width: 60ch;
+  margin: 0 0 24px;
+}
+.home-hero-cta {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+}
+.home-hero-cta-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .12em;
+}
+@media (max-width: 720px) {
+  .home-hero { padding: 32px 0 24px; }
+  .home-hero-h1 { font-size: 40px; }
+  .home-hero-sub { font-size: 15px; }
+}
+
+/* Stat strip */
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  margin-bottom: 36px;
+  overflow: hidden;
+}
+.home-stat {
+  padding: 22px;
+  border-right: 1px solid var(--line-soft);
+}
+.home-stat:last-child { border-right: 0; }
+.home-stat-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 40px; line-height: 1.0;
+  letter-spacing: -.035em;
+  color: var(--accent);
+  font-feature-settings: 'tnum';
+  margin-bottom: 6px;
+}
+.home-stat-lbl {
+  font-size: 13px; color: var(--ink); font-weight: 600;
+  margin-bottom: 2px;
+}
+.home-stat-note {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; color: var(--ink-4);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+@media (max-width: 920px) {
+  .home-stats { grid-template-columns: repeat(2, 1fr); }
+  .home-stat:nth-child(2) { border-right: 0; }
+  .home-stat:nth-child(1), .home-stat:nth-child(2) { border-bottom: 1px solid var(--line-soft); }
+}
+@media (max-width: 480px) {
+  .home-stats { grid-template-columns: 1fr; }
+  .home-stat { border-right: 0; border-bottom: 1px solid var(--line-soft); }
+  .home-stat:last-child { border-bottom: 0; }
+}
+
+/* Next race card */
+.home-next {
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 0 3px rgba(245,180,0,.06);
+}
+.home-next-body {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.home-next-track {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 32px; line-height: 1.05;
+  letter-spacing: -.03em; margin-bottom: 4px;
+}
+.home-next-race {
+  font-size: 14.5px; color: var(--ink-3); font-weight: 600;
+  margin-bottom: 16px;
+}
+.home-next-meta {
+  display: flex; gap: 22px; flex-wrap: wrap;
+  font-size: 13px; color: var(--ink-2);
+  margin-bottom: 18px;
+}
+.home-next-meta .lbl {
+  display: block;
+  font-size: 10.5px; color: var(--ink-4);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 2px;
+}
+.home-next-meta b { color: var(--ink); font-weight: 600; }
+.home-next-cta { margin-top: 4px; }
+.home-next-r {
+  background: var(--bg-card-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px;
+}
+.home-next-r-lbl {
+  font-size: 10.5px; color: var(--ink-3);
+  letter-spacing: .12em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.home-pick-row {
+  display: flex; justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 13.5px;
+}
+.home-pick-row:last-child { border-bottom: 0; }
+.home-pick-name { color: var(--ink); font-weight: 500; }
+.home-pick-pct { color: var(--accent); font-weight: 600; }
+@media (max-width: 720px) {
+  .home-next-body { grid-template-columns: 1fr; gap: 18px; }
+  .home-next-track { font-size: 26px; }
+}
+
+/* How it works */
+.home-how {
+  margin-bottom: 36px;
+  padding: 28px 0 12px;
+  border-top: 1px solid var(--line-soft);
+}
+.home-how-head {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em;
+  color: var(--accent); margin-bottom: 18px;
+}
+.home-how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.home-how-col-h {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--ink); letter-spacing: -.01em;
+  margin-bottom: 8px;
+}
+.home-how-col p {
+  font-size: 13.5px; color: var(--ink-2);
+  line-height: 1.55; margin: 0;
+}
+@media (max-width: 720px) {
+  .home-how-grid { grid-template-columns: 1fr; gap: 22px; }
+}
+
+/* Coming up */
+.home-soon-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+}
+.home-soon-card {
+  text-decoration: none; color: inherit; display: block;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-card);
+  transition: border-color .15s, transform .15s;
+}
+.home-soon-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.home-soon-track {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700; font-size: 15px; margin-bottom: 4px;
+  color: var(--ink);
+}
+.home-soon-race {
+  font-size: 12px; color: var(--ink-3);
+}
+.home-soon-meta {
+  font-size: 11px; color: var(--ink-4);
+  margin-top: 8px; letter-spacing: .06em; text-transform: uppercase;
+}
+@media (max-width: 720px) {
+  .home-soon-grid { grid-template-columns: 1fr; }
+}
+
+/* Subscribe footer */
+.home-subscribe {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  padding: 36px;
+  margin: 36px 0 24px;
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+.home-subscribe::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background-image:
+    linear-gradient(45deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--accent) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--accent) 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+  opacity: .8;
+}
+.home-sub-eyebrow {
+  font-size: 11px; color: var(--accent);
+  letter-spacing: .14em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.home-sub-h {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 32px; line-height: 1.05;
+  letter-spacing: -.03em; margin: 0 0 18px;
+  color: var(--ink);
+}
+.home-sub-list {
+  margin: 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.home-sub-list li {
+  font-size: 14px; color: var(--ink-2); line-height: 1.5;
+  padding-left: 22px; position: relative;
+}
+.home-sub-list li::before {
+  content: ""; position: absolute; left: 0; top: 9px;
+  width: 8px; height: 8px;
+  background: var(--accent);
+}
+.home-sub-r {
+  display: flex; flex-direction: column; gap: 14px; align-items: flex-start;
+  border-left: 1px solid var(--line-soft);
+  padding-left: 32px;
+}
+.home-sub-pricing {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.home-sub-coming {
+  font-size: 10.5px; color: var(--ink-3);
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.home-sub-price {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 56px; line-height: 1.0;
+  letter-spacing: -.04em; color: var(--ink);
+}
+.home-sub-price .home-sub-price-num { color: var(--accent); }
+.home-sub-price .home-sub-price-per {
+  font-size: 18px; color: var(--ink-3); font-weight: 600;
+  margin-left: 4px;
+}
+.home-sub-cancel {
+  font-size: 12px; color: var(--ink-3);
+}
+.home-sub-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; color: var(--ink-4);
+  letter-spacing: .12em; text-transform: uppercase;
+}
+@media (max-width: 920px) {
+  .home-subscribe { grid-template-columns: 1fr; padding: 28px; gap: 24px; }
+  .home-sub-r { border-left: 0; padding-left: 0; border-top: 1px solid var(--line-soft); padding-top: 22px; }
+}
+
 /* ─── footer ───────────────────────────────────────────── */
 .foot {
   margin-top: 40px;
@@ -825,96 +1125,83 @@ body[data-tier="paid"] .free-only { display: none !important; }
   </div>
   <div class="checker-band"></div>
 </div>
-<div class="page">
-  <div class="breadcrumb"><span class="here">This Week</span></div>
+<div class="page home-page">
   
-<div class="card" style="border:2px solid var(--accent);">
+<section class="home-hero">
+  <div class="home-hero-eyebrow mono">Cup Series · Sunday, May 10, 2026</div>
+  <h1 class="home-hero-h1">Walk the grid before the race.</h1>
+  <p class="home-hero-sub">Win, Top-5, and DNF probabilities for every driver in the NASCAR Cup Series — graded weekly against real race results.</p>
+  <div class="home-hero-cta">
+    <a class="btn btn-lg" href="/prediction/2026012.html">See this week's race →</a>
+    <span class="home-hero-cta-meta">Watkins Glen International · Road Course</span>
+  </div>
+</section>
+  
+<section class="home-stats">
+  <div class="home-stat">
+    <div class="home-stat-num mono">41%</div>
+    <div class="home-stat-lbl">Top-5 hit rate</div>
+    <div class="home-stat-note">vs ~14% random</div>
+  </div>
+  <div class="home-stat">
+    <div class="home-stat-num mono">21%</div>
+    <div class="home-stat-lbl">Winner call rate</div>
+    <div class="home-stat-note">vs ~3% random</div>
+  </div>
+  <div class="home-stat">
+    <div class="home-stat-num mono">0.42</div>
+    <div class="home-stat-lbl">Avg Spearman ρ</div>
+    <div class="home-stat-note">rank-correlation per race</div>
+  </div>
+  <div class="home-stat">
+    <div class="home-stat-num mono">47</div>
+    <div class="home-stat-lbl">Races graded</div>
+    <div class="home-stat-note">since 2025</div>
+  </div>
+</section>
+  
+<div class="card home-next">
   <div class="card-head">
-    <h2><span class="num">NEXT</span> Up Next</h2>
+    <h2><span class="num">01</span> This Week</h2>
     <span class="tag">Sunday, May 10, 2026</span>
   </div>
-  <div class="card-body">
-    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start">
-      <div>
-        <h3 style="font-family:'Inter Tight',sans-serif;font-size:30px;font-weight:800;letter-spacing:-.025em;margin:0 0 4px;">
-          Watkins Glen International
-        </h3>
-        <div style="color:var(--ink-3);font-size:15px;font-weight:600;margin-bottom:14px;">
-          Go Bowling at The Glen
-        </div>
-        <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--ink-2)">
-          <div><span class="mono" style="color:var(--ink-4);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px">Track Type</span><b>Road Course</b></div>
-          <div><span class="mono" style="color:var(--ink-4);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px">Field</span><b class="mono">38 drivers</b></div>
-        </div>
-        <div style="margin-top:18px">
-          <a class="btn" href="/prediction/2026012.html">Open the race sheet →</a>
-        </div>
+  <div class="card-body home-next-body">
+    <div class="home-next-l">
+      <div class="home-next-track">Watkins Glen International</div>
+      <div class="home-next-race">Go Bowling at The Glen</div>
+      <div class="home-next-meta">
+        <div><span class="lbl mono">Track Type</span><b>Road Course</b></div>
+        <div><span class="lbl mono">Field</span><b class="mono">38 drivers</b></div>
       </div>
-      <div style="background:var(--bg-card-2);border:1px solid var(--line);border-radius:6px;padding:14px">
-        <div class="mono" style="font-size:10.5px;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Top Win Picks</div>
-        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)"><span>1. Tyler Reddick</span><span class="mono" style="color:var(--accent)">8.5%</span></div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)"><span>2. Alex Bowman</span><span class="mono" style="color:var(--accent)">8.0%</span></div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)"><span>3. Shane van Gisbergen</span><span class="mono" style="color:var(--accent)">6.7%</span></div>
-      </div>
+      <a class="btn home-next-cta" href="/prediction/2026012.html">Open the race sheet →</a>
+    </div>
+    <div class="home-next-r">
+      <div class="mono home-next-r-lbl">Top Win Picks</div>
+      <div class="home-pick-row"><span class="home-pick-name">1. Tyler Reddick</span><span class="mono home-pick-pct">8.5%</span></div><div class="home-pick-row"><span class="home-pick-name">2. Alex Bowman</span><span class="mono home-pick-pct">8.0%</span></div><div class="home-pick-row"><span class="home-pick-name">3. Shane van Gisbergen</span><span class="mono home-pick-pct">6.7%</span></div>
     </div>
   </div>
 </div>
   
-<div class="card">
-  <div class="card-head"><h2><span class="num">SOON</span> Coming Up</h2><span class="tag">Next 6 races</span></div>
-  <div class="card-body" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
-    
-        <a href="/prediction/2026013.html" style="text-decoration:none;color:inherit;display:block">
-          <div style="padding:14px 18px;border:1px solid var(--line);border-radius:6px;background:var(--bg-card);transition:border-color .15s"
-               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">Charlotte Motor Speedway</div>
-            <div style="font-size:12px;color:var(--ink-3)">Coca-Cola 600</div>
-            <div class="mono" style="font-size:11px;color:var(--ink-4);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Sunday, May 24, 2026 • intermediate</div>
-          </div>
-        </a>
-        <a href="/prediction/2026014.html" style="text-decoration:none;color:inherit;display:block">
-          <div style="padding:14px 18px;border:1px solid var(--line);border-radius:6px;background:var(--bg-card);transition:border-color .15s"
-               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">Nashville Superspeedway</div>
-            <div style="font-size:12px;color:var(--ink-3)">Cracker Barrel 400</div>
-            <div class="mono" style="font-size:11px;color:var(--ink-4);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Sunday, May 31, 2026 • intermediate</div>
-          </div>
-        </a>
-        <a href="/prediction/2026015.html" style="text-decoration:none;color:inherit;display:block">
-          <div style="padding:14px 18px;border:1px solid var(--line);border-radius:6px;background:var(--bg-card);transition:border-color .15s"
-               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">Michigan International Speedway</div>
-            <div style="font-size:12px;color:var(--ink-3)">FireKeepers Casino 400</div>
-            <div class="mono" style="font-size:11px;color:var(--ink-4);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Sunday, June 7, 2026 • intermediate</div>
-          </div>
-        </a>
-        <a href="/prediction/2026016.html" style="text-decoration:none;color:inherit;display:block">
-          <div style="padding:14px 18px;border:1px solid var(--line);border-radius:6px;background:var(--bg-card);transition:border-color .15s"
-               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">Pocono Raceway</div>
-            <div style="font-size:12px;color:var(--ink-3)">Great American Getaway 400 presented by VISITPA</div>
-            <div class="mono" style="font-size:11px;color:var(--ink-4);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Sunday, June 14, 2026 • intermediate</div>
-          </div>
-        </a>
-        <a href="/prediction/2026017.html" style="text-decoration:none;color:inherit;display:block">
-          <div style="padding:14px 18px;border:1px solid var(--line);border-radius:6px;background:var(--bg-card);transition:border-color .15s"
-               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">Naval Base Coronado</div>
-            <div style="font-size:12px;color:var(--ink-3)">Anduril 250</div>
-            <div class="mono" style="font-size:11px;color:var(--ink-4);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Sunday, June 21, 2026 • road course</div>
-          </div>
-        </a>
-        <a href="/prediction/2026018.html" style="text-decoration:none;color:inherit;display:block">
-          <div style="padding:14px 18px;border:1px solid var(--line);border-radius:6px;background:var(--bg-card);transition:border-color .15s"
-               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">Sonoma Raceway</div>
-            <div style="font-size:12px;color:var(--ink-3)">Toyota / Save Mart 350</div>
-            <div class="mono" style="font-size:11px;color:var(--ink-4);margin-top:6px;letter-spacing:.06em;text-transform:uppercase">Sunday, June 28, 2026 • road course</div>
-          </div>
-        </a>
+<section class="home-how">
+  <div class="home-how-head">How it works</div>
+  <div class="home-how-grid">
+    <div class="home-how-col">
+      <div class="home-how-col-h">The Model</div>
+      <p>XGBoost multinomial classifier trained on 2020–2025, ~8K driver-race rows. 16 features blending driver ELO, track-type history, qualifying, and team strength.</p>
+    </div>
+    <div class="home-how-col">
+      <div class="home-how-col-h">The Method</div>
+      <p>Walk-forward validation, no leakage. Every feature is computed using only data available before the race. Predictions are graded against real finishing order.</p>
+    </div>
+    <div class="home-how-col">
+      <div class="home-how-col-h">The Output</div>
+      <p>Six finish buckets per driver — Win, Top-5, Top-10, Top-20, Made, DNF — combined into Expected Points. The whole field, ranked, every race.</p>
+    </div>
   </div>
-</div>
+</section>
   
 <div class="card">
-  <div class="card-head"><h2><span class="num">RECENT</span> Recent Races</h2><span class="tag">Last 6 completed</span></div>
+  <div class="card-head"><h2><span class="num">02</span> Track Record</h2><span class="tag">Last 5 races</span></div>
   <div class="table-wrap">
     <table class="proj">
       <thead><tr><th>Track</th><th>Race</th><th>Date</th><th>Spearman</th><th>Top-5</th></tr></thead>
@@ -923,50 +1210,92 @@ body[data-tier="paid"] .free-only { display: none !important; }
               <td class="l driver">Texas Motor Speedway</td>
               <td class="l team">Wurth 400 presented by LIQUI MOLY</td>
               <td class="l team">Sunday, May 3, 2026</td>
-              <td>ρ 0.46</td>
+              <td style="color:var(--good)">ρ 0.46</td>
               <td>2/5</td>
             </tr>
             <tr style="cursor:pointer" onclick="window.location='/prediction/2026010.html'">
               <td class="l driver">Talladega Superspeedway</td>
               <td class="l team">Jack Link's 500</td>
               <td class="l team">Sunday, April 26, 2026</td>
-              <td>ρ -0.08</td>
+              <td style="color:var(--risk)">ρ -0.08</td>
               <td>0/5</td>
             </tr>
             <tr style="cursor:pointer" onclick="window.location='/prediction/2026009.html'">
               <td class="l driver">Kansas Speedway</td>
               <td class="l team">AdventHealth 400</td>
               <td class="l team">Sunday, April 19, 2026</td>
-              <td>ρ 0.72</td>
+              <td style="color:var(--good)">ρ 0.72</td>
               <td>3/5</td>
             </tr>
             <tr style="cursor:pointer" onclick="window.location='/prediction/2026008.html'">
               <td class="l driver">Bristol Motor Speedway</td>
               <td class="l team">Food City 500</td>
               <td class="l team">Sunday, April 12, 2026</td>
-              <td>ρ 0.68</td>
+              <td style="color:var(--good)">ρ 0.68</td>
               <td>3/5</td>
             </tr>
             <tr style="cursor:pointer" onclick="window.location='/prediction/2026007.html'">
               <td class="l driver">Martinsville Speedway</td>
               <td class="l team">Cook Out 400</td>
               <td class="l team">Sunday, March 29, 2026</td>
-              <td>ρ 0.85</td>
+              <td style="color:var(--good)">ρ 0.85</td>
               <td>4/5</td>
-            </tr>
-            <tr style="cursor:pointer" onclick="window.location='/prediction/2026006.html'">
-              <td class="l driver">Darlington Raceway</td>
-              <td class="l team">Goodyear 400</td>
-              <td class="l team">Sunday, March 22, 2026</td>
-              <td>ρ 0.46</td>
-              <td>1/5</td>
             </tr></tbody>
     </table>
   </div>
 </div>
+  
+<div class="card">
+  <div class="card-head"><h2><span class="num">03</span> Coming Up</h2><span class="tag">Next 4 races</span></div>
+  <div class="card-body home-soon-grid">
+    
+        <a href="/prediction/2026013.html" class="home-soon-card">
+          <div class="home-soon-track">Charlotte Motor Speedway</div>
+          <div class="home-soon-race">Coca-Cola 600</div>
+          <div class="mono home-soon-meta">Sunday, May 24, 2026 · intermediate</div>
+        </a>
+        <a href="/prediction/2026014.html" class="home-soon-card">
+          <div class="home-soon-track">Nashville Superspeedway</div>
+          <div class="home-soon-race">Cracker Barrel 400</div>
+          <div class="mono home-soon-meta">Sunday, May 31, 2026 · intermediate</div>
+        </a>
+        <a href="/prediction/2026015.html" class="home-soon-card">
+          <div class="home-soon-track">Michigan International Speedway</div>
+          <div class="home-soon-race">FireKeepers Casino 400</div>
+          <div class="mono home-soon-meta">Sunday, June 7, 2026 · intermediate</div>
+        </a>
+        <a href="/prediction/2026016.html" class="home-soon-card">
+          <div class="home-soon-track">Pocono Raceway</div>
+          <div class="home-soon-race">Great American Getaway 400 presented by VISITPA</div>
+          <div class="mono home-soon-meta">Sunday, June 14, 2026 · intermediate</div>
+        </a>
+  </div>
+</div>
+  
+<section class="home-subscribe" id="unlock">
+  <div class="home-sub-l">
+    <div class="mono home-sub-eyebrow">Race Week Pass</div>
+    <h2 class="home-sub-h">Want the full board?</h2>
+    <ul class="home-sub-list">
+      <li>Full projections table — every driver, every probability, sortable, downloadable as CSV</li>
+      <li>Pick groups in full — Win, Top-5, Top-10, Sleepers, High-Risk — beyond the top picks shown free</li>
+      <li>Driver Spotlight breakdowns for the full top 3, not just the headline pick</li>
+      <li>DFS Lens (coming soon) — DraftKings salaries, projected points, value</li>
+    </ul>
+  </div>
+  <div class="home-sub-r">
+    <div class="home-sub-pricing">
+      <div class="mono home-sub-coming">Coming Soon</div>
+      <div class="home-sub-price">$<span class="home-sub-price-num">9</span><span class="home-sub-price-per">/wk</span></div>
+      <div class="home-sub-cancel">Cancel anytime</div>
+    </div>
+    <a class="btn btn-lg btn-disabled" aria-disabled="true">Notify me when ready</a>
+    <div class="home-sub-meta">Free tier stays free, always</div>
+  </div>
+</section>
   <div class="foot">
-    <span>Grid Walk • Cup Series Model v2 (XGBoost)</span>
-    <span><span class="free-only">Free preview • Race Week Pass for the full board</span><span class="paid-only">Subscriber view • full board active</span></span>
+    <span>Grid Walk · Cup Series Model v2 (XGBoost) · thegridwalk.com</span>
+    <span><span class="free-only">Free preview · Race Week Pass for the full board</span><span class="paid-only">Subscriber view · full board active</span></span>
   </div>
 </div>
 
