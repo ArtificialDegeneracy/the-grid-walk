@@ -4,6 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Coke Zero Sugar 400 — Grid Walk</title>
+<meta name="description" content="Coke Zero Sugar 400: probabilistic NASCAR Cup Series predictions — Win, Top-5, and DNF probabilities for every driver.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><rect x='0' y='0' width='8' height='8' fill='%23F5B400'/><rect x='16' y='0' width='8' height='8' fill='%23F5B400'/><rect x='8' y='8' width='8' height='8' fill='%23F5B400'/><rect x='24' y='8' width='8' height='8' fill='%23F5B400'/><rect x='0' y='16' width='8' height='8' fill='%23F5B400'/><rect x='16' y='16' width='8' height='8' fill='%23F5B400'/><rect x='8' y='24' width='8' height='8' fill='%23F5B400'/><rect x='24' y='24' width='8' height='8' fill='%23F5B400'/></svg>">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Grid Walk">
+<meta property="og:title" content="Coke Zero Sugar 400 — Grid Walk">
+<meta property="og:description" content="Coke Zero Sugar 400: probabilistic NASCAR Cup Series predictions — Win, Top-5, and DNF probabilities for every driver.">
+<meta property="og:url" content="https://thegridwalk.com/prediction/2026026.html">
+<meta property="og:image" content="https://thegridwalk.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coke Zero Sugar 400 — Grid Walk">
+<meta name="twitter:description" content="Coke Zero Sugar 400: probabilistic NASCAR Cup Series predictions — Win, Top-5, and DNF probabilities for every driver.">
+<meta name="twitter:image" content="https://thegridwalk.com/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -245,6 +257,8 @@ a { color: inherit; }
   margin-bottom: var(--col-gap);
   overflow: hidden;
 }
+.card.card-slim .card-head { border-bottom: 0; }
+.card.card-slim .card-head .tag { color: var(--ink-3); }
 .card-head {
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px var(--pad);
@@ -1033,7 +1047,28 @@ body[data-tier="paid"] .free-only { display: none !important; }
   padding-left: 32px;
 }
 .home-sub-pricing {
-  display: flex; flex-direction: column; gap: 4px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.home-sub-tiers {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-top: 4px;
+}
+.home-sub-tier {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line-soft);
+  gap: 12px;
+}
+.home-sub-tier:last-child { border-bottom: 0; }
+.home-sub-tier-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px; font-weight: 700; color: var(--ink);
+  letter-spacing: -.01em;
+}
+.home-sub-tier-price {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: var(--ink-3);
+  letter-spacing: .08em; text-transform: uppercase;
 }
 .home-sub-coming {
   font-size: 10.5px; color: var(--ink-3);
@@ -1057,6 +1092,56 @@ body[data-tier="paid"] .free-only { display: none !important; }
   font-size: 10.5px; color: var(--ink-4);
   letter-spacing: .12em; text-transform: uppercase;
 }
+.home-sub-form {
+  display: flex; flex-direction: column; gap: 10px;
+  width: 100%; max-width: 320px;
+}
+.home-sub-input {
+  appearance: none;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font: 500 14px/1.4 'Inter', system-ui, sans-serif;
+  padding: 10px 14px;
+  border-radius: 4px;
+  width: 100%;
+}
+.home-sub-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(245,180,0,.18);
+}
+.home-sub-input::placeholder { color: var(--ink-4); }
+.home-sub-radios {
+  display: flex; flex-wrap: wrap; gap: 14px 18px;
+  border: 0; padding: 0; margin: 2px 0 0;
+}
+.home-sub-radios-legend {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; color: var(--ink-4);
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: 0; margin-bottom: 6px; width: 100%;
+}
+.home-sub-radios label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--ink-2);
+  cursor: pointer;
+}
+.home-sub-radios input[type="radio"] {
+  accent-color: var(--accent);
+  margin: 0;
+}
+.home-sub-form button:disabled { opacity: .55; cursor: progress; }
+.home-sub-msg {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .04em;
+  min-height: 1em;
+  color: var(--ink-3);
+  margin-top: -2px;
+}
+.home-sub-msg.success { color: var(--good); }
+.home-sub-msg.error { color: var(--risk); }
 @media (max-width: 920px) {
   .home-subscribe { grid-template-columns: 1fr; padding: 28px; gap: 24px; }
   .home-sub-r { border-left: 0; padding-left: 0; border-top: 1px solid var(--line-soft); padding-top: 22px; }
@@ -1103,6 +1188,44 @@ body[data-tier="paid"] .free-only { display: none !important; }
   .m-sticky .l { font-family: 'Inter Tight', sans-serif; font-weight: 700; }
   .m-sticky .r { font-family: 'IBM Plex Mono', monospace; color: var(--ink-3); font-size: 11px; }
 }
+
+/* Sticky unlock CTA — bottom of prediction page, free-tier only */
+.unlock-sticky {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  background: var(--bg-card);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 24px -12px rgba(0,0,0,.6);
+  backdrop-filter: blur(6px);
+}
+.unlock-sticky .l {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px; font-weight: 600; color: var(--ink);
+  line-height: 1.3;
+}
+.unlock-sticky .l small {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px; color: var(--ink-3);
+  letter-spacing: .1em; text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 2px;
+}
+.unlock-sticky .r { flex-shrink: 0; }
+.unlock-sticky .btn { white-space: nowrap; }
+.unlock-sticky-spacer { height: 72px; }
+@media (max-width: 720px) {
+  .unlock-sticky { padding: 10px 14px; gap: 10px; }
+  .unlock-sticky .l { font-size: 13px; }
+  .unlock-sticky .l small { font-size: 9.5px; }
+  .unlock-sticky-spacer { height: 84px; }
+}
 </style>
 </head>
 <body data-tier="free">
@@ -1122,7 +1245,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
       <button data-set-tier="paid" type="button">Paid</button>
     </div>
     <span class="chip-live">Model live</span>
-    <a class="btn free-only" href="#unlock">Subscribe</a>
+    <a class="btn free-only" href="/#unlock">Subscribe</a>
     <span class="chip-live paid-only" style="border-color:var(--accent);color:var(--accent)">SUBSCRIBER</span>
   </div>
   <div class="checker-band"></div>
@@ -1264,7 +1387,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <div class="bar"><div class="bar-fill good" style="width:17%"></div></div>
           <div class="val">17%</div>
         </div>
-        <div class="conf-row"><div class="lbl">Avg Spearman ρ</div><div class="bar"><div class="bar-fill info" style="width:11%"></div></div><div class="val">0.08</div></div>
+        <div class="conf-row"><div class="lbl">Rank fit (ρ)</div><div class="bar"><div class="bar-fill info" style="width:11%"></div></div><div class="val">0.08</div></div>
       </div>
       
           <div class="chaos-warn">
@@ -1278,16 +1401,10 @@ body[data-tier="paid"] .free-only { display: none !important; }
   </div>
 </div></div>
       <div>
-<div class="card">
+<div class="card card-slim">
   <div class="card-head">
     <h2><span class="num">03</span> Forecast Movement</h2>
-    <span class="tag">Mon → Practice → Final</span>
-  </div>
-  <div class="card-body">
-    <div class="unavailable-msg">
-      <b>Forecast movement coming soon</b>
-      How the model changed as practice and qualifying came in. This module activates once we capture prediction snapshots through the race week — historical predictions remain immutable, so we don't fabricate movement we didn't record.
-    </div>
+    <span class="tag">Coming soon</span>
   </div>
 </div></div>
     </div>
@@ -1589,7 +1706,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
     </div>
     <div class="right">
       <span class="csv">Download CSV ◦ subscriber</span>
-      <a class="btn" href="#unlock">Unlock the full race sheet</a>
+      <a class="btn" href="/#unlock">Unlock the full race sheet</a>
     </div>
   </div>
   <div class="proj-cta paid-only">
@@ -1609,18 +1726,26 @@ body[data-tier="paid"] .free-only { display: none !important; }
   <span>Grid Walk • Cup Series Model v2 (XGBoost)</span>
   <span>Generated 2026-03-17 09:09</span>
 </div>
+  <div class="unlock-sticky-spacer free-only"></div>
+</div>
+<div class="unlock-sticky free-only" role="region" aria-label="Unlock the full race sheet">
+  <div class="l">Unlock the full race sheet<small>Race Week Pass · pricing TBD</small></div>
+  <div class="r"><a class="btn btn-lg" href="/#unlock">Get notified</a></div>
 </div>
 
 <script>
 (function() {
   // ---------- Tier (free / paid) ----------
+  // Tier is URL-driven only. We do NOT read or write localStorage for gw_tier
+  // — the bare URL must always render free for fresh visitors, and previous
+  // ?tier=paid visits should not stick. Toggle clicks are session-only.
+  // Clean up any legacy gw_tier value from earlier builds.
+  try { localStorage.removeItem('gw_tier'); } catch (e) {}
   const params = new URLSearchParams(window.location.search);
   const urlTier = params.get('tier');
   const showPreview = params.get('preview') === '1' ||
                       localStorage.getItem('gw_preview') === '1';
-  let tier = urlTier || localStorage.getItem('gw_tier') || 'free';
-  if (tier !== 'paid') tier = 'free';
-  if (urlTier) localStorage.setItem('gw_tier', tier);
+  let tier = urlTier === 'paid' ? 'paid' : 'free';
   if (params.get('preview') === '1') localStorage.setItem('gw_preview', '1');
 
   function applyTier(t) {
@@ -1636,11 +1761,10 @@ body[data-tier="paid"] .free-only { display: none !important; }
     document.querySelectorAll('.preview-toggle').forEach(el => el.classList.add('show'));
   }
 
-  // Wire toggle buttons
+  // Wire toggle buttons (session-only — does not persist across page loads)
   document.querySelectorAll('.preview-toggle button').forEach(btn => {
     btn.addEventListener('click', () => {
       const t = btn.dataset.setTier;
-      localStorage.setItem('gw_tier', t);
       applyTier(t);
     });
   });
@@ -1662,6 +1786,64 @@ body[data-tier="paid"] .free-only { display: none !important; }
           t.classList.toggle('active', t.dataset.projViewTable === view);
         });
       });
+    });
+  }
+
+  // ---------- Subscriber notify form ----------
+  const SUPABASE_URL = 'https://unkiidiqufnsqljsifso.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_L2PFHZVxxtE5OaObll6OfQ_TIGIKI6-';
+  const notifyForm = document.getElementById('notify-form');
+  if (notifyForm) {
+    const emailInput = document.getElementById('notify-email');
+    const submitBtn = document.getElementById('notify-submit');
+    const msg = document.getElementById('notify-msg');
+    notifyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email || !emailInput.checkValidity()) {
+        msg.textContent = 'Please enter a valid email.';
+        msg.className = 'home-sub-msg error';
+        return;
+      }
+      submitBtn.disabled = true;
+      msg.textContent = 'Submitting…';
+      msg.className = 'home-sub-msg';
+      try {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/subscribers', {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_PUBLISHABLE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_PUBLISHABLE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            email: email,
+            source: 'homepage',
+            tier_interest: (notifyForm.querySelector('input[name="tier_interest"]:checked') || {}).value || 'either',
+            consent_marketing: true
+          })
+        });
+        if (res.ok) {
+          msg.textContent = "You're on the list. We'll email you when the paid tier launches.";
+          msg.className = 'home-sub-msg success';
+          emailInput.value = '';
+        } else if (res.status === 409) {
+          msg.textContent = 'Already on the list. Thanks!';
+          msg.className = 'home-sub-msg success';
+          emailInput.value = '';
+        } else {
+          console.error('Subscribe error', res.status, await res.text());
+          msg.textContent = 'Something went wrong. Please try again.';
+          msg.className = 'home-sub-msg error';
+        }
+      } catch (err) {
+        console.error('Subscribe network error', err);
+        msg.textContent = 'Network error. Please try again.';
+        msg.className = 'home-sub-msg error';
+      } finally {
+        submitBtn.disabled = false;
+      }
     });
   }
 
