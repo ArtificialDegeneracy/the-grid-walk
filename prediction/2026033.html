@@ -1448,6 +1448,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
         <dl>
           <dt>EP</dt><dd>Expected Points — Σ(bucket probability × bucket points). The model's primary signal. Higher = better projected finish; range 0–10.</dd>
           <dt>Win%</dt><dd>Probability of winning the race.</dd>
+          <dt>T3%</dt><dd>Probability of finishing 1st through 3rd (podium).</dd>
           <dt>T5%</dt><dd>Probability of finishing in the top 5.</dd>
           <dt>T10% / T20%</dt><dd>Probability of finishing in the top 10 / top 20.</dd>
           <dt>Made%</dt><dd>Probability of finishing 21st or worse but actually completing the race — the "ran in the back" bucket.</dd>
@@ -1458,11 +1459,18 @@ body[data-tier="paid"] .free-only { display: none !important; }
       <div class="col-key-section">
         <div class="col-key-head">Ratings &amp; features</div>
         <dl>
-          <dt>Drv ELO</dt><dd>Overall driver ELO rating. 1500 = field average; the spread across the field is roughly 30 points (1490–1520).</dd>
+          <dt>ELO / Drv ELO</dt><dd>Overall driver ELO rating. 1500 = field average; the spread across the field is roughly 30 points (1490–1520).</dd>
           <dt>TT ELO</dt><dd>Driver ELO at this specific track type (superspeedway / intermediate / short track / road course).</dd>
           <dt>Org</dt><dd>Organization equipment rating — recent finish history of the team's cars overall. Higher = stronger team.</dd>
           <dt>QualΔ</dt><dd>Qualifying delta vs the field average for this race. Negative = qualified better than average.</dd>
           <dt>SFΔ</dt><dd>Rolling start-finish delta at this track type. Negative = the driver typically gains positions over the course of similar races.</dd>
+        </dl>
+      </div>
+      <div class="col-key-section">
+        <div class="col-key-head">Track + practice</div>
+        <dl>
+          <dt>Track</dt><dd>Average finishing position at this specific track, with career starts in parentheses. Color: green ≤12, amber ≤18, dim otherwise. Hover shows best finish + last 3 starts.</dd>
+          <dt>Prac</dt><dd>Practice speed adjustment to the model's prediction. Positive (green) = faster than the field average in practice; negative (red) = slower. Dash means no practice session yet, or no data for that driver.</dd>
         </dl>
       </div>
     </div>
@@ -1478,9 +1486,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <th title="Qualifying / starting position">Q</th>
           <th title="Expected Points — Σ(bucket prob × bucket points). Range 0–10.">EP</th>
           <th title="Probability of winning the race">Win%</th>
+          <th title="Probability of finishing 1st through 3rd (podium)">T3%</th>
           <th title="Probability of finishing in the top 5">T5%</th>
           <th title="Probability of finishing in the top 10">T10%</th>
           <th title="Probability of not finishing (crash, mechanical, etc.)">DNF%</th>
+          <th title="Driver ELO — overall driver rating. 1500 = field average; field spread ~30 points.">ELO</th>
+          <th title="Organization equipment rating (higher = stronger team)">Org</th>
+          <th title="Avg finishing position at this track (career starts in parentheses; hover for best + last 3)">Track</th>
+          <th title="Practice speed adjustment (+ = faster than avg, − = slower; '—' if no practice yet)">Prac</th>
         </tr>
       </thead>
       <tbody><tr class="">
@@ -1491,9 +1504,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P20</td>
           <td>2.95</td>
           <td class="win-cell">7.5%</td>
+          <td>11.7%</td>
           <td>8%</td>
           <td>9%</td>
           <td class="dnf-cell">24.4%</td>
+          <td>1500</td>
+          <td>21.0</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr></tbody>
     </table>
     <table class="proj proj-view" data-proj-view-table="probabilities">

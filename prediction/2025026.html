@@ -1707,6 +1707,7 @@ body[data-tier="paid"] .free-only { display: none !important; }
         <dl>
           <dt>EP</dt><dd>Expected Points — Σ(bucket probability × bucket points). The model's primary signal. Higher = better projected finish; range 0–10.</dd>
           <dt>Win%</dt><dd>Probability of winning the race.</dd>
+          <dt>T3%</dt><dd>Probability of finishing 1st through 3rd (podium).</dd>
           <dt>T5%</dt><dd>Probability of finishing in the top 5.</dd>
           <dt>T10% / T20%</dt><dd>Probability of finishing in the top 10 / top 20.</dd>
           <dt>Made%</dt><dd>Probability of finishing 21st or worse but actually completing the race — the "ran in the back" bucket.</dd>
@@ -1717,11 +1718,18 @@ body[data-tier="paid"] .free-only { display: none !important; }
       <div class="col-key-section">
         <div class="col-key-head">Ratings &amp; features</div>
         <dl>
-          <dt>Drv ELO</dt><dd>Overall driver ELO rating. 1500 = field average; the spread across the field is roughly 30 points (1490–1520).</dd>
+          <dt>ELO / Drv ELO</dt><dd>Overall driver ELO rating. 1500 = field average; the spread across the field is roughly 30 points (1490–1520).</dd>
           <dt>TT ELO</dt><dd>Driver ELO at this specific track type (superspeedway / intermediate / short track / road course).</dd>
           <dt>Org</dt><dd>Organization equipment rating — recent finish history of the team's cars overall. Higher = stronger team.</dd>
           <dt>QualΔ</dt><dd>Qualifying delta vs the field average for this race. Negative = qualified better than average.</dd>
           <dt>SFΔ</dt><dd>Rolling start-finish delta at this track type. Negative = the driver typically gains positions over the course of similar races.</dd>
+        </dl>
+      </div>
+      <div class="col-key-section">
+        <div class="col-key-head">Track + practice</div>
+        <dl>
+          <dt>Track</dt><dd>Average finishing position at this specific track, with career starts in parentheses. Color: green ≤12, amber ≤18, dim otherwise. Hover shows best finish + last 3 starts.</dd>
+          <dt>Prac</dt><dd>Practice speed adjustment to the model's prediction. Positive (green) = faster than the field average in practice; negative (red) = slower. Dash means no practice session yet, or no data for that driver.</dd>
         </dl>
       </div>
     </div>
@@ -1737,9 +1745,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <th title="Qualifying / starting position">Q</th>
           <th title="Expected Points — Σ(bucket prob × bucket points). Range 0–10.">EP</th>
           <th title="Probability of winning the race">Win%</th>
+          <th title="Probability of finishing 1st through 3rd (podium)">T3%</th>
           <th title="Probability of finishing in the top 5">T5%</th>
           <th title="Probability of finishing in the top 10">T10%</th>
           <th title="Probability of not finishing (crash, mechanical, etc.)">DNF%</th>
+          <th title="Driver ELO — overall driver rating. 1500 = field average; field spread ~30 points.">ELO</th>
+          <th title="Organization equipment rating (higher = stronger team)">Org</th>
+          <th title="Avg finishing position at this track (career starts in parentheses; hover for best + last 3)">Track</th>
+          <th title="Practice speed adjustment (+ = faster than avg, − = slower; '—' if no practice yet)">Prac</th>
         </tr>
       </thead>
       <tbody><tr class="">
@@ -1750,9 +1763,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P8</td>
           <td>5.38</td>
           <td class="win-cell">31.1%</td>
+          <td>36.9%</td>
           <td>12%</td>
           <td>17%</td>
           <td class="dnf-cell">13.8%</td>
+          <td>1508</td>
+          <td>26.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="">
           <td class="l"><span class="pos-pill">2</span></td>
           <td class="l mono">19</td>
@@ -1761,9 +1779,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P9</td>
           <td>5.07</td>
           <td class="win-cell">26.7%</td>
+          <td>34.4%</td>
           <td>15%</td>
           <td>17%</td>
           <td class="dnf-cell">18.8%</td>
+          <td>1508</td>
+          <td>27.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="">
           <td class="l"><span class="pos-pill">3</span></td>
           <td class="l mono">11</td>
@@ -1772,9 +1795,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P6</td>
           <td>5.07</td>
           <td class="win-cell">13.7%</td>
+          <td>31.9%</td>
           <td>36%</td>
           <td>15%</td>
           <td class="dnf-cell">16.0%</td>
+          <td>1511</td>
+          <td>27.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="">
           <td class="l"><span class="pos-pill">4</span></td>
           <td class="l mono">5</td>
@@ -1783,9 +1811,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P3</td>
           <td>4.92</td>
           <td class="win-cell">28.9%</td>
+          <td>34.7%</td>
           <td>12%</td>
           <td>12%</td>
           <td class="dnf-cell">19.2%</td>
+          <td>1512</td>
+          <td>26.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="">
           <td class="l"><span class="pos-pill">5</span></td>
           <td class="l mono">2</td>
@@ -1794,9 +1827,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P5</td>
           <td>4.75</td>
           <td class="win-cell">21.8%</td>
+          <td>29.1%</td>
           <td>15%</td>
           <td>18%</td>
           <td class="dnf-cell">11.3%</td>
+          <td>1513</td>
+          <td>24.5</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">6</span></td>
           <td class="l mono">12</td>
@@ -1805,9 +1843,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P1</td>
           <td>4.64</td>
           <td class="win-cell">18.5%</td>
+          <td>29.7%</td>
           <td>22%</td>
           <td>12%</td>
           <td class="dnf-cell">18.2%</td>
+          <td>1514</td>
+          <td>24.5</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">7</span></td>
           <td class="l mono">22</td>
@@ -1816,9 +1859,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P4</td>
           <td>4.32</td>
           <td class="win-cell">14.6%</td>
+          <td>25.7%</td>
           <td>22%</td>
           <td>12%</td>
           <td class="dnf-cell">21.7%</td>
+          <td>1514</td>
+          <td>24.5</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">8</span></td>
           <td class="l mono">6</td>
@@ -1827,9 +1875,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P10</td>
           <td>4.29</td>
           <td class="win-cell">13.6%</td>
+          <td>23.9%</td>
           <td>21%</td>
           <td>15%</td>
           <td class="dnf-cell">17.3%</td>
+          <td>1512</td>
+          <td>24.0</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">9</span></td>
           <td class="l mono">17</td>
@@ -1838,9 +1891,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P24</td>
           <td>4.28</td>
           <td class="win-cell">6.7%</td>
+          <td>21.1%</td>
           <td>29%</td>
           <td>19%</td>
           <td class="dnf-cell">15.3%</td>
+          <td>1497</td>
+          <td>24.0</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">10</span></td>
           <td class="l mono">48</td>
@@ -1849,9 +1907,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P2</td>
           <td>4.26</td>
           <td class="win-cell">13.2%</td>
+          <td>22.6%</td>
           <td>19%</td>
           <td>24%</td>
           <td class="dnf-cell">25.3%</td>
+          <td>1515</td>
+          <td>26.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">11</span></td>
           <td class="l mono">20</td>
@@ -1860,9 +1923,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P15</td>
           <td>3.94</td>
           <td class="win-cell">6.7%</td>
+          <td>18.7%</td>
           <td>24%</td>
           <td>17%</td>
           <td class="dnf-cell">19.6%</td>
+          <td>1503</td>
+          <td>27.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">12</span></td>
           <td class="l mono">9</td>
@@ -1871,9 +1939,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P30</td>
           <td>3.69</td>
           <td class="win-cell">5.7%</td>
+          <td>14.0%</td>
           <td>17%</td>
           <td>18%</td>
           <td class="dnf-cell">14.5%</td>
+          <td>1492</td>
+          <td>26.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">13</span></td>
           <td class="l mono">23</td>
@@ -1882,9 +1955,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P22</td>
           <td>3.62</td>
           <td class="win-cell">11.2%</td>
+          <td>18.2%</td>
           <td>14%</td>
           <td>16%</td>
           <td class="dnf-cell">24.5%</td>
+          <td>1498</td>
+          <td>21.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">14</span></td>
           <td class="l mono">54</td>
@@ -1893,9 +1971,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P18</td>
           <td>3.61</td>
           <td class="win-cell">9.4%</td>
+          <td>17.4%</td>
           <td>16%</td>
           <td>13%</td>
           <td class="dnf-cell">21.1%</td>
+          <td>1506</td>
+          <td>27.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">15</span></td>
           <td class="l mono">8</td>
@@ -1904,9 +1987,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P14</td>
           <td>3.48</td>
           <td class="win-cell">5.3%</td>
+          <td>14.2%</td>
           <td>18%</td>
           <td>14%</td>
           <td class="dnf-cell">21.6%</td>
+          <td>1507</td>
+          <td>21.5</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">16</span></td>
           <td class="l mono">60</td>
@@ -1915,9 +2003,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P31</td>
           <td>3.33</td>
           <td class="win-cell">4.0%</td>
+          <td>10.4%</td>
           <td>13%</td>
           <td>14%</td>
           <td class="dnf-cell">14.7%</td>
+          <td>1494</td>
+          <td>24.0</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">17</span></td>
           <td class="l mono">3</td>
@@ -1926,9 +2019,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P7</td>
           <td>3.28</td>
           <td class="win-cell">2.0%</td>
+          <td>11.5%</td>
           <td>19%</td>
           <td>19%</td>
           <td class="dnf-cell">25.9%</td>
+          <td>1515</td>
+          <td>21.5</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">18</span></td>
           <td class="l mono">1</td>
@@ -1937,9 +2035,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P19</td>
           <td>3.02</td>
           <td class="win-cell">8.2%</td>
+          <td>14.8%</td>
           <td>13%</td>
           <td>9%</td>
           <td class="dnf-cell">29.3%</td>
+          <td>1504</td>
+          <td>21.2</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">19</span></td>
           <td class="l mono">45</td>
@@ -1948,9 +2051,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P27</td>
           <td>2.92</td>
           <td class="win-cell">3.5%</td>
+          <td>8.0%</td>
           <td>9%</td>
           <td>12%</td>
           <td class="dnf-cell">16.3%</td>
+          <td>1494</td>
+          <td>21.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">20</span></td>
           <td class="l mono">71</td>
@@ -1959,9 +2067,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P20</td>
           <td>2.91</td>
           <td class="win-cell">4.9%</td>
+          <td>10.4%</td>
           <td>11%</td>
           <td>13%</td>
           <td class="dnf-cell">27.4%</td>
+          <td>1505</td>
+          <td>19.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">21</span></td>
           <td class="l mono">88</td>
@@ -1970,9 +2083,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P17</td>
           <td>2.89</td>
           <td class="win-cell">3.2%</td>
+          <td>7.4%</td>
           <td>8%</td>
           <td>18%</td>
           <td class="dnf-cell">24.3%</td>
+          <td>1508</td>
+          <td>21.2</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">22</span></td>
           <td class="l mono">99</td>
@@ -1981,9 +2099,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P12</td>
           <td>2.88</td>
           <td class="win-cell">3.4%</td>
+          <td>7.8%</td>
           <td>9%</td>
           <td>16%</td>
           <td class="dnf-cell">23.2%</td>
+          <td>1511</td>
+          <td>21.2</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">23</span></td>
           <td class="l mono">16</td>
@@ -1992,9 +2115,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P21</td>
           <td>2.88</td>
           <td class="win-cell">5.1%</td>
+          <td>8.8%</td>
           <td>7%</td>
           <td>12%</td>
           <td class="dnf-cell">19.9%</td>
+          <td>1502</td>
+          <td>19.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">24</span></td>
           <td class="l mono">21</td>
@@ -2003,9 +2131,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P11</td>
           <td>2.84</td>
           <td class="win-cell">2.6%</td>
+          <td>8.4%</td>
           <td>12%</td>
           <td>12%</td>
           <td class="dnf-cell">22.9%</td>
+          <td>1512</td>
+          <td>16.7</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">25</span></td>
           <td class="l mono">77</td>
@@ -2014,9 +2147,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P16</td>
           <td>2.83</td>
           <td class="win-cell">7.8%</td>
+          <td>10.5%</td>
           <td>6%</td>
           <td>9%</td>
           <td class="dnf-cell">24.3%</td>
+          <td>1507</td>
+          <td>19.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">26</span></td>
           <td class="l mono">42</td>
@@ -2025,9 +2163,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P34</td>
           <td>2.65</td>
           <td class="win-cell">4.4%</td>
+          <td>6.0%</td>
           <td>3%</td>
           <td>22%</td>
           <td class="dnf-cell">31.3%</td>
+          <td>1494</td>
+          <td>18.8</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">27</span></td>
           <td class="l mono">47</td>
@@ -2036,9 +2179,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P25</td>
           <td>2.54</td>
           <td class="win-cell">6.8%</td>
+          <td>8.9%</td>
           <td>4%</td>
           <td>13%</td>
           <td class="dnf-cell">27.7%</td>
+          <td>1502</td>
+          <td>19.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">28</span></td>
           <td class="l mono">7</td>
@@ -2047,9 +2195,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P37</td>
           <td>2.50</td>
           <td class="win-cell">3.9%</td>
+          <td>6.2%</td>
           <td>5%</td>
           <td>14%</td>
           <td class="dnf-cell">26.1%</td>
+          <td>1493</td>
+          <td>19.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">29</span></td>
           <td class="l mono">35</td>
@@ -2058,9 +2211,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P33</td>
           <td>2.43</td>
           <td class="win-cell">2.6%</td>
+          <td>4.3%</td>
           <td>3%</td>
           <td>17%</td>
           <td class="dnf-cell">26.9%</td>
+          <td>1496</td>
+          <td>21.4</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">30</span></td>
           <td class="l mono">4</td>
@@ -2069,9 +2227,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P32</td>
           <td>2.40</td>
           <td class="win-cell">8.3%</td>
+          <td>10.2%</td>
           <td>4%</td>
           <td>8%</td>
           <td class="dnf-cell">30.3%</td>
+          <td>1499</td>
+          <td>18.2</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">31</span></td>
           <td class="l mono">10</td>
@@ -2080,9 +2243,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P23</td>
           <td>2.31</td>
           <td class="win-cell">2.2%</td>
+          <td>3.5%</td>
           <td>3%</td>
           <td>11%</td>
           <td class="dnf-cell">21.6%</td>
+          <td>1504</td>
+          <td>19.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">32</span></td>
           <td class="l mono">34</td>
@@ -2091,9 +2259,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P28</td>
           <td>2.30</td>
           <td class="win-cell">1.8%</td>
+          <td>4.2%</td>
           <td>5%</td>
           <td>11%</td>
           <td class="dnf-cell">24.7%</td>
+          <td>1501</td>
+          <td>18.2</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">33</span></td>
           <td class="l mono">38</td>
@@ -2102,9 +2275,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P13</td>
           <td>2.18</td>
           <td class="win-cell">2.0%</td>
+          <td>3.5%</td>
           <td>3%</td>
           <td>12%</td>
           <td class="dnf-cell">24.4%</td>
+          <td>1510</td>
+          <td>18.2</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">34</span></td>
           <td class="l mono">43</td>
@@ -2113,9 +2291,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P26</td>
           <td>2.13</td>
           <td class="win-cell">1.7%</td>
+          <td>3.6%</td>
           <td>4%</td>
           <td>10%</td>
           <td class="dnf-cell">24.2%</td>
+          <td>1500</td>
+          <td>18.8</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">35</span></td>
           <td class="l mono">41</td>
@@ -2124,9 +2307,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P29</td>
           <td>1.90</td>
           <td class="win-cell">2.2%</td>
+          <td>3.0%</td>
           <td>2%</td>
           <td>9%</td>
           <td class="dnf-cell">22.5%</td>
+          <td>1502</td>
+          <td>16.2</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">36</span></td>
           <td class="l mono">33</td>
@@ -2135,9 +2323,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P36</td>
           <td>1.59</td>
           <td class="win-cell">0.9%</td>
+          <td>1.7%</td>
           <td>2%</td>
           <td>7%</td>
           <td class="dnf-cell">29.5%</td>
+          <td>1511</td>
+          <td>20.5</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">37</span></td>
           <td class="l mono">51</td>
@@ -2146,9 +2339,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P35</td>
           <td>1.47</td>
           <td class="win-cell">0.8%</td>
+          <td>1.4%</td>
           <td>1%</td>
           <td>5%</td>
           <td class="dnf-cell">23.3%</td>
+          <td>1496</td>
+          <td>14.1</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">38</span></td>
           <td class="l mono">44</td>
@@ -2157,9 +2355,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P40</td>
           <td>1.14</td>
           <td class="win-cell">0.8%</td>
+          <td>1.6%</td>
           <td>2%</td>
           <td>2%</td>
           <td class="dnf-cell">25.6%</td>
+          <td>1492</td>
+          <td>7.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">39</span></td>
           <td class="l mono">78</td>
@@ -2168,9 +2371,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P38</td>
           <td>1.14</td>
           <td class="win-cell">1.2%</td>
+          <td>1.9%</td>
           <td>1%</td>
           <td>5%</td>
           <td class="dnf-cell">41.4%</td>
+          <td>1506</td>
+          <td>10.2</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr><tr class="locked-row">
           <td class="l"><span class="pos-pill">40</span></td>
           <td class="l mono">66</td>
@@ -2179,9 +2387,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
           <td>P39</td>
           <td>0.90</td>
           <td class="win-cell">0.6%</td>
+          <td>1.2%</td>
           <td>1%</td>
           <td>2%</td>
           <td class="dnf-cell">35.9%</td>
+          <td>1495</td>
+          <td>7.3</td>
+          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
+          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
         </tr></tbody>
     </table>
     <table class="proj proj-view" data-proj-view-table="probabilities">
