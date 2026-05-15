@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grid Walk — NASCAR Cup Series race intelligence</title>
+<title>Signing in — Grid Walk</title>
+
 <meta name="description" content="Probabilistic NASCAR Cup Series predictions — used by bettors and DFS players to find edge before race day.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><rect x='0' y='0' width='8' height='8' fill='%23F5B400'/><rect x='16' y='0' width='8' height='8' fill='%23F5B400'/><rect x='8' y='8' width='8' height='8' fill='%23F5B400'/><rect x='24' y='8' width='8' height='8' fill='%23F5B400'/><rect x='0' y='16' width='8' height='8' fill='%23F5B400'/><rect x='16' y='16' width='8' height='8' fill='%23F5B400'/><rect x='8' y='24' width='8' height='8' fill='%23F5B400'/><rect x='24' y='24' width='8' height='8' fill='%23F5B400'/></svg>">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grid Walk">
-<meta property="og:title" content="Grid Walk — NASCAR Cup Series race intelligence">
+<meta property="og:title" content="Signing in — Grid Walk">
 <meta property="og:description" content="Probabilistic NASCAR Cup Series predictions — used by bettors and DFS players to find edge before race day.">
-<meta property="og:url" content="https://thegridwalk.com/">
+<meta property="og:url" content="https://thegridwalk.com/auth/callback">
 <meta property="og:image" content="https://thegridwalk.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Grid Walk — NASCAR Cup Series race intelligence">
+<meta name="twitter:title" content="Signing in — Grid Walk">
 <meta name="twitter:description" content="Probabilistic NASCAR Cup Series predictions — used by bettors and DFS players to find edge before race day.">
 <meta name="twitter:image" content="https://thegridwalk.com/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1336,745 +1337,113 @@ body[data-tier="paid"] .free-only { display: none !important; }
   .unlock-sticky .l small { font-size: 9.5px; }
   .unlock-sticky-spacer { height: 84px; }
 }
+
+.auth-cb {
+  max-width: 460px; margin: 80px auto; padding: 28px 28px 24px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+.auth-cb h1 { margin: 0 0 10px; font-family: 'Inter Tight', sans-serif; font-size: 22px; }
+.auth-cb p { color: var(--ink-2); font-size: 14px; }
+.auth-cb .actions { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+.auth-cb.error h1 { color: var(--risk); }
 </style>
 </head>
-<body data-tier="free" data-auth="loading">
+<body>
+<div class="auth-cb" id="auth-state-loading">
+  <h1>Signing you in…</h1>
+  <p>One moment while we finish the handshake.</p>
+</div>
+<div class="auth-cb error" id="auth-state-expired" style="display:none">
+  <h1>Link expired</h1>
+  <p>Magic links are single-use and expire after about an hour. Request a new one — we'll send it to the same address.</p>
+  <div class="actions">
+    <a class="btn" href="/">Back to Grid Walk</a>
+  </div>
+  <p style="color:var(--ink-3);font-size:12px;margin-top:14px">
+    Tip: open the link from the same browser you used to request it. Cross-browser sign-in won't work.
+  </p>
+</div>
+<div class="auth-cb error" id="auth-state-error" style="display:none">
+  <h1>Sign-in failed</h1>
+  <p id="auth-error-detail">Something went wrong while signing you in.</p>
+  <div class="actions">
+    <a class="btn" href="/">Back to Grid Walk</a>
+  </div>
+</div>
 
 <script>
 window.GW_CFG = {
   supabaseUrl: 'https://unkiidiqufnsqljsifso.supabase.co',
-  supabaseKey: 'sb_publishable_L2PFHZVxxtE5OaObll6OfQ_TIGIKI6-',
-  storageBucket: 'predictions',
-  checkoutFnUrl: 'https://unkiidiqufnsqljsifso.supabase.co/functions/v1/create-checkout-session',
-  exchangeFnUrl: 'https://unkiidiqufnsqljsifso.supabase.co/functions/v1/exchange-checkout-session',
-  // Resolved at runtime so localhost dev signs in against localhost, not prod.
-  siteUrl: window.location.origin
+  supabaseKey: 'sb_publishable_L2PFHZVxxtE5OaObll6OfQ_TIGIKI6-'
 };
 </script>
-
-<div class="chrome">
-  <div class="chrome-inner">
-    <a class="brand" href="/">
-      <div class="brand-mark"></div>
-      <div class="brand-name">Grid Walk <span>/ Cup Series</span></div>
-    </a>
-    <div class="nav"><a class="active" href="/">This Week</a></div>
-    <div class="chrome-spacer"></div>
-    <div class="preview-toggle" id="previewToggle" role="group" aria-label="Preview tier">
-      <button data-set-tier="free" type="button">Free</button>
-      <button data-set-tier="paid" type="button">Paid</button>
-    </div>
-    <span class="chip-live">Model live</span>
-    <button class="btn free-only" type="button" data-action="open-upgrade">Upgrade</button>
-    <span class="chip-live paid-only" style="border-color:var(--accent);color:var(--accent)">SUBSCRIBER</span>
-
-    <button class="auth-recover-link auth-anon-only" type="button" data-auth-action="signin">Already paid? Sign in</button>
-    <span class="auth-user-chip auth-user-only">
-      <span class="auth-email"></span>
-      <button class="auth-signout" type="button" data-auth-action="signout">Sign out</button>
-    </span>
-  </div>
-  <div class="checker-band"></div>
-</div>
-<div class="page home-page">
-  
-<section class="home-hero">
-  <div class="home-hero-eyebrow mono">Next Race: Sunday May 17th 2026</div>
-  <h1 class="home-hero-h1">Walk the grid before the race.</h1>
-  <p class="home-hero-sub">Probabilistic NASCAR Cup Series predictions — used by bettors and DFS players to find edge before race day.</p>
-  <div class="home-hero-cta">
-    <a class="btn btn-lg" href="/prediction/2026900.html">See this week's race →</a>
-    <span class="home-hero-cta-meta">Dover Motor Speedway · Short Track</span>
-  </div>
-</section>
-  
-<section class="home-stats">
-  <div class="home-stat">
-    <div class="home-stat-num mono">41%</div>
-    <div class="home-stat-lbl">Top-5 hit rate</div>
-    <div class="home-stat-note">vs ~14% random</div>
-  </div>
-  <div class="home-stat">
-    <div class="home-stat-num mono">21%</div>
-    <div class="home-stat-lbl">Winner call rate</div>
-    <div class="home-stat-note">vs ~3% random</div>
-  </div>
-  <div class="home-stat">
-    <div class="home-stat-num mono">0.42</div>
-    <div class="home-stat-lbl">Rank fit (ρ)</div>
-    <div class="home-stat-note">1.0 = perfect order · 0 = random</div>
-  </div>
-  <div class="home-stat">
-    <div class="home-stat-num mono">48</div>
-    <div class="home-stat-lbl">Races graded</div>
-    <div class="home-stat-note">since 2025</div>
-  </div>
-</section>
-  
-<div class="card home-next">
-  <div class="card-head">
-    <h2><span class="num">01</span> This Week</h2>
-    <span class="tag">Sunday, May 17, 2026</span>
-  </div>
-  <div class="card-body home-next-body">
-    <div class="home-next-l">
-      <div class="home-next-track">Dover Motor Speedway</div>
-      <div class="home-next-race">NASCAR All-Star Race</div>
-      <div class="home-next-meta">
-        <div><span class="lbl mono">Track Type</span><b>Short Track</b></div>
-        <div><span class="lbl mono">Field</span><b class="mono">19 drivers</b></div>
-      </div>
-      <a class="btn home-next-cta" href="/prediction/2026900.html">Open the race sheet →</a>
-    </div>
-    <div class="home-next-r">
-      <div class="mono home-next-r-lbl">Top Win Picks</div>
-      <div class="home-pick-row"><span class="home-pick-name">1. Tyler Reddick</span><span class="mono home-pick-pct">10.4%</span></div><div class="home-pick-row"><span class="home-pick-name">2. Denny Hamlin</span><span class="mono home-pick-pct">9.9%</span></div><div class="home-pick-row"><span class="home-pick-name">3. Ryan Blaney</span><span class="mono home-pick-pct">8.4%</span></div>
-    </div>
-  </div>
-</div>
-  
-<div class="card home-exhibition">
-  <div class="card-head">
-    <h2><span class="num">★</span> Upcoming Exhibition</h2>
-    <span class="tag" style="border-color:var(--accent);color:var(--accent)">EXHIBITION</span>
-  </div>
-  <div class="card-body" style="padding:18px 22px">
-    <div style="font-size:18px;font-weight:700;letter-spacing:-0.01em">NASCAR All-Star Race · Dover Motor Speedway</div>
-    <div class="mono" style="color:var(--ink-2);font-size:13px;margin-top:4px">Sunday, May 17, 2026</div>
-    <div style="color:var(--ink-2);font-size:14px;margin-top:10px;line-height:1.5">Exhibition race. Predictions go live Thursday once the field firms up.</div>
-  </div>
-</div>
-  
-<section class="home-how">
-  <div class="home-how-head">How it works</div>
-  <div class="home-how-grid">
-    <div class="home-how-col">
-      <div class="home-how-col-h">The Model</div>
-      <p>XGBoost multinomial classifier trained on 2020–2025, ~8K driver-race rows. 16 features blending driver ELO, track-type history, qualifying, and team strength.</p>
-    </div>
-    <div class="home-how-col">
-      <div class="home-how-col-h">The Method</div>
-      <p>Walk-forward validation, no leakage. Every feature is computed using only data available before the race. Predictions are graded against real finishing order.</p>
-    </div>
-    <div class="home-how-col">
-      <div class="home-how-col-h">The Output</div>
-      <p>Win, Top-5, and Top-10 finish probabilities per driver, combined into Expected Points. Pick groups for Win, Top-3, Top-5, Top-10, Sleepers, and High-Risk. The whole field, ranked, every race.</p>
-    </div>
-  </div>
-</section>
-  
-<div class="card">
-  <div class="card-head"><h2><span class="num">02</span> Track Record</h2><span class="tag">Last 5 races</span></div>
-  <div class="table-wrap">
-    <table class="proj">
-      <thead><tr><th>Track</th><th>Race</th><th>Date</th><th>Rank fit (ρ)</th><th>Top-5</th></tr></thead>
-      <tbody>
-            <tr style="cursor:pointer" onclick="window.location='/prediction/2026012.html'">
-              <td class="l driver">Watkins Glen International</td>
-              <td class="l team">Go Bowling at The Glen</td>
-              <td class="l team">Sunday, May 10, 2026</td>
-              <td style="color:var(--good)">ρ 0.47</td>
-              <td>2/5</td>
-            </tr>
-            <tr style="cursor:pointer" onclick="window.location='/prediction/2026011.html'">
-              <td class="l driver">Texas Motor Speedway</td>
-              <td class="l team">Wurth 400 presented by LIQUI MOLY</td>
-              <td class="l team">Sunday, May 3, 2026</td>
-              <td style="color:var(--good)">ρ 0.46</td>
-              <td>2/5</td>
-            </tr>
-            <tr style="cursor:pointer" onclick="window.location='/prediction/2026010.html'">
-              <td class="l driver">Talladega Superspeedway</td>
-              <td class="l team">Jack Link's 500</td>
-              <td class="l team">Sunday, April 26, 2026</td>
-              <td style="color:var(--risk)">ρ -0.08</td>
-              <td>0/5</td>
-            </tr>
-            <tr style="cursor:pointer" onclick="window.location='/prediction/2026009.html'">
-              <td class="l driver">Kansas Speedway</td>
-              <td class="l team">AdventHealth 400</td>
-              <td class="l team">Sunday, April 19, 2026</td>
-              <td style="color:var(--good)">ρ 0.72</td>
-              <td>3/5</td>
-            </tr>
-            <tr style="cursor:pointer" onclick="window.location='/prediction/2026008.html'">
-              <td class="l driver">Bristol Motor Speedway</td>
-              <td class="l team">Food City 500</td>
-              <td class="l team">Sunday, April 12, 2026</td>
-              <td style="color:var(--good)">ρ 0.68</td>
-              <td>3/5</td>
-            </tr></tbody>
-    </table>
-  </div>
-</div>
-  
-<div class="card">
-  <div class="card-head"><h2><span class="num">03</span> Coming Up</h2><span class="tag">Next 1 races</span></div>
-  <div class="card-body home-soon-grid">
-    
-        <a href="/prediction/2026013.html" class="home-soon-card">
-          <div class="home-soon-track">Charlotte Motor Speedway</div>
-          <div class="home-soon-race">Coca-Cola 600</div>
-          <div class="mono home-soon-meta">Sunday, May 24, 2026 · intermediate</div>
-        </a>
-  </div>
-</div>
-  
-<section class="home-subscribe" id="unlock">
-  <div class="home-sub-l">
-    <div class="mono home-sub-eyebrow">Race Week Pass</div>
-    <h2 class="home-sub-h">Want the full board?</h2>
-    <ul class="home-sub-list">
-      <li>Full projections table — every driver, every probability, sortable, downloadable as CSV</li>
-      <li>Pick groups in full — Win, Top-5, Top-10, Sleepers, High-Risk — beyond the top picks shown free</li>
-      <li>Driver Spotlight breakdowns for the full top 3, not just the headline pick</li>
-    </ul>
-  </div>
-  <div class="home-sub-r">
-    <div class="home-sub-pricing">
-      <div class="mono home-sub-coming">Coming Soon</div>
-      <div class="home-sub-tiers">
-        <div class="home-sub-tier"><span class="home-sub-tier-name">Weekly Pass</span><span class="home-sub-tier-price">$9</span></div>
-        <div class="home-sub-tier"><span class="home-sub-tier-name">Monthly</span><span class="home-sub-tier-price">$25.03 <span class="home-sub-tier-note">· salute to #3</span></span></div>
-      </div>
-      <div class="home-sub-cancel">Cancel anytime</div>
-    </div>
-    <form id="notify-form" class="home-sub-form" novalidate>
-      <input id="notify-email" type="email" name="email" required
-             placeholder="you@example.com" autocomplete="email"
-             class="home-sub-input" aria-label="Email address">
-      <fieldset class="home-sub-radios" aria-label="Which pricing interests you?">
-        <legend class="home-sub-radios-legend">Which works for you?</legend>
-        <label><input type="radio" name="tier_interest" value="weekly"> Weekly</label>
-        <label><input type="radio" name="tier_interest" value="monthly"> Monthly</label>
-        <label><input type="radio" name="tier_interest" value="either" checked> Either</label>
-      </fieldset>
-      <button type="submit" class="btn btn-lg" id="notify-submit">Notify me when ready</button>
-      <div id="notify-msg" class="home-sub-msg" role="status" aria-live="polite"></div>
-    </form>
-    <div class="home-sub-meta">Free tier stays free, always</div>
-  </div>
-</section>
-  <div class="foot">
-    <span>Grid Walk · Cup Series Model v2 (XGBoost) · thegridwalk.com</span>
-    <span><span class="free-only">Free preview · Race Week Pass for the full board</span><span class="paid-only">Subscriber view · full board active</span></span>
-  </div>
-</div>
-
-<div id="gw-signin-modal" class="gw-modal-backdrop" role="dialog" aria-modal="true" aria-label="Sign back in">
-  <div class="gw-modal">
-    <h3>Sign back in</h3>
-    <p>Already paid for Grid Walk on another device? Enter your email and we'll send a sign-in link.</p>
-    <p style="color:var(--ink-3);font-size:12px;margin-top:-6px">
-      New here? You don't need to sign in first — just hit Upgrade and we'll set up your account after payment.
-    </p>
-    <form id="gw-signin-form" novalidate>
-      <label for="gw-signin-email">Email</label>
-      <input id="gw-signin-email" type="email" name="email" required
-             placeholder="you@example.com" autocomplete="email">
-      <div class="gw-modal-actions">
-        <button class="btn btn-ghost" type="button" data-modal-close>Cancel</button>
-        <button class="btn" type="submit" id="gw-signin-submit">Send link</button>
-      </div>
-      <div id="gw-signin-msg" class="gw-modal-msg" role="status" aria-live="polite"></div>
-    </form>
-  </div>
-</div>
-<div id="gw-upgrade-modal" class="gw-modal-backdrop" role="dialog" aria-modal="true" aria-label="Choose a pass">
-  <div class="gw-modal">
-    <h3>Unlock the full board</h3>
-    <p>Pick a pass — cancel anytime. We'll set up your account after payment.</p>
-    <div class="gw-tier-choices">
-      <button class="gw-tier-choice" type="button" data-upgrade-tier="weekly">
-        <span><span class="name">Weekly Pass</span><span class="note">7 days · one-time</span></span>
-        <span class="price">$9</span>
-      </button>
-      <button class="gw-tier-choice" type="button" data-upgrade-tier="monthly">
-        <span><span class="name">Monthly</span><span class="note">salute to #3</span></span>
-        <span class="price">$25.03</span>
-      </button>
-    </div>
-    <div class="gw-modal-actions">
-      <button class="btn btn-ghost" type="button" data-modal-close>Cancel</button>
-    </div>
-    <div id="gw-upgrade-msg" class="gw-modal-msg" role="status" aria-live="polite"></div>
-  </div>
-</div>
-<div id="gw-activating-toast" class="gw-toast" role="status" aria-live="polite">
-  <span class="gw-toast-text">Activating your access…</span>
-</div>
-<div id="gw-upgraded-toast" class="gw-toast" role="status" aria-live="polite">
-  <span>Welcome to the paid tier — full board unlocked.</span>
-  <button type="button" onclick="this.parentElement.classList.remove('show')" aria-label="Dismiss">&times;</button>
-</div>
-
-<script>
-(function() {
-  // ---------- Tier (free / paid) ----------
-  // Tier is URL-driven only. We do NOT read or write localStorage for gw_tier
-  // — the bare URL must always render free for fresh visitors, and previous
-  // ?tier=paid visits should not stick. Toggle clicks are session-only.
-  // Clean up any legacy gw_tier value from earlier builds.
-  try { localStorage.removeItem('gw_tier'); } catch (e) {}
-  const params = new URLSearchParams(window.location.search);
-  const urlTier = params.get('tier');
-  const showPreview = params.get('preview') === '1' ||
-                      localStorage.getItem('gw_preview') === '1';
-  let tier = urlTier === 'paid' ? 'paid' : 'free';
-  if (params.get('preview') === '1') localStorage.setItem('gw_preview', '1');
-
-  function applyTier(t) {
-    document.body.setAttribute('data-tier', t);
-    document.querySelectorAll('.preview-toggle button').forEach(b => {
-      b.classList.toggle('active', b.dataset.setTier === t);
-    });
-  }
-  applyTier(tier);
-
-  // Reveal toggle if ?preview=1 (or persisted)
-  if (showPreview) {
-    document.querySelectorAll('.preview-toggle').forEach(el => el.classList.add('show'));
-  }
-
-  // Wire toggle buttons (session-only — does not persist across page loads)
-  document.querySelectorAll('.preview-toggle button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const t = btn.dataset.setTier;
-      applyTier(t);
-    });
-  });
-
-  // ---------- Projections sub-tabs (Overview / Probabilities / Ratings) ----------
-  const projTabs = document.querySelector('[data-proj-tabs]');
-  if (projTabs) {
-    const projButtons = projTabs.querySelectorAll('button[data-proj-view]');
-    const projTables = document.querySelectorAll('[data-proj-view-table]');
-    projButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const view = btn.dataset.projView;
-        // Clear active on all sibling buttons (incl. paid/free duplicate labels)
-        projTabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-        // Mark all matching-view buttons active (free + paid versions if both exist)
-        projTabs.querySelectorAll('button[data-proj-view="' + view + '"]')
-          .forEach(b => b.classList.add('active'));
-        projTables.forEach(t => {
-          t.classList.toggle('active', t.dataset.projViewTable === view);
-        });
-      });
-    });
-  }
-
-  // ---------- Subscriber notify form ----------
-  // window.GW_CFG is emitted at the top of <body> by gw_cfg_js() so it's
-  // guaranteed to exist by the time this script runs.
-  const SUPABASE_URL = window.GW_CFG.supabaseUrl;
-  const SUPABASE_PUBLISHABLE_KEY = window.GW_CFG.supabaseKey;
-  const notifyForm = document.getElementById('notify-form');
-  if (notifyForm) {
-    const emailInput = document.getElementById('notify-email');
-    const submitBtn = document.getElementById('notify-submit');
-    const msg = document.getElementById('notify-msg');
-    notifyForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = emailInput.value.trim();
-      if (!email || !emailInput.checkValidity()) {
-        msg.textContent = 'Please enter a valid email.';
-        msg.className = 'home-sub-msg error';
-        return;
-      }
-      submitBtn.disabled = true;
-      msg.textContent = 'Submitting…';
-      msg.className = 'home-sub-msg';
-      try {
-        const res = await fetch(SUPABASE_URL + '/rest/v1/subscribers', {
-          method: 'POST',
-          headers: {
-            'apikey': SUPABASE_PUBLISHABLE_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_PUBLISHABLE_KEY,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify({
-            email: email,
-            source: 'homepage',
-            tier_interest: (notifyForm.querySelector('input[name="tier_interest"]:checked') || {}).value || 'either',
-            consent_marketing: true
-          })
-        });
-        if (res.ok) {
-          msg.textContent = "You're on the list. We'll email you when the paid tier launches.";
-          msg.className = 'home-sub-msg success';
-          emailInput.value = '';
-        } else if (res.status === 409) {
-          msg.textContent = 'Already on the list. Thanks!';
-          msg.className = 'home-sub-msg success';
-          emailInput.value = '';
-        } else {
-          console.error('Subscribe error', res.status, await res.text());
-          msg.textContent = 'Something went wrong. Please try again.';
-          msg.className = 'home-sub-msg error';
-        }
-      } catch (err) {
-        console.error('Subscribe network error', err);
-        msg.textContent = 'Network error. Please try again.';
-        msg.className = 'home-sub-msg error';
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
-  }
-
-  // ---------- Hero tabs (Overview / Full Table) ----------
-  const buttons = document.querySelectorAll('.hero-tabs button[data-tab]');
-  const overview = document.getElementById('overview-pane');
-  const full = document.getElementById('full-pane');
-  if (buttons.length && overview && full) {
-    buttons.forEach(b => {
-      b.addEventListener('click', () => {
-        if (b.classList.contains('locked')) return;
-        buttons.forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
-        const t = b.dataset.tab;
-        if (t === 'overview') {
-          overview.classList.add('active');
-          full.classList.remove('active');
-          window.scrollTo({top: 0, behavior: 'smooth'});
-        } else if (t === 'full') {
-          overview.classList.remove('active');
-          full.classList.add('active');
-          full.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }
-      });
-    });
-  }
-})();
-</script>
-
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
 const cfg = window.GW_CFG;
 const supabase = createClient(cfg.supabaseUrl, cfg.supabaseKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    // The recovery magic-link path lands at /auth/callback which handles
-    // its own exchange; we keep detectSessionInUrl on so a misconfigured
-    // template that points at "/" still signs the user in.
-    detectSessionInUrl: true,
-    flowType: 'pkce',
-  }
-});
-window.GW = window.GW || {};
-window.GW.supabase = supabase;
-
-// ---------- Modal helpers ----------
-function openModal(id) {
-  const m = document.getElementById(id);
-  if (m) m.classList.add('show');
-}
-function closeModal(id) {
-  const m = document.getElementById(id);
-  if (m) { m.classList.remove('show'); }
-}
-document.querySelectorAll('.gw-modal-backdrop').forEach(bd => {
-  bd.addEventListener('click', (e) => {
-    if (e.target === bd) bd.classList.remove('show');
-  });
-  bd.querySelectorAll('[data-modal-close]').forEach(btn => {
-    btn.addEventListener('click', () => bd.classList.remove('show'));
-  });
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.gw-modal-backdrop.show').forEach(m =>
-      m.classList.remove('show'));
-  }
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, flowType: 'pkce' }
 });
 
-// ---------- Auth chrome state ----------
-async function refreshAuthChrome() {
-  const { data: { session } } = await supabase.auth.getSession();
-  const body = document.body;
-  if (session?.user) {
-    body.setAttribute('data-auth', 'user');
-    document.querySelectorAll('.auth-email').forEach(el => {
-      el.textContent = session.user.email || '';
-    });
-  } else {
-    body.setAttribute('data-auth', 'anon');
+function show(id, detail) {
+  document.querySelectorAll('.auth-cb').forEach(el => el.style.display = 'none');
+  const el = document.getElementById(id);
+  if (el) el.style.display = '';
+  if (id === 'auth-state-error' && detail) {
+    const d = document.getElementById('auth-error-detail');
+    if (d) d.textContent = detail;
   }
-  return session;
 }
 
-document.querySelectorAll('[data-auth-action="signin"]').forEach(btn => {
-  btn.addEventListener('click', () => openModal('gw-signin-modal'));
-});
-document.querySelectorAll('[data-auth-action="signout"]').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    await supabase.auth.signOut();
-    // Reload so the paid CSV cache, body[data-tier], etc. all reset cleanly.
-    window.location.reload();
-  });
-});
+function readHashError() {
+  // Supabase puts errors in the URL fragment, e.g.:
+  //   #error=access_denied&error_code=otp_expired&error_description=Email+link+is+invalid+or+has+expired
+  const h = window.location.hash || '';
+  if (!h.startsWith('#')) return null;
+  const params = new URLSearchParams(h.slice(1));
+  if (!params.get('error')) return null;
+  return {
+    code: params.get('error_code') || params.get('error') || '',
+    description: params.get('error_description') || ''
+  };
+}
 
-// ---------- Recovery sign-in (magic link) ----------
-// This path is only for paid users returning on a new device. Anonymous
-// upgrade flow goes through Stripe directly and never touches this.
-const signinForm = document.getElementById('gw-signin-form');
-if (signinForm) {
-  const emailInput = document.getElementById('gw-signin-email');
-  const submitBtn = document.getElementById('gw-signin-submit');
-  const msg = document.getElementById('gw-signin-msg');
-  signinForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = (emailInput.value || '').trim();
-    if (!email || !emailInput.checkValidity()) {
-      msg.textContent = 'Please enter a valid email.';
-      msg.className = 'gw-modal-msg error';
-      return;
+(async function () {
+  const hashErr = readHashError();
+  if (hashErr) {
+    if (hashErr.code === 'otp_expired' || /expired/i.test(hashErr.description)) {
+      show('auth-state-expired');
+    } else {
+      show('auth-state-error', hashErr.description || hashErr.code || 'Sign-in failed.');
     }
-    submitBtn.disabled = true;
-    msg.textContent = 'Sending sign-in link…';
-    msg.className = 'gw-modal-msg';
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: cfg.siteUrl + '/auth/callback' }
-    });
-    submitBtn.disabled = false;
+    return;
+  }
+
+  // PKCE code exchange — Supabase JS reads the URL itself.
+  try {
+    const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
     if (error) {
-      console.error('signInWithOtp', error);
-      msg.textContent = 'Could not send link. Please try again.';
-      msg.className = 'gw-modal-msg error';
-      return;
-    }
-    msg.textContent = "Check your email — we sent a sign-in link to " + email + ".";
-    msg.className = 'gw-modal-msg success';
-    emailInput.value = '';
-  });
-}
-
-// ---------- Upgrade flow (anonymous) ----------
-// No auth check. Anyone can hit this; the post-payment exchange handles
-// account creation. This is the central simplification of the rewrite.
-async function startCheckout(tier) {
-  const upgradeMsg = document.getElementById('gw-upgrade-msg');
-  if (upgradeMsg) {
-    upgradeMsg.textContent = 'Opening checkout…';
-    upgradeMsg.className = 'gw-modal-msg';
-  }
-  try {
-    const res = await fetch(cfg.checkoutFnUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tier })
-    });
-    if (!res.ok) {
-      const body = await res.text().catch(() => '');
-      console.error('checkout error', res.status, body);
-      if (upgradeMsg) {
-        upgradeMsg.textContent = 'Checkout failed (' + res.status + '). Try again.';
-        upgradeMsg.className = 'gw-modal-msg error';
+      console.error('exchangeCodeForSession', error);
+      // Treat "code already used" / similar as expired-link UX.
+      const msg = (error.message || '').toLowerCase();
+      if (msg.includes('expired') || msg.includes('used') || msg.includes('invalid')) {
+        show('auth-state-expired');
+      } else {
+        show('auth-state-error', error.message);
       }
       return;
     }
-    const { url } = await res.json();
-    if (!url) {
-      if (upgradeMsg) {
-        upgradeMsg.textContent = 'Checkout returned no URL. Try again.';
-        upgradeMsg.className = 'gw-modal-msg error';
-      }
-      return;
-    }
-    window.location.href = url;
   } catch (err) {
-    console.error('checkout network error', err);
-    if (upgradeMsg) {
-      upgradeMsg.textContent = 'Network error. Please try again.';
-      upgradeMsg.className = 'gw-modal-msg error';
-    }
-  }
-}
-window.GW.startCheckout = startCheckout;
-
-// Tier-choice buttons in the upgrade modal
-document.querySelectorAll('[data-upgrade-tier]').forEach(btn => {
-  btn.addEventListener('click', () => startCheckout(btn.dataset.upgradeTier));
-});
-
-// Unlock CTAs (anchors to #unlock) — hijack to open upgrade modal instead.
-document.querySelectorAll('[data-action="open-upgrade"], a[href$="#unlock"]').forEach(el => {
-  el.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal('gw-upgrade-modal');
-  });
-});
-
-// ---------- Post-payment session exchange ----------
-// Stripe redirects to /?session_id=cs_... after successful checkout.
-// This handler:
-//   1. Skips entirely if the user is already signed in for this email
-//      (avoids a session-clobber on back-button or URL-share replay).
-//   2. Calls exchange-checkout-session to get access/refresh tokens.
-//   3. setSession() establishes the client session.
-//   4. Polls profiles.tier for up to 10s waiting for the webhook to UPSERT.
-//   5. On success: strip session_id from the URL, show toast, render paid.
-//   6. On poll timeout: leave session_id IN the URL so the user can refresh
-//      and re-trigger the exchange. Show "Refresh in a moment" message.
-async function handleSessionIdReturn() {
-  const params = new URLSearchParams(window.location.search);
-  const sessionId = params.get('session_id');
-  if (!sessionId || !sessionId.startsWith('cs_')) return;
-
-  const showActivating = (text) => {
-    const t = document.getElementById('gw-activating-toast');
-    if (!t) return;
-    const span = t.querySelector('.gw-toast-text');
-    if (span) span.textContent = text;
-    t.classList.add('show');
-  };
-  const hideActivating = () => {
-    const t = document.getElementById('gw-activating-toast');
-    if (t) t.classList.remove('show');
-  };
-
-  // (1) Skip if we already have a session — back-button replay protection.
-  // We don't know the email Stripe collected without calling exchange, so
-  // any existing session is "good enough" — the user has a valid session,
-  // re-issuing one would just clobber it. The webhook still fires and the
-  // tier still updates regardless.
-  const { data: { session: existingSession } } = await supabase.auth.getSession();
-  if (existingSession?.user) {
-    // Strip session_id and let the regular paid-render path run via the
-    // poll below. (No exchange call needed.)
-    await waitForPaidTier(/*assumeSignedIn=*/true);
+    console.error('exchangeCodeForSession threw', err);
+    show('auth-state-error', (err && err.message) || 'Unexpected error.');
     return;
   }
 
-  showActivating('Activating your access…');
-
-  // (2) Exchange the Stripe session for a Supabase session.
-  let tokens;
-  try {
-    const res = await fetch(cfg.exchangeFnUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ checkout_session_id: sessionId })
-    });
-    if (!res.ok) {
-      const body = await res.text().catch(() => '');
-      console.error('exchange failed', res.status, body);
-      showActivating('Could not activate access. Refresh in a moment.');
-      return;
-    }
-    tokens = await res.json();
-  } catch (err) {
-    console.error('exchange network error', err);
-    showActivating('Network error. Refresh in a moment.');
-    return;
-  }
-  if (!tokens?.access_token || !tokens?.refresh_token) {
-    console.error('exchange returned no tokens', tokens);
-    showActivating('Activation incomplete. Refresh in a moment.');
-    return;
-  }
-
-  // (3) Establish the client session.
-  const { error: setErr } = await supabase.auth.setSession({
-    access_token: tokens.access_token,
-    refresh_token: tokens.refresh_token,
-  });
-  if (setErr) {
-    console.error('setSession failed', setErr);
-    showActivating('Could not sign you in. Refresh in a moment.');
-    return;
-  }
-
-  await refreshAuthChrome();
-  await waitForPaidTier(/*assumeSignedIn=*/true);
-}
-
-async function waitForPaidTier(assumeSignedIn) {
-  const showActivating = (text) => {
-    const t = document.getElementById('gw-activating-toast');
-    if (!t) return;
-    const span = t.querySelector('.gw-toast-text');
-    if (span) span.textContent = text;
-    t.classList.add('show');
-  };
-  const hideActivating = () => {
-    const t = document.getElementById('gw-activating-toast');
-    if (t) t.classList.remove('show');
-  };
-
-  showActivating('Activating your access…');
-
-  // Check once for the paid tier on the current session.
-  const checkPaid = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session?.user) return false;
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('tier, tier_expires_at')
-      .eq('id', session.user.id)
-      .maybeSingle();
-    if (!profile) return false;
-    if (profile.tier !== 'weekly' && profile.tier !== 'monthly') return false;
-    if (profile.tier_expires_at && new Date(profile.tier_expires_at) <= new Date()) return false;
-    return true;
-  };
-
-  // Poll loop: fast cadence (600ms, 10s total) up front, then slower
-  // cadence (2.5s, 30s total) in the background after we show the
-  // "Still processing" message. Total worst-case wait is ~40s, well
-  // within Stripe's webhook SLA tail. Users only see "manual refresh"
-  // language if the webhook genuinely never lands.
-  const runPoll = async (intervalMs, durationMs) => {
-    const deadline = Date.now() + durationMs;
-    while (Date.now() < deadline) {
-      if (await checkPaid()) return true;
-      await new Promise(r => setTimeout(r, intervalMs));
-    }
-    return false;
-  };
-
-  let isPaid = await runPoll(600, 10_000);
-  if (!isPaid) {
-    // Soft "still working" state. We do NOT strip session_id yet — a
-    // manual refresh remains a valid recovery path while the background
-    // poll runs.
-    showActivating("Still processing your payment… this can take up to 30 seconds. The page will update automatically.");
-    isPaid = await runPoll(2_500, 30_000);
-  }
-
-  if (!isPaid) {
-    // True timeout: leave session_id in URL, give the user something to
-    // act on. By this point the webhook has had ~40 seconds.
-    showActivating("Payment is taking longer than expected. Please refresh — if it still doesn't work, contact support.");
-    return;
-  }
-
-  // Success: strip session_id from URL, swap to success toast, render paid.
-  const params = new URLSearchParams(window.location.search);
-  params.delete('session_id');
-  const newQs = params.toString();
-  const newUrl = window.location.pathname + (newQs ? '?' + newQs : '') + window.location.hash;
-  window.history.replaceState({}, '', newUrl);
-
-  hideActivating();
-  const toast = document.getElementById('gw-upgraded-toast');
-  if (toast) {
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 8000);
-  }
-  if (typeof window.GW.tryRenderPaid === 'function') {
-    await window.GW.tryRenderPaid();
-  }
-}
-
-// ---------- Initial auth state + post-payment handler ----------
-refreshAuthChrome();
-handleSessionIdReturn();
+  // Recovery sign-in only — no upgrade chaining in the new architecture.
+  // Anonymous upgrade goes through Stripe directly; magic-link is reserved
+  // for paid users returning on a new device.
+  window.location.replace('/');
+})();
 </script>
 </body>
 </html>

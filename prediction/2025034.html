@@ -129,6 +129,110 @@ a { color: inherit; }
 }
 .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--ink-2); }
 
+/* ─── auth chrome ─────────────────────────────────────── */
+/* Visibility is JS-controlled via [data-auth] on <body>:
+   data-auth="loading" : initial hide-everything state, prevents flash
+   data-auth="anon"    : show "Sign in", hide user chip
+   data-auth="user"    : show user chip + sign-out, hide "Sign in" */
+body[data-auth="loading"] .auth-anon-only,
+body[data-auth="loading"] .auth-user-only { display: none !important; }
+body[data-auth="anon"] .auth-user-only { display: none !important; }
+body[data-auth="user"] .auth-anon-only { display: none !important; }
+.auth-user-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--ink-2); padding: 4px 8px;
+  border: 1px solid var(--line); border-radius: 3px;
+  max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.auth-user-chip .auth-email { overflow: hidden; text-overflow: ellipsis; }
+.auth-signout {
+  appearance: none; border: 0; background: transparent;
+  color: var(--ink-3); cursor: pointer; padding: 0 0 0 4px;
+  font: inherit; font-size: 11px;
+}
+.auth-signout:hover { color: var(--ink); }
+/* Recovery sign-in: deliberately less prominent than the Upgrade button.
+   Looks like a text link, not a peer button. Tap target padded to meet
+   the 44px minimum so it's reachable on mobile even though it's visually
+   de-emphasized. */
+.auth-recover-link {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  color: var(--ink-3); font: inherit; font-size: 12px;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--line);
+  padding: 12px 8px;  /* 12px vertical => ~44px total tap target */
+  display: inline-flex; align-items: center;
+  min-height: 44px;
+  /* Pull the visual padding back so it sits flush with siblings even
+     though the click region extends past the text. */
+  margin: -12px 0;
+}
+.auth-recover-link:hover { color: var(--ink); text-decoration-color: var(--ink-2); }
+
+/* ─── modal (sign-in + upgrade) ───────────────────────── */
+.gw-modal-backdrop {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(0,0,0,.65);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.gw-modal-backdrop.show { display: flex; }
+.gw-modal {
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 22px 22px 18px; width: 100%; max-width: 380px;
+  color: var(--ink);
+}
+.gw-modal h3 {
+  margin: 0 0 8px; font-family: 'Inter Tight', sans-serif;
+  font-size: 18px; font-weight: 700;
+}
+.gw-modal p { margin: 0 0 14px; color: var(--ink-2); font-size: 13.5px; }
+.gw-modal label {
+  display: block; font-size: 11px; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px;
+}
+.gw-modal input[type=email] {
+  width: 100%; padding: 9px 10px; background: var(--bg);
+  border: 1px solid var(--line); color: var(--ink);
+  border-radius: 4px; font: inherit;
+}
+.gw-modal input[type=email]:focus { outline: none; border-color: var(--accent); }
+.gw-modal-actions { display: flex; gap: 8px; margin-top: 14px; justify-content: flex-end; }
+.gw-modal-msg {
+  font-size: 12.5px; margin-top: 10px; min-height: 1em; color: var(--ink-3);
+}
+.gw-modal-msg.error { color: var(--risk); }
+.gw-modal-msg.success { color: var(--good); }
+.gw-tier-choices { display: grid; gap: 10px; margin: 8px 0 4px; }
+.gw-tier-choice {
+  display: flex; justify-content: space-between; align-items: center;
+  border: 1px solid var(--line); background: var(--bg-elev);
+  padding: 12px 14px; border-radius: var(--radius-lg);
+  cursor: pointer; text-align: left;
+  font: inherit; color: var(--ink); width: 100%;
+}
+.gw-tier-choice:hover { border-color: var(--accent); }
+.gw-tier-choice .name { font-weight: 600; }
+.gw-tier-choice .price { font-family: 'IBM Plex Mono', monospace; color: var(--ink-2); }
+.gw-tier-choice .note { color: var(--ink-3); font-size: 11px; display: block; margin-top: 2px; }
+
+/* ─── upgraded toast ──────────────────────────────────── */
+.gw-toast {
+  position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+  z-index: 90; background: var(--bg-card); border: 1px solid var(--accent);
+  color: var(--ink); padding: 10px 14px 10px 12px; border-radius: var(--radius-lg);
+  font-size: 13px; display: none; align-items: center; gap: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.4);
+}
+.gw-toast.show { display: inline-flex; }
+.gw-toast button {
+  appearance: none; border: 0; background: transparent; color: var(--ink-3);
+  cursor: pointer; padding: 0 0 0 4px; font: inherit;
+}
+.gw-toast button:hover { color: var(--ink); }
+
 /* ─── page shell ───────────────────────────────────────── */
 .page { max-width: 1320px; margin: 0 auto; padding: 0 24px 80px; }
 .breadcrumb {
@@ -1234,7 +1338,19 @@ body[data-tier="paid"] .free-only { display: none !important; }
 }
 </style>
 </head>
-<body data-tier="free">
+<body data-tier="free" data-auth="loading" data-sked-id="2025034">
+
+<script>
+window.GW_CFG = {
+  supabaseUrl: 'https://unkiidiqufnsqljsifso.supabase.co',
+  supabaseKey: 'sb_publishable_L2PFHZVxxtE5OaObll6OfQ_TIGIKI6-',
+  storageBucket: 'predictions',
+  checkoutFnUrl: 'https://unkiidiqufnsqljsifso.supabase.co/functions/v1/create-checkout-session',
+  exchangeFnUrl: 'https://unkiidiqufnsqljsifso.supabase.co/functions/v1/exchange-checkout-session',
+  // Resolved at runtime so localhost dev signs in against localhost, not prod.
+  siteUrl: window.location.origin
+};
+</script>
 
 <div class="chrome">
   <div class="chrome-inner">
@@ -1251,8 +1367,14 @@ body[data-tier="paid"] .free-only { display: none !important; }
       <button data-set-tier="paid" type="button">Paid</button>
     </div>
     <span class="chip-live">Model live</span>
-    <a class="btn free-only" href="/#unlock">Subscribe</a>
+    <button class="btn free-only" type="button" data-action="open-upgrade">Upgrade</button>
     <span class="chip-live paid-only" style="border-color:var(--accent);color:var(--accent)">SUBSCRIBER</span>
+
+    <button class="auth-recover-link auth-anon-only" type="button" data-auth-action="signin">Already paid? Sign in</button>
+    <span class="auth-user-chip auth-user-only">
+      <span class="auth-email"></span>
+      <button class="auth-signout" type="button" data-auth-action="signout">Sign out</button>
+    </span>
   </div>
   <div class="checker-band"></div>
 </div>
@@ -3545,8 +3667,55 @@ body[data-tier="paid"] .free-only { display: none !important; }
   <div class="unlock-sticky-spacer free-only"></div>
 </div>
 <div class="unlock-sticky free-only" role="region" aria-label="Unlock the full race sheet">
-  <div class="l">Unlock the full race sheet<small>$9/wk · $25.03/mo · paywall ships next week</small></div>
-  <div class="r"><a class="btn btn-lg" href="/#unlock">Get notified</a></div>
+  <div class="l">Unlock the full race sheet<small>$9/wk · $25.03/mo · cancel anytime</small></div>
+  <div class="r"><button class="btn btn-lg" type="button" data-action="open-upgrade">Upgrade</button></div>
+</div>
+
+<div id="gw-signin-modal" class="gw-modal-backdrop" role="dialog" aria-modal="true" aria-label="Sign back in">
+  <div class="gw-modal">
+    <h3>Sign back in</h3>
+    <p>Already paid for Grid Walk on another device? Enter your email and we'll send a sign-in link.</p>
+    <p style="color:var(--ink-3);font-size:12px;margin-top:-6px">
+      New here? You don't need to sign in first — just hit Upgrade and we'll set up your account after payment.
+    </p>
+    <form id="gw-signin-form" novalidate>
+      <label for="gw-signin-email">Email</label>
+      <input id="gw-signin-email" type="email" name="email" required
+             placeholder="you@example.com" autocomplete="email">
+      <div class="gw-modal-actions">
+        <button class="btn btn-ghost" type="button" data-modal-close>Cancel</button>
+        <button class="btn" type="submit" id="gw-signin-submit">Send link</button>
+      </div>
+      <div id="gw-signin-msg" class="gw-modal-msg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+<div id="gw-upgrade-modal" class="gw-modal-backdrop" role="dialog" aria-modal="true" aria-label="Choose a pass">
+  <div class="gw-modal">
+    <h3>Unlock the full board</h3>
+    <p>Pick a pass — cancel anytime. We'll set up your account after payment.</p>
+    <div class="gw-tier-choices">
+      <button class="gw-tier-choice" type="button" data-upgrade-tier="weekly">
+        <span><span class="name">Weekly Pass</span><span class="note">7 days · one-time</span></span>
+        <span class="price">$9</span>
+      </button>
+      <button class="gw-tier-choice" type="button" data-upgrade-tier="monthly">
+        <span><span class="name">Monthly</span><span class="note">salute to #3</span></span>
+        <span class="price">$25.03</span>
+      </button>
+    </div>
+    <div class="gw-modal-actions">
+      <button class="btn btn-ghost" type="button" data-modal-close>Cancel</button>
+    </div>
+    <div id="gw-upgrade-msg" class="gw-modal-msg" role="status" aria-live="polite"></div>
+  </div>
+</div>
+<div id="gw-activating-toast" class="gw-toast" role="status" aria-live="polite">
+  <span class="gw-toast-text">Activating your access…</span>
+</div>
+<div id="gw-upgraded-toast" class="gw-toast" role="status" aria-live="polite">
+  <span>Welcome to the paid tier — full board unlocked.</span>
+  <button type="button" onclick="this.parentElement.classList.remove('show')" aria-label="Dismiss">&times;</button>
 </div>
 
 <script>
@@ -3606,8 +3775,10 @@ body[data-tier="paid"] .free-only { display: none !important; }
   }
 
   // ---------- Subscriber notify form ----------
-  const SUPABASE_URL = 'https://unkiidiqufnsqljsifso.supabase.co';
-  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_L2PFHZVxxtE5OaObll6OfQ_TIGIKI6-';
+  // window.GW_CFG is emitted at the top of <body> by gw_cfg_js() so it's
+  // guaranteed to exist by the time this script runs.
+  const SUPABASE_URL = window.GW_CFG.supabaseUrl;
+  const SUPABASE_PUBLISHABLE_KEY = window.GW_CFG.supabaseKey;
   const notifyForm = document.getElementById('notify-form');
   if (notifyForm) {
     const emailInput = document.getElementById('notify-email');
@@ -3687,6 +3858,474 @@ body[data-tier="paid"] .free-only { display: none !important; }
     });
   }
 })();
+</script>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const cfg = window.GW_CFG;
+const supabase = createClient(cfg.supabaseUrl, cfg.supabaseKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    // The recovery magic-link path lands at /auth/callback which handles
+    // its own exchange; we keep detectSessionInUrl on so a misconfigured
+    // template that points at "/" still signs the user in.
+    detectSessionInUrl: true,
+    flowType: 'pkce',
+  }
+});
+window.GW = window.GW || {};
+window.GW.supabase = supabase;
+
+// ---------- Modal helpers ----------
+function openModal(id) {
+  const m = document.getElementById(id);
+  if (m) m.classList.add('show');
+}
+function closeModal(id) {
+  const m = document.getElementById(id);
+  if (m) { m.classList.remove('show'); }
+}
+document.querySelectorAll('.gw-modal-backdrop').forEach(bd => {
+  bd.addEventListener('click', (e) => {
+    if (e.target === bd) bd.classList.remove('show');
+  });
+  bd.querySelectorAll('[data-modal-close]').forEach(btn => {
+    btn.addEventListener('click', () => bd.classList.remove('show'));
+  });
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.gw-modal-backdrop.show').forEach(m =>
+      m.classList.remove('show'));
+  }
+});
+
+// ---------- Auth chrome state ----------
+async function refreshAuthChrome() {
+  const { data: { session } } = await supabase.auth.getSession();
+  const body = document.body;
+  if (session?.user) {
+    body.setAttribute('data-auth', 'user');
+    document.querySelectorAll('.auth-email').forEach(el => {
+      el.textContent = session.user.email || '';
+    });
+  } else {
+    body.setAttribute('data-auth', 'anon');
+  }
+  return session;
+}
+
+document.querySelectorAll('[data-auth-action="signin"]').forEach(btn => {
+  btn.addEventListener('click', () => openModal('gw-signin-modal'));
+});
+document.querySelectorAll('[data-auth-action="signout"]').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    // Reload so the paid CSV cache, body[data-tier], etc. all reset cleanly.
+    window.location.reload();
+  });
+});
+
+// ---------- Recovery sign-in (magic link) ----------
+// This path is only for paid users returning on a new device. Anonymous
+// upgrade flow goes through Stripe directly and never touches this.
+const signinForm = document.getElementById('gw-signin-form');
+if (signinForm) {
+  const emailInput = document.getElementById('gw-signin-email');
+  const submitBtn = document.getElementById('gw-signin-submit');
+  const msg = document.getElementById('gw-signin-msg');
+  signinForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (emailInput.value || '').trim();
+    if (!email || !emailInput.checkValidity()) {
+      msg.textContent = 'Please enter a valid email.';
+      msg.className = 'gw-modal-msg error';
+      return;
+    }
+    submitBtn.disabled = true;
+    msg.textContent = 'Sending sign-in link…';
+    msg.className = 'gw-modal-msg';
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: cfg.siteUrl + '/auth/callback' }
+    });
+    submitBtn.disabled = false;
+    if (error) {
+      console.error('signInWithOtp', error);
+      msg.textContent = 'Could not send link. Please try again.';
+      msg.className = 'gw-modal-msg error';
+      return;
+    }
+    msg.textContent = "Check your email — we sent a sign-in link to " + email + ".";
+    msg.className = 'gw-modal-msg success';
+    emailInput.value = '';
+  });
+}
+
+// ---------- Upgrade flow (anonymous) ----------
+// No auth check. Anyone can hit this; the post-payment exchange handles
+// account creation. This is the central simplification of the rewrite.
+async function startCheckout(tier) {
+  const upgradeMsg = document.getElementById('gw-upgrade-msg');
+  if (upgradeMsg) {
+    upgradeMsg.textContent = 'Opening checkout…';
+    upgradeMsg.className = 'gw-modal-msg';
+  }
+  try {
+    const res = await fetch(cfg.checkoutFnUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tier })
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      console.error('checkout error', res.status, body);
+      if (upgradeMsg) {
+        upgradeMsg.textContent = 'Checkout failed (' + res.status + '). Try again.';
+        upgradeMsg.className = 'gw-modal-msg error';
+      }
+      return;
+    }
+    const { url } = await res.json();
+    if (!url) {
+      if (upgradeMsg) {
+        upgradeMsg.textContent = 'Checkout returned no URL. Try again.';
+        upgradeMsg.className = 'gw-modal-msg error';
+      }
+      return;
+    }
+    window.location.href = url;
+  } catch (err) {
+    console.error('checkout network error', err);
+    if (upgradeMsg) {
+      upgradeMsg.textContent = 'Network error. Please try again.';
+      upgradeMsg.className = 'gw-modal-msg error';
+    }
+  }
+}
+window.GW.startCheckout = startCheckout;
+
+// Tier-choice buttons in the upgrade modal
+document.querySelectorAll('[data-upgrade-tier]').forEach(btn => {
+  btn.addEventListener('click', () => startCheckout(btn.dataset.upgradeTier));
+});
+
+// Unlock CTAs (anchors to #unlock) — hijack to open upgrade modal instead.
+document.querySelectorAll('[data-action="open-upgrade"], a[href$="#unlock"]').forEach(el => {
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal('gw-upgrade-modal');
+  });
+});
+
+// ---------- Post-payment session exchange ----------
+// Stripe redirects to /?session_id=cs_... after successful checkout.
+// This handler:
+//   1. Skips entirely if the user is already signed in for this email
+//      (avoids a session-clobber on back-button or URL-share replay).
+//   2. Calls exchange-checkout-session to get access/refresh tokens.
+//   3. setSession() establishes the client session.
+//   4. Polls profiles.tier for up to 10s waiting for the webhook to UPSERT.
+//   5. On success: strip session_id from the URL, show toast, render paid.
+//   6. On poll timeout: leave session_id IN the URL so the user can refresh
+//      and re-trigger the exchange. Show "Refresh in a moment" message.
+async function handleSessionIdReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  if (!sessionId || !sessionId.startsWith('cs_')) return;
+
+  const showActivating = (text) => {
+    const t = document.getElementById('gw-activating-toast');
+    if (!t) return;
+    const span = t.querySelector('.gw-toast-text');
+    if (span) span.textContent = text;
+    t.classList.add('show');
+  };
+  const hideActivating = () => {
+    const t = document.getElementById('gw-activating-toast');
+    if (t) t.classList.remove('show');
+  };
+
+  // (1) Skip if we already have a session — back-button replay protection.
+  // We don't know the email Stripe collected without calling exchange, so
+  // any existing session is "good enough" — the user has a valid session,
+  // re-issuing one would just clobber it. The webhook still fires and the
+  // tier still updates regardless.
+  const { data: { session: existingSession } } = await supabase.auth.getSession();
+  if (existingSession?.user) {
+    // Strip session_id and let the regular paid-render path run via the
+    // poll below. (No exchange call needed.)
+    await waitForPaidTier(/*assumeSignedIn=*/true);
+    return;
+  }
+
+  showActivating('Activating your access…');
+
+  // (2) Exchange the Stripe session for a Supabase session.
+  let tokens;
+  try {
+    const res = await fetch(cfg.exchangeFnUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ checkout_session_id: sessionId })
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      console.error('exchange failed', res.status, body);
+      showActivating('Could not activate access. Refresh in a moment.');
+      return;
+    }
+    tokens = await res.json();
+  } catch (err) {
+    console.error('exchange network error', err);
+    showActivating('Network error. Refresh in a moment.');
+    return;
+  }
+  if (!tokens?.access_token || !tokens?.refresh_token) {
+    console.error('exchange returned no tokens', tokens);
+    showActivating('Activation incomplete. Refresh in a moment.');
+    return;
+  }
+
+  // (3) Establish the client session.
+  const { error: setErr } = await supabase.auth.setSession({
+    access_token: tokens.access_token,
+    refresh_token: tokens.refresh_token,
+  });
+  if (setErr) {
+    console.error('setSession failed', setErr);
+    showActivating('Could not sign you in. Refresh in a moment.');
+    return;
+  }
+
+  await refreshAuthChrome();
+  await waitForPaidTier(/*assumeSignedIn=*/true);
+}
+
+async function waitForPaidTier(assumeSignedIn) {
+  const showActivating = (text) => {
+    const t = document.getElementById('gw-activating-toast');
+    if (!t) return;
+    const span = t.querySelector('.gw-toast-text');
+    if (span) span.textContent = text;
+    t.classList.add('show');
+  };
+  const hideActivating = () => {
+    const t = document.getElementById('gw-activating-toast');
+    if (t) t.classList.remove('show');
+  };
+
+  showActivating('Activating your access…');
+
+  // Check once for the paid tier on the current session.
+  const checkPaid = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) return false;
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('tier, tier_expires_at')
+      .eq('id', session.user.id)
+      .maybeSingle();
+    if (!profile) return false;
+    if (profile.tier !== 'weekly' && profile.tier !== 'monthly') return false;
+    if (profile.tier_expires_at && new Date(profile.tier_expires_at) <= new Date()) return false;
+    return true;
+  };
+
+  // Poll loop: fast cadence (600ms, 10s total) up front, then slower
+  // cadence (2.5s, 30s total) in the background after we show the
+  // "Still processing" message. Total worst-case wait is ~40s, well
+  // within Stripe's webhook SLA tail. Users only see "manual refresh"
+  // language if the webhook genuinely never lands.
+  const runPoll = async (intervalMs, durationMs) => {
+    const deadline = Date.now() + durationMs;
+    while (Date.now() < deadline) {
+      if (await checkPaid()) return true;
+      await new Promise(r => setTimeout(r, intervalMs));
+    }
+    return false;
+  };
+
+  let isPaid = await runPoll(600, 10_000);
+  if (!isPaid) {
+    // Soft "still working" state. We do NOT strip session_id yet — a
+    // manual refresh remains a valid recovery path while the background
+    // poll runs.
+    showActivating("Still processing your payment… this can take up to 30 seconds. The page will update automatically.");
+    isPaid = await runPoll(2_500, 30_000);
+  }
+
+  if (!isPaid) {
+    // True timeout: leave session_id in URL, give the user something to
+    // act on. By this point the webhook has had ~40 seconds.
+    showActivating("Payment is taking longer than expected. Please refresh — if it still doesn't work, contact support.");
+    return;
+  }
+
+  // Success: strip session_id from URL, swap to success toast, render paid.
+  const params = new URLSearchParams(window.location.search);
+  params.delete('session_id');
+  const newQs = params.toString();
+  const newUrl = window.location.pathname + (newQs ? '?' + newQs : '') + window.location.hash;
+  window.history.replaceState({}, '', newUrl);
+
+  hideActivating();
+  const toast = document.getElementById('gw-upgraded-toast');
+  if (toast) {
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 8000);
+  }
+  if (typeof window.GW.tryRenderPaid === 'function') {
+    await window.GW.tryRenderPaid();
+  }
+}
+
+// ---------- Initial auth state + post-payment handler ----------
+refreshAuthChrome();
+handleSessionIdReturn();
+</script>
+
+<script type="module">
+const cfg = window.GW_CFG;
+const supabase = window.GW.supabase;
+// Keyed by sked_id, not a boolean — defensive against any future SPA-style
+// navigation between race sheets within the same tab/module instance.
+const _csvCache = new Map();
+
+function parseCsv(text) {
+  // Very small CSV parser: no quoted-field support needed because our
+  // columns are numeric / short strings without commas (driver names and
+  // teams are 'First Last' / 'Team Name'). If that ever changes, swap in
+  // PapaParse from CDN.
+  const lines = text.trim().split(/\r?\n/);
+  if (!lines.length) return [];
+  const headers = lines[0].split(',');
+  return lines.slice(1).map(line => {
+    const cells = line.split(',');
+    const row = {};
+    headers.forEach((h, i) => { row[h] = cells[i]; });
+    return row;
+  });
+}
+
+function fmtNum(v, digits) {
+  const n = parseFloat(v);
+  if (!Number.isFinite(n)) return '—';
+  return n.toFixed(digits);
+}
+
+function fmtPct(v) {
+  const n = parseFloat(v);
+  if (!Number.isFinite(n)) return '—';
+  return (n * 100).toFixed(1) + '%';
+}
+
+function renderPaidTable(rows) {
+  // Find the existing free-tier projections table and replace its body.
+  // The free view's table is .proj inside .tab-pane#full-pane.
+  const fullPane = document.getElementById('full-pane');
+  if (!fullPane) return;
+  // We replace the contents of #full-pane with a paid table that has every
+  // probability column. The free table elsewhere on the page (locked rows)
+  // is hidden by [data-tier="paid"] CSS already.
+  const existing = fullPane.querySelector('[data-paid-table]');
+  if (existing) existing.remove();
+  const wrap = document.createElement('div');
+  wrap.setAttribute('data-paid-table', '1');
+  wrap.innerHTML = `
+    <div class="card" style="margin-top:16px">
+      <div class="card-head">
+        <h2><span class="num">★</span> Full Projections (Paid)</h2>
+        <span class="tag">${rows.length} drivers · subscriber view</span>
+      </div>
+      <div class="card-body" style="overflow-x:auto">
+        <table class="proj">
+          <thead>
+            <tr>
+              <th>Rank</th><th>#</th><th>Driver</th><th>Team</th><th>Make</th>
+              <th>Start</th><th>EP</th>
+              <th>Win</th><th>Top5</th><th>Top10</th><th>Top20</th><th>Made</th><th>DNF</th>
+              <th>Drv ELO</th><th>TT ELO</th><th>Org</th><th>QualΔ</th><th>SFΔ</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>`;
+  const tbody = wrap.querySelector('tbody');
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="mono">' + (r.ep_rank || '') + '</td>' +
+      '<td class="mono">' + (r.car_number || '') + '</td>' +
+      '<td>' + (r.driver || '') + '</td>' +
+      '<td>' + (r.team || '') + '</td>' +
+      '<td class="mono">' + (r.make || '') + '</td>' +
+      '<td class="mono">' + (r.start || '') + '</td>' +
+      '<td class="mono">' + fmtNum(r.expected_points, 2) + '</td>' +
+      '<td class="mono">' + fmtPct(r.prob_Win) + '</td>' +
+      '<td class="mono">' + fmtPct(r.prob_Top5) + '</td>' +
+      '<td class="mono">' + fmtPct(r.prob_Top10) + '</td>' +
+      '<td class="mono">' + fmtPct(r.prob_Top20) + '</td>' +
+      '<td class="mono">' + fmtPct(r.prob_Made) + '</td>' +
+      '<td class="mono">' + fmtPct(r.prob_DNF) + '</td>' +
+      '<td class="mono">' + fmtNum(r.driver_elo, 0) + '</td>' +
+      '<td class="mono">' + fmtNum(r.track_type_elo, 0) + '</td>' +
+      '<td class="mono">' + fmtNum(r.org_rating, 0) + '</td>' +
+      '<td class="mono">' + fmtNum(r.qual_diff, 1) + '</td>' +
+      '<td class="mono">' + fmtNum(r.rolling_sf_delta, 2) + '</td>';
+    tbody.appendChild(tr);
+  });
+  fullPane.appendChild(wrap);
+}
+
+async function tryRenderPaid() {
+  const skedId = document.body.getAttribute('data-sked-id');
+  if (!skedId) return;
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.user) return;
+
+  // Read tier from profiles. The same query the RLS policy effectively does;
+  // we want this UI-side so we don't even attempt a signed-URL request for
+  // free users (saves a 4xx in the network panel).
+  const { data: profile, error: profileErr } = await supabase
+    .from('profiles')
+    .select('tier, tier_expires_at')
+    .eq('id', session.user.id)
+    .maybeSingle();
+  if (profileErr) { console.warn('profile fetch failed', profileErr); return; }
+  if (!profile) return;
+  const isPaid = (profile.tier === 'weekly' || profile.tier === 'monthly') &&
+    (!profile.tier_expires_at || new Date(profile.tier_expires_at) > new Date());
+  if (!isPaid) return;
+
+  let rows = _csvCache.get(skedId);
+  if (!rows) {
+    const objectKey = skedId + '_full.csv';
+    const { data, error } = await supabase
+      .storage
+      .from(cfg.storageBucket)
+      .createSignedUrl(objectKey, 300);
+    if (error || !data?.signedUrl) {
+      console.warn('signed url failed', error);
+      return;
+    }
+    const res = await fetch(data.signedUrl);
+    if (!res.ok) { console.warn('csv fetch', res.status); return; }
+    const text = await res.text();
+    rows = parseCsv(text);
+    _csvCache.set(skedId, rows);
+  }
+
+  document.body.setAttribute('data-tier', 'paid');
+  renderPaidTable(rows);
+}
+
+window.GW.tryRenderPaid = tryRenderPaid;
+// Run once on initial load (after the auth chrome script has set up supabase).
+tryRenderPaid();
 </script>
 </body>
 </html>
