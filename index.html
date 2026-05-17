@@ -1797,6 +1797,32 @@ async function refreshAuthChrome() {
   return session;
 }
 
+// ---------- Tier chrome state ----------
+// Reflects profiles.tier on <body data-tier> so the Upgrade button, paid-only
+// / free-only blocks, and unlock CTAs update on every page — including the
+// home page, which has no sked_id and no paid table to render. The race-sheet
+// page also uses this (via tryRenderPaid in paid_csv_js) before fetching the
+// signed-URL CSV, so we don't even attempt a denied storage request when free.
+async function refreshTierChrome() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.user) {
+    document.body.setAttribute('data-tier', 'free');
+    return false;
+  }
+  const { data: profile, error: profileErr } = await supabase
+    .from('profiles')
+    .select('tier, tier_expires_at')
+    .eq('id', session.user.id)
+    .maybeSingle();
+  if (profileErr) { console.warn('profile fetch failed', profileErr); return false; }
+  const isPaid = !!profile &&
+    (profile.tier === 'weekly' || profile.tier === 'monthly') &&
+    (!profile.tier_expires_at || new Date(profile.tier_expires_at) > new Date());
+  document.body.setAttribute('data-tier', isPaid ? 'paid' : 'free');
+  return isPaid;
+}
+window.GW.refreshTierChrome = refreshTierChrome;
+
 document.querySelectorAll('[data-auth-action="signin"]').forEach(btn => {
   btn.addEventListener('click', () => openModal('gw-signin-modal'));
 });
@@ -2057,6 +2083,10 @@ async function waitForPaidTier(assumeSignedIn) {
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 8000);
   }
+  // Flip body[data-tier]=paid on EVERY page (home included). tryRenderPaid
+  // below also calls refreshTierChrome internally, but it's a no-op on the
+  // home page where paid_csv_js isn't injected — so we must call it here.
+  await refreshTierChrome();
   if (typeof window.GW.tryRenderPaid === 'function') {
     await window.GW.tryRenderPaid();
   }
@@ -2064,6 +2094,7 @@ async function waitForPaidTier(assumeSignedIn) {
 
 // ---------- Initial auth state + post-payment handler ----------
 refreshAuthChrome();
+refreshTierChrome();
 handleSessionIdReturn();
 </script>
 </body>
