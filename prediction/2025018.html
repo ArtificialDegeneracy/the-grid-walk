@@ -4437,10 +4437,11 @@ async function tryRenderPaid() {
     _csvCache.set(skedId, rows);
   }
 
-  // Hydrate the in-DOM redacted cells first (zero CLS — same nodes,
-  // just text content updates), then append the bonus paid-only table.
+  // Hydrate the redacted cells in-place — zero CLS, same DOM nodes, just
+  // text content updates. We no longer append a separate paid-only table
+  // (the redundant 'Full Projections (Paid)' card) because the existing
+  // Full Projections table now becomes fully populated for subscribers.
   hydratePaidCells(rows);
-  renderPaidTable(rows);
 }
 
 window.GW.tryRenderPaid = tryRenderPaid;
