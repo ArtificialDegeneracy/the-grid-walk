@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Grid Walk — NASCAR Cup Series race intelligence</title>
 <meta name="description" content="Probabilistic NASCAR Cup Series predictions — used by bettors and DFS players to find edge before race day.">
+<link rel="canonical" href="https://thegridwalk.com/">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><rect x='0' y='0' width='8' height='8' fill='%23F5B400'/><rect x='16' y='0' width='8' height='8' fill='%23F5B400'/><rect x='8' y='8' width='8' height='8' fill='%23F5B400'/><rect x='24' y='8' width='8' height='8' fill='%23F5B400'/><rect x='0' y='16' width='8' height='8' fill='%23F5B400'/><rect x='16' y='16' width='8' height='8' fill='%23F5B400'/><rect x='8' y='24' width='8' height='8' fill='%23F5B400'/><rect x='24' y='24' width='8' height='8' fill='%23F5B400'/></svg>">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grid Walk">
@@ -415,6 +416,43 @@ body[data-auth="user"] .auth-anon-only { display: none !important; }
   font-size: 26px; font-weight: 700; letter-spacing: -.02em;
 }
 .brief-headline-r .why { color: var(--ink-2); font-size: 14px; line-height: 1.55; max-width: 60ch; }
+
+/* EP legend: defines Expected Points inline so a casual fan understands the
+   ranking metric before reaching the column-key glossary lower on the page. */
+.ep-legend {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 12px 0 4px;
+  border-top: 1px dashed var(--line-soft);
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+.ep-legend .ep-legend-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  flex: none;
+}
+.ep-legend .ep-legend-val { color: var(--ink-2); }
+@media (max-width: 720px) {
+  .ep-legend { flex-direction: column; gap: 4px; padding: 10px 0; }
+}
+
+/* Inline definitional tooltips (abbr title="...") — render with a dotted
+   underline so the user knows there's an explanation on hover/tap. */
+abbr[title] {
+  text-decoration: underline dotted var(--ink-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  cursor: help;
+  -webkit-text-decoration: underline dotted var(--ink-3);
+}
 
 .brief-grid {
   display: grid;

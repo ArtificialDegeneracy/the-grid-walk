@@ -3,18 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Toyota / SaveMart 350 — Grid Walk</title>
-<meta name="description" content="Toyota / SaveMart 350: probabilistic NASCAR Cup Series predictions — Win, Top-5, and Top-10 finish probabilities for every driver.">
+<title>2025 Toyota / SaveMart 350 Predictions — Sonoma Raceway | Grid Walk</title>
+<meta name="description" content="Sunday, July 13, 2025 picks for the Toyota / SaveMart 350 at Sonoma Raceway: Shane van Gisbergen (48.8% win), Tyler Reddick (36.3% win), Chase Briscoe (24.6% win). Win, Top-5, and DNF probabilities for every driver.">
+<link rel="canonical" href="https://thegridwalk.com/prediction/2025020.html">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><rect x='0' y='0' width='8' height='8' fill='%23F5B400'/><rect x='16' y='0' width='8' height='8' fill='%23F5B400'/><rect x='8' y='8' width='8' height='8' fill='%23F5B400'/><rect x='24' y='8' width='8' height='8' fill='%23F5B400'/><rect x='0' y='16' width='8' height='8' fill='%23F5B400'/><rect x='16' y='16' width='8' height='8' fill='%23F5B400'/><rect x='8' y='24' width='8' height='8' fill='%23F5B400'/><rect x='24' y='24' width='8' height='8' fill='%23F5B400'/></svg>">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grid Walk">
-<meta property="og:title" content="Toyota / SaveMart 350 — Grid Walk">
-<meta property="og:description" content="Toyota / SaveMart 350: probabilistic NASCAR Cup Series predictions — Win, Top-5, and Top-10 finish probabilities for every driver.">
+<meta property="og:title" content="2025 Toyota / SaveMart 350 Predictions — Sonoma Raceway | Grid Walk">
+<meta property="og:description" content="Sunday, July 13, 2025 picks for the Toyota / SaveMart 350 at Sonoma Raceway: Shane van Gisbergen (48.8% win), Tyler Reddick (36.3% win), Chase Briscoe (24.6% win). Win, Top-5, and DNF probabilities for every driver.">
 <meta property="og:url" content="https://thegridwalk.com/prediction/2025020.html">
 <meta property="og:image" content="https://thegridwalk.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Toyota / SaveMart 350 — Grid Walk">
-<meta name="twitter:description" content="Toyota / SaveMart 350: probabilistic NASCAR Cup Series predictions — Win, Top-5, and Top-10 finish probabilities for every driver.">
+<meta name="twitter:title" content="2025 Toyota / SaveMart 350 Predictions — Sonoma Raceway | Grid Walk">
+<meta name="twitter:description" content="Sunday, July 13, 2025 picks for the Toyota / SaveMart 350 at Sonoma Raceway: Shane van Gisbergen (48.8% win), Tyler Reddick (36.3% win), Chase Briscoe (24.6% win). Win, Top-5, and DNF probabilities for every driver.">
 <meta name="twitter:image" content="https://thegridwalk.com/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -415,6 +416,43 @@ body[data-auth="user"] .auth-anon-only { display: none !important; }
   font-size: 26px; font-weight: 700; letter-spacing: -.02em;
 }
 .brief-headline-r .why { color: var(--ink-2); font-size: 14px; line-height: 1.55; max-width: 60ch; }
+
+/* EP legend: defines Expected Points inline so a casual fan understands the
+   ranking metric before reaching the column-key glossary lower on the page. */
+.ep-legend {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 12px 0 4px;
+  border-top: 1px dashed var(--line-soft);
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+.ep-legend .ep-legend-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  flex: none;
+}
+.ep-legend .ep-legend-val { color: var(--ink-2); }
+@media (max-width: 720px) {
+  .ep-legend { flex-direction: column; gap: 4px; padding: 10px 0; }
+}
+
+/* Inline definitional tooltips (abbr title="...") — render with a dotted
+   underline so the user knows there's an explanation on hover/tap. */
+abbr[title] {
+  text-decoration: underline dotted var(--ink-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  cursor: help;
+  -webkit-text-decoration: underline dotted var(--ink-3);
+}
 
 .brief-grid {
   display: grid;
@@ -1270,17 +1308,21 @@ window.GW_CFG = {
         <div class="why">Why: strong track-type ELO, top-tier driver ELO, front-row start (P1).</div>
       </div>
     </div>
+    <div class="ep-legend" role="note">
+      <span class="ep-legend-key">EP</span>
+      <span class="ep-legend-val">Expected Points — Win=10, Top5=7, Top10=5, Top20=3, Made=1, DNF=0. Higher = better projected finish.</span>
+    </div>
     <div class="brief-grid">
       <div class="brief-cell pick">
         <div class="lbl">Win Profile</div>
         <div class="name">Shane van Gisbergen</div>
-        <div class="stat">Win <b>48.8%</b> • Top-5 <b>60%</b> • EP <b>6.42</b></div>
+        <div class="stat">Win <b>48.8%</b> • Top-5 <b>60%</b> • <abbr title="Expected Points = Σ(bucket prob × bucket points). Win=10, Top5=7, Top10=5, Top20=3, Made=1, DNF=0.">EP</abbr> <b>6.42</b></div>
       </div>
       <div class="brief-cell safe free-only locked-cell">
         <div class="lbl">Safest Play</div>
         <div class="lock-blur">
-          <div class="name">Chase Briscoe</div>
-          <div class="stat">Top-10 prob <b>66%</b> • DNF <b>4.5%</b></div>
+          <div class="name">— — — — —</div>
+          <div class="stat">Top-10 prob • DNF risk</div>
         </div>
         <div class="lockbar">◦ Subscriber</div>
       </div>
@@ -1292,8 +1334,8 @@ window.GW_CFG = {
       <div class="brief-cell up free-only locked-cell">
         <div class="lbl">Upside Driver</div>
         <div class="lock-blur">
-          <div class="name">A.J. Allmendinger</div>
-          <div class="stat">Win prob <b>27.5%</b> • Started <b>P5</b></div>
+          <div class="name">— — — — —</div>
+          <div class="stat">Win prob • Starting grid</div>
         </div>
         <div class="lockbar">◦ Subscriber</div>
       </div>
@@ -1365,10 +1407,10 @@ window.GW_CFG = {
       <div class="spot-stats">
         <div>Win <span>48.8%</span></div>
         <div>Top-5 <span>60%</span></div>
-        <div>Exp pts <span>6.42</span></div>
+        <div><abbr title="Expected Points = Σ(bucket prob × bucket points). Win=10, Top5=7, Top10=5, Top20=3, Made=1, DNF=0.">Exp pts</abbr> <span>6.42</span></div>
         <div>Start <span>P1</span></div>
-        <div>Driver ELO <span>1515</span></div>
-        <div>Track-type ELO <span>1515</span></div>
+        <div><abbr title="Overall ELO rating. 1500 = field average; spread across drivers is roughly 30 points.">Driver ELO</abbr> <span>1515</span></div>
+        <div><abbr title="Driver ELO at this specific track type (short / intermediate / road / superspeedway).">Track-type ELO</abbr> <span>1515</span></div>
       </div>
       <div class="spot-why">
         <span class="lead">Why this pick</span>
@@ -1376,18 +1418,18 @@ window.GW_CFG = {
       </div>
     </div>
     <div class="spot-card free-only">
-      <div class="locked-blur">
+      <div>
         <div class="spot-num-car"><span class="car">#45</span> 23XI Racing</div>
         <div class="spot-rank">2</div>
         <div class="spot-name">Tyler Reddick</div>
       </div>
       <div class="spot-stats locked-blur">
-        <div>Win <span>36.3%</span></div>
-        <div>Top-5 <span>46%</span></div>
-        <div>Exp pts <span>5.71</span></div>
-        <div>Start <span>P8</span></div>
-        <div>Driver ELO <span>1514</span></div>
-        <div>Track-type ELO <span>1513</span></div>
+        <div>Win <span>—</span></div>
+        <div>Top-5 <span>—</span></div>
+        <div><abbr title="Expected Points = Σ(bucket prob × bucket points). Win=10, Top5=7, Top10=5, Top20=3, Made=1, DNF=0.">Exp pts</abbr> <span>—</span></div>
+        <div>Start <span>—</span></div>
+        <div><abbr title="Overall ELO rating. 1500 = field average.">Driver ELO</abbr> <span>—</span></div>
+        <div><abbr title="Driver ELO at this specific track type.">Track-type ELO</abbr> <span>—</span></div>
       </div>
       <div class="spot-why locked-blur">
         <span class="lead">Why this pick</span>
@@ -1404,10 +1446,10 @@ window.GW_CFG = {
       <div class="spot-stats">
         <div>Win <span>36.3%</span></div>
         <div>Top-5 <span>46%</span></div>
-        <div>Exp pts <span>5.71</span></div>
+        <div><abbr title="Expected Points = Σ(bucket prob × bucket points). Win=10, Top5=7, Top10=5, Top20=3, Made=1, DNF=0.">Exp pts</abbr> <span>5.71</span></div>
         <div>Start <span>P8</span></div>
-        <div>Driver ELO <span>1514</span></div>
-        <div>Track-type ELO <span>1513</span></div>
+        <div><abbr title="Overall ELO rating. 1500 = field average; spread across drivers is roughly 30 points.">Driver ELO</abbr> <span>1514</span></div>
+        <div><abbr title="Driver ELO at this specific track type (short / intermediate / road / superspeedway).">Track-type ELO</abbr> <span>1513</span></div>
       </div>
       <div class="spot-why">
         <span class="lead">Why this pick</span>
@@ -1415,18 +1457,18 @@ window.GW_CFG = {
       </div>
     </div>
     <div class="spot-card free-only">
-      <div class="locked-blur">
+      <div>
         <div class="spot-num-car"><span class="car">#19</span> Joe Gibbs Racing</div>
         <div class="spot-rank">3</div>
         <div class="spot-name">Chase Briscoe</div>
       </div>
       <div class="spot-stats locked-blur">
-        <div>Win <span>24.6%</span></div>
-        <div>Top-5 <span>52%</span></div>
-        <div>Exp pts <span>5.71</span></div>
-        <div>Start <span>P2</span></div>
-        <div>Driver ELO <span>1501</span></div>
-        <div>Track-type ELO <span>1501</span></div>
+        <div>Win <span>—</span></div>
+        <div>Top-5 <span>—</span></div>
+        <div><abbr title="Expected Points = Σ(bucket prob × bucket points). Win=10, Top5=7, Top10=5, Top20=3, Made=1, DNF=0.">Exp pts</abbr> <span>—</span></div>
+        <div>Start <span>—</span></div>
+        <div><abbr title="Overall ELO rating. 1500 = field average.">Driver ELO</abbr> <span>—</span></div>
+        <div><abbr title="Driver ELO at this specific track type.">Track-type ELO</abbr> <span>—</span></div>
       </div>
       <div class="spot-why locked-blur">
         <span class="lead">Why this pick</span>
@@ -1443,10 +1485,10 @@ window.GW_CFG = {
       <div class="spot-stats">
         <div>Win <span>24.6%</span></div>
         <div>Top-5 <span>52%</span></div>
-        <div>Exp pts <span>5.71</span></div>
+        <div><abbr title="Expected Points = Σ(bucket prob × bucket points). Win=10, Top5=7, Top10=5, Top20=3, Made=1, DNF=0.">Exp pts</abbr> <span>5.71</span></div>
         <div>Start <span>P2</span></div>
-        <div>Driver ELO <span>1501</span></div>
-        <div>Track-type ELO <span>1501</span></div>
+        <div><abbr title="Overall ELO rating. 1500 = field average; spread across drivers is roughly 30 points.">Driver ELO</abbr> <span>1501</span></div>
+        <div><abbr title="Driver ELO at this specific track type (short / intermediate / road / superspeedway).">Track-type ELO</abbr> <span>1501</span></div>
       </div>
       <div class="spot-why">
         <span class="lead">Why this pick</span>
@@ -1481,28 +1523,31 @@ window.GW_CFG = {
             <div class="gd-pct">36.3%</div>
           </div>
           
-        </div><div class="paid-only">
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#48</span>Alex Bowman</div>
-            <div class="gd-pct">29.2%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="Alex Bowman">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#16</span>A.J. Allmendinger</div>
-            <div class="gd-pct">27.5%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="A.J. Allmendinger">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#1</span>Ross Chastain</div>
-            <div class="gd-pct">25.2%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="Ross Chastain">—</div>
           </div>
-          
-        </div></div>
+        </div>
+        </div>
         
         <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
@@ -1525,28 +1570,31 @@ window.GW_CFG = {
             <div class="gd-pct">41.3%</div>
           </div>
           
-        </div><div class="paid-only">
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#19</span>Chase Briscoe</div>
-            <div class="gd-pct">38.1%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="Chase Briscoe">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#16</span>A.J. Allmendinger</div>
-            <div class="gd-pct">37.4%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="A.J. Allmendinger">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#1</span>Ross Chastain</div>
-            <div class="gd-pct">37.0%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="Ross Chastain">—</div>
           </div>
-          
-        </div></div>
+        </div>
+        </div>
         
         <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
@@ -1569,28 +1617,31 @@ window.GW_CFG = {
             <div class="gd-pct">51.5%</div>
           </div>
           
-        </div><div class="paid-only">
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#1</span>Ross Chastain</div>
-            <div class="gd-pct">48.7%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="Ross Chastain">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#16</span>A.J. Allmendinger</div>
-            <div class="gd-pct">47.2%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="A.J. Allmendinger">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
-            <div class="gd-pct">47.0%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="Ty Gibbs">—</div>
           </div>
-          
-        </div></div>
+        </div>
+        </div>
         
         <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
@@ -1613,28 +1664,31 @@ window.GW_CFG = {
             <div class="gd-pct">67.8%</div>
           </div>
           
-        </div><div class="paid-only">
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
-            <div class="gd-pct">67.4%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="Ty Gibbs">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#45</span>Tyler Reddick</div>
-            <div class="gd-pct">66.7%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="Tyler Reddick">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#16</span>A.J. Allmendinger</div>
-            <div class="gd-pct">66.2%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="A.J. Allmendinger">—</div>
           </div>
-          
-        </div></div>
+        </div>
+        </div>
         
         <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
@@ -1657,28 +1711,31 @@ window.GW_CFG = {
             <div class="gd-pct">5.45</div>
           </div>
           
-        </div><div class="paid-only">
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#48</span>Alex Bowman</div>
-            <div class="gd-pct">5.08</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="Alex Bowman">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#45</span>Tyler Reddick</div>
-            <div class="gd-pct">4.95</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="Tyler Reddick">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#1</span>Ross Chastain</div>
-            <div class="gd-pct">4.85</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="Ross Chastain">—</div>
           </div>
-          
-        </div></div>
+        </div>
+        </div>
         
         <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
@@ -1701,28 +1758,31 @@ window.GW_CFG = {
             <div class="gd-pct">20.1%</div>
           </div>
           
-        </div><div class="paid-only">
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#71</span>Michael McDowell</div>
-            <div class="gd-pct">18.9%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Michael McDowell">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#41</span>Cole Custer</div>
-            <div class="gd-pct">18.6%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Cole Custer">—</div>
           </div>
-          
-        </div></div><div class="paid-only">
+        </div>
+        </div>
+        <div class="paid-only">
         <div>
           <div class="gd-row">
             <div class="gd-name"><span class="num">#51</span>Cody Ware</div>
-            <div class="gd-pct">17.6%</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Cody Ware">—</div>
           </div>
-          
-        </div></div>
+        </div>
+        </div>
         
         <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
@@ -1892,518 +1952,518 @@ window.GW_CFG = {
           <td>21.5</td>
           <td title="No starts at this track" style="color:var(--ink-4)">—</td>
           <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+        </tr><tr class="locked-row" data-paid-driver="A.J. Allmendinger">
           <td class="l"><span class="pos-pill">6</span></td>
           <td class="l mono">16</td>
           <td class="l driver">A.J. Allmendinger</td>
           <td class="l team">Kaulig Racing</td>
-          <td>P5</td>
-          <td>5.51</td>
-          <td class="win-cell">27.5%</td>
-          <td>37.4%</td>
-          <td>47%</td>
-          <td>66%</td>
-          <td class="dnf-cell">12.4%</td>
-          <td>1512</td>
-          <td>18.9</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ty Gibbs">
           <td class="l"><span class="pos-pill">7</span></td>
           <td class="l mono">54</td>
           <td class="l driver">Ty Gibbs</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>P6</td>
-          <td>5.32</td>
-          <td class="win-cell">20.6%</td>
-          <td>33.8%</td>
-          <td>47%</td>
-          <td>67%</td>
-          <td class="dnf-cell">10.2%</td>
-          <td>1515</td>
-          <td>25.8</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="William Byron">
           <td class="l"><span class="pos-pill">8</span></td>
           <td class="l mono">24</td>
           <td class="l driver">William Byron</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>P3</td>
-          <td>4.72</td>
-          <td class="win-cell">19.0%</td>
-          <td>28.2%</td>
-          <td>37%</td>
-          <td>53%</td>
-          <td class="dnf-cell">11.3%</td>
-          <td>1493</td>
-          <td>27.6</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Kyle Larson">
           <td class="l"><span class="pos-pill">9</span></td>
           <td class="l mono">5</td>
           <td class="l driver">Kyle Larson</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>P11</td>
-          <td>4.64</td>
-          <td class="win-cell">12.5%</td>
-          <td>26.0%</td>
-          <td>39%</td>
-          <td>57%</td>
-          <td class="dnf-cell">7.2%</td>
-          <td>1508</td>
-          <td>27.6</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Christopher Bell">
           <td class="l"><span class="pos-pill">10</span></td>
           <td class="l mono">20</td>
           <td class="l driver">Christopher Bell</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>P10</td>
-          <td>4.62</td>
-          <td class="win-cell">10.6%</td>
-          <td>25.5%</td>
-          <td>40%</td>
-          <td>55%</td>
-          <td class="dnf-cell">6.2%</td>
-          <td>1500</td>
-          <td>25.8</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Chase Elliott">
           <td class="l"><span class="pos-pill">11</span></td>
           <td class="l mono">9</td>
           <td class="l driver">Chase Elliott</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>P13</td>
-          <td>4.09</td>
-          <td class="win-cell">12.7%</td>
-          <td>19.4%</td>
-          <td>26%</td>
-          <td>48%</td>
-          <td class="dnf-cell">9.6%</td>
-          <td>1508</td>
-          <td>27.6</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Kyle Busch">
           <td class="l"><span class="pos-pill">12</span></td>
           <td class="l mono">8</td>
           <td class="l driver">Kyle Busch</td>
           <td class="l team">Richard Childress Racing</td>
-          <td>P17</td>
-          <td>4.09</td>
-          <td class="win-cell">15.4%</td>
-          <td>21.5%</td>
-          <td>28%</td>
-          <td>48%</td>
-          <td class="dnf-cell">15.0%</td>
-          <td>1512</td>
-          <td>21.5</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Denny Hamlin">
           <td class="l"><span class="pos-pill">13</span></td>
           <td class="l mono">11</td>
           <td class="l driver">Denny Hamlin</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>P16</td>
-          <td>3.90</td>
-          <td class="win-cell">11.7%</td>
-          <td>17.9%</td>
-          <td>24%</td>
-          <td>45%</td>
-          <td class="dnf-cell">13.8%</td>
-          <td>1512</td>
-          <td>25.8</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Chris Buescher">
           <td class="l"><span class="pos-pill">14</span></td>
           <td class="l mono">17</td>
           <td class="l driver">Chris Buescher</td>
           <td class="l team">RFK Racing</td>
-          <td>P14</td>
-          <td>3.87</td>
-          <td class="win-cell">12.5%</td>
-          <td>21.1%</td>
-          <td>30%</td>
-          <td>42%</td>
-          <td class="dnf-cell">7.1%</td>
-          <td>1506</td>
-          <td>23.3</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ryan Blaney">
           <td class="l"><span class="pos-pill">15</span></td>
           <td class="l mono">12</td>
           <td class="l driver">Ryan Blaney</td>
           <td class="l team">Team Penske</td>
-          <td>P7</td>
-          <td>3.86</td>
-          <td class="win-cell">4.4%</td>
-          <td>9.8%</td>
-          <td>15%</td>
-          <td>50%</td>
-          <td class="dnf-cell">9.0%</td>
-          <td>1510</td>
-          <td>23.2</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ryan Preece">
           <td class="l"><span class="pos-pill">16</span></td>
           <td class="l mono">60</td>
           <td class="l driver">Ryan Preece</td>
           <td class="l team">RFK Racing</td>
-          <td>P20</td>
-          <td>3.50</td>
-          <td class="win-cell">8.4%</td>
-          <td>13.0%</td>
-          <td>18%</td>
-          <td>34%</td>
-          <td class="dnf-cell">8.8%</td>
-          <td>1512</td>
-          <td>23.3</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Daniel Suarez">
           <td class="l"><span class="pos-pill">17</span></td>
           <td class="l mono">99</td>
           <td class="l driver">Daniel Suarez</td>
           <td class="l team">Trackhouse Racing</td>
-          <td>P19</td>
-          <td>3.47</td>
-          <td class="win-cell">2.1%</td>
-          <td>11.5%</td>
-          <td>21%</td>
-          <td>36%</td>
-          <td class="dnf-cell">10.8%</td>
-          <td>1500</td>
-          <td>21.5</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Michael McDowell">
           <td class="l"><span class="pos-pill">18</span></td>
           <td class="l mono">71</td>
           <td class="l driver">Michael McDowell</td>
           <td class="l team">Spire Motorsports</td>
-          <td>P15</td>
-          <td>3.42</td>
-          <td class="win-cell">7.1%</td>
-          <td>13.9%</td>
-          <td>21%</td>
-          <td>40%</td>
-          <td class="dnf-cell">18.9%</td>
-          <td>1496</td>
-          <td>19.2</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Joey Logano">
           <td class="l"><span class="pos-pill">19</span></td>
           <td class="l mono">22</td>
           <td class="l driver">Joey Logano</td>
           <td class="l team">Team Penske</td>
-          <td>P22</td>
-          <td>3.23</td>
-          <td class="win-cell">2.6%</td>
-          <td>8.6%</td>
-          <td>15%</td>
-          <td>36%</td>
-          <td class="dnf-cell">9.3%</td>
-          <td>1510</td>
-          <td>23.2</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Brad Keselowski">
           <td class="l"><span class="pos-pill">20</span></td>
           <td class="l mono">6</td>
           <td class="l driver">Brad Keselowski</td>
           <td class="l team">RFK Racing</td>
-          <td>P21</td>
-          <td>3.02</td>
-          <td class="win-cell">3.2%</td>
-          <td>7.1%</td>
-          <td>11%</td>
-          <td>28%</td>
-          <td class="dnf-cell">6.1%</td>
-          <td>1494</td>
-          <td>23.3</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Zane Smith">
           <td class="l"><span class="pos-pill">21</span></td>
           <td class="l mono">38</td>
           <td class="l driver">Zane Smith</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>P12</td>
-          <td>2.77</td>
-          <td class="win-cell">1.4%</td>
-          <td>6.2%</td>
-          <td>11%</td>
-          <td>24%</td>
-          <td class="dnf-cell">10.2%</td>
-          <td>1508</td>
-          <td>19.0</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="John Hunter Nemechek">
           <td class="l"><span class="pos-pill">22</span></td>
           <td class="l mono">42</td>
           <td class="l driver">John Hunter Nemechek</td>
           <td class="l team">Legacy Motor Club</td>
-          <td>P18</td>
-          <td>2.50</td>
-          <td class="win-cell">2.1%</td>
-          <td>5.7%</td>
-          <td>9%</td>
-          <td>21%</td>
-          <td class="dnf-cell">16.7%</td>
-          <td>1505</td>
-          <td>18.2</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Carson Hocevar">
           <td class="l"><span class="pos-pill">23</span></td>
           <td class="l mono">77</td>
           <td class="l driver">Carson Hocevar</td>
           <td class="l team">Spire Motorsports</td>
-          <td>P23</td>
-          <td>2.39</td>
-          <td class="win-cell">2.0%</td>
-          <td>3.1%</td>
-          <td>4%</td>
-          <td>16%</td>
-          <td class="dnf-cell">15.8%</td>
-          <td>1494</td>
-          <td>19.2</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Austin Cindric">
           <td class="l"><span class="pos-pill">24</span></td>
           <td class="l mono">2</td>
           <td class="l driver">Austin Cindric</td>
           <td class="l team">Team Penske</td>
-          <td>P24</td>
-          <td>2.35</td>
-          <td class="win-cell">1.1%</td>
-          <td>2.8%</td>
-          <td>4%</td>
-          <td>15%</td>
-          <td class="dnf-cell">10.3%</td>
-          <td>1501</td>
-          <td>23.2</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Austin Dillon">
           <td class="l"><span class="pos-pill">25</span></td>
           <td class="l mono">3</td>
           <td class="l driver">Austin Dillon</td>
           <td class="l team">Richard Childress Racing</td>
-          <td>P33</td>
-          <td>2.35</td>
-          <td class="win-cell">1.2%</td>
-          <td>4.8%</td>
-          <td>8%</td>
-          <td>22%</td>
-          <td class="dnf-cell">13.3%</td>
-          <td>1493</td>
-          <td>21.5</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Cole Custer">
           <td class="l"><span class="pos-pill">26</span></td>
           <td class="l mono">41</td>
           <td class="l driver">Cole Custer</td>
           <td class="l team">Haas Factory Team</td>
-          <td>P27</td>
-          <td>2.27</td>
-          <td class="win-cell">2.9%</td>
-          <td>4.2%</td>
-          <td>6%</td>
-          <td>17%</td>
-          <td class="dnf-cell">18.6%</td>
-          <td>1495</td>
-          <td>16.6</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Bubba Wallace">
           <td class="l"><span class="pos-pill">27</span></td>
           <td class="l mono">23</td>
           <td class="l driver">Bubba Wallace</td>
           <td class="l team">23XI Racing</td>
-          <td>P30</td>
-          <td>2.24</td>
-          <td class="win-cell">1.8%</td>
-          <td>3.6%</td>
-          <td>5%</td>
-          <td>17%</td>
-          <td class="dnf-cell">15.7%</td>
-          <td>1498</td>
-          <td>21.8</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Erik Jones">
           <td class="l"><span class="pos-pill">28</span></td>
           <td class="l mono">43</td>
           <td class="l driver">Erik Jones</td>
           <td class="l team">Legacy Motor Club</td>
-          <td>P31</td>
-          <td>2.09</td>
-          <td class="win-cell">1.1%</td>
-          <td>3.3%</td>
-          <td>6%</td>
-          <td>13%</td>
-          <td class="dnf-cell">8.4%</td>
-          <td>1501</td>
-          <td>18.2</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ty Dillon">
           <td class="l"><span class="pos-pill">29</span></td>
           <td class="l mono">10</td>
           <td class="l driver">Ty Dillon</td>
           <td class="l team">Kaulig Racing</td>
-          <td>P26</td>
-          <td>2.02</td>
-          <td class="win-cell">1.4%</td>
-          <td>3.1%</td>
-          <td>5%</td>
-          <td>13%</td>
-          <td class="dnf-cell">16.2%</td>
-          <td>1505</td>
-          <td>18.9</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ricky Stenhouse Jr.">
           <td class="l"><span class="pos-pill">30</span></td>
           <td class="l mono">47</td>
           <td class="l driver">Ricky Stenhouse Jr.</td>
           <td class="l team">Hyak Motorsports</td>
-          <td>P34</td>
-          <td>1.94</td>
-          <td class="win-cell">1.4%</td>
-          <td>2.9%</td>
-          <td>5%</td>
-          <td>17%</td>
-          <td class="dnf-cell">14.3%</td>
-          <td>1497</td>
-          <td>21.4</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Justin Haley">
           <td class="l"><span class="pos-pill">31</span></td>
           <td class="l mono">7</td>
           <td class="l driver">Justin Haley</td>
           <td class="l team">Spire Motorsports</td>
-          <td>P29</td>
-          <td>1.85</td>
-          <td class="win-cell">1.1%</td>
-          <td>2.7%</td>
-          <td>4%</td>
-          <td>12%</td>
-          <td class="dnf-cell">17.4%</td>
-          <td>1502</td>
-          <td>19.2</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Josh Berry">
           <td class="l"><span class="pos-pill">32</span></td>
           <td class="l mono">21</td>
           <td class="l driver">Josh Berry</td>
           <td class="l team">Wood Brothers Racing</td>
-          <td>P25</td>
-          <td>1.84</td>
-          <td class="win-cell">0.9%</td>
-          <td>1.9%</td>
-          <td>3%</td>
-          <td>7%</td>
-          <td class="dnf-cell">13.9%</td>
-          <td>1494</td>
-          <td>16.6</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Riley Herbst">
           <td class="l"><span class="pos-pill">33</span></td>
           <td class="l mono">35</td>
           <td class="l driver">Riley Herbst</td>
           <td class="l team">23XI Racing</td>
-          <td>P28</td>
-          <td>1.81</td>
-          <td class="win-cell">1.6%</td>
-          <td>3.1%</td>
-          <td>5%</td>
-          <td>10%</td>
-          <td class="dnf-cell">20.1%</td>
-          <td>1505</td>
-          <td>21.8</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Todd Gilliland">
           <td class="l"><span class="pos-pill">34</span></td>
           <td class="l mono">34</td>
           <td class="l driver">Todd Gilliland</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>P35</td>
-          <td>1.74</td>
-          <td class="win-cell">0.8%</td>
-          <td>1.7%</td>
-          <td>3%</td>
-          <td>13%</td>
-          <td class="dnf-cell">15.5%</td>
-          <td>1492</td>
-          <td>19.0</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Noah Gragson">
           <td class="l"><span class="pos-pill">35</span></td>
           <td class="l mono">4</td>
           <td class="l driver">Noah Gragson</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>P32</td>
-          <td>1.63</td>
-          <td class="win-cell">0.7%</td>
-          <td>1.6%</td>
-          <td>3%</td>
-          <td>7%</td>
-          <td class="dnf-cell">14.9%</td>
-          <td>1497</td>
-          <td>19.0</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Katherine Legge">
           <td class="l"><span class="pos-pill">36</span></td>
           <td class="l mono">78</td>
           <td class="l driver">Katherine Legge</td>
           <td class="l team">Live Fast Motorsports</td>
-          <td>P37</td>
-          <td>1.32</td>
-          <td class="win-cell">1.0%</td>
-          <td>1.7%</td>
-          <td>2%</td>
-          <td>6%</td>
-          <td class="dnf-cell">20.7%</td>
-          <td>1505</td>
-          <td>11.8</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Cody Ware">
           <td class="l"><span class="pos-pill">37</span></td>
           <td class="l mono">51</td>
           <td class="l driver">Cody Ware</td>
           <td class="l team">Rick Ware Racing</td>
-          <td>P36</td>
-          <td>1.28</td>
-          <td class="win-cell">0.5%</td>
-          <td>1.0%</td>
-          <td>2%</td>
-          <td>4%</td>
-          <td class="dnf-cell">17.6%</td>
-          <td>1500</td>
-          <td>14.5</td>
-          <td title="No starts at this track" style="color:var(--ink-4)">—</td>
-          <td title="No practice session yet this race week" style="color:var(--ink-4)">—</td>
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t3">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="track_avg_finish">—</span></td>
+          <td><span data-paid-field="practice_adj">—</span></td>
         </tr></tbody>
     </table>
     <table class="proj proj-view" data-proj-view-table="probabilities">
@@ -2482,390 +2542,390 @@ window.GW_CFG = {
           <td>78%</td>
           <td>87%</td>
           <td class="dnf-cell">12.8%</td>
-        </tr><tr class="locked-row">
+        </tr><tr class="locked-row" data-paid-driver="A.J. Allmendinger">
           <td class="l"><span class="pos-pill">6</span></td>
           <td class="l mono">16</td>
           <td class="l driver">A.J. Allmendinger</td>
           <td class="l team">Kaulig Racing</td>
-          <td>5.51</td>
-          <td class="win-cell">27.5%</td>
-          <td>47%</td>
-          <td>66%</td>
-          <td>77%</td>
-          <td>88%</td>
-          <td class="dnf-cell">12.4%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ty Gibbs">
           <td class="l"><span class="pos-pill">7</span></td>
           <td class="l mono">54</td>
           <td class="l driver">Ty Gibbs</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>5.32</td>
-          <td class="win-cell">20.6%</td>
-          <td>47%</td>
-          <td>67%</td>
-          <td>75%</td>
-          <td>90%</td>
-          <td class="dnf-cell">10.2%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="William Byron">
           <td class="l"><span class="pos-pill">8</span></td>
           <td class="l mono">24</td>
           <td class="l driver">William Byron</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>4.72</td>
-          <td class="win-cell">19.0%</td>
-          <td>37%</td>
-          <td>53%</td>
-          <td>73%</td>
-          <td>89%</td>
-          <td class="dnf-cell">11.3%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Kyle Larson">
           <td class="l"><span class="pos-pill">9</span></td>
           <td class="l mono">5</td>
           <td class="l driver">Kyle Larson</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>4.64</td>
-          <td class="win-cell">12.5%</td>
-          <td>39%</td>
-          <td>57%</td>
-          <td>70%</td>
-          <td>93%</td>
-          <td class="dnf-cell">7.2%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Christopher Bell">
           <td class="l"><span class="pos-pill">10</span></td>
           <td class="l mono">20</td>
           <td class="l driver">Christopher Bell</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>4.62</td>
-          <td class="win-cell">10.6%</td>
-          <td>40%</td>
-          <td>55%</td>
-          <td>72%</td>
-          <td>94%</td>
-          <td class="dnf-cell">6.2%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Chase Elliott">
           <td class="l"><span class="pos-pill">11</span></td>
           <td class="l mono">9</td>
           <td class="l driver">Chase Elliott</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>4.09</td>
-          <td class="win-cell">12.7%</td>
-          <td>26%</td>
-          <td>48%</td>
-          <td>66%</td>
-          <td>90%</td>
-          <td class="dnf-cell">9.6%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Kyle Busch">
           <td class="l"><span class="pos-pill">12</span></td>
           <td class="l mono">8</td>
           <td class="l driver">Kyle Busch</td>
           <td class="l team">Richard Childress Racing</td>
-          <td>4.09</td>
-          <td class="win-cell">15.4%</td>
-          <td>28%</td>
-          <td>48%</td>
-          <td>64%</td>
-          <td>85%</td>
-          <td class="dnf-cell">15.0%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Denny Hamlin">
           <td class="l"><span class="pos-pill">13</span></td>
           <td class="l mono">11</td>
           <td class="l driver">Denny Hamlin</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>3.90</td>
-          <td class="win-cell">11.7%</td>
-          <td>24%</td>
-          <td>45%</td>
-          <td>66%</td>
-          <td>86%</td>
-          <td class="dnf-cell">13.8%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Chris Buescher">
           <td class="l"><span class="pos-pill">14</span></td>
           <td class="l mono">17</td>
           <td class="l driver">Chris Buescher</td>
           <td class="l team">RFK Racing</td>
-          <td>3.87</td>
-          <td class="win-cell">12.5%</td>
-          <td>30%</td>
-          <td>42%</td>
-          <td>57%</td>
-          <td>93%</td>
-          <td class="dnf-cell">7.1%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ryan Blaney">
           <td class="l"><span class="pos-pill">15</span></td>
           <td class="l mono">12</td>
           <td class="l driver">Ryan Blaney</td>
           <td class="l team">Team Penske</td>
-          <td>3.86</td>
-          <td class="win-cell">4.4%</td>
-          <td>15%</td>
-          <td>50%</td>
-          <td>75%</td>
-          <td>91%</td>
-          <td class="dnf-cell">9.0%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ryan Preece">
           <td class="l"><span class="pos-pill">16</span></td>
           <td class="l mono">60</td>
           <td class="l driver">Ryan Preece</td>
           <td class="l team">RFK Racing</td>
-          <td>3.50</td>
-          <td class="win-cell">8.4%</td>
-          <td>18%</td>
-          <td>34%</td>
-          <td>65%</td>
-          <td>91%</td>
-          <td class="dnf-cell">8.8%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Daniel Suarez">
           <td class="l"><span class="pos-pill">17</span></td>
           <td class="l mono">99</td>
           <td class="l driver">Daniel Suarez</td>
           <td class="l team">Trackhouse Racing</td>
-          <td>3.47</td>
-          <td class="win-cell">2.1%</td>
-          <td>21%</td>
-          <td>36%</td>
-          <td>69%</td>
-          <td>89%</td>
-          <td class="dnf-cell">10.8%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Michael McDowell">
           <td class="l"><span class="pos-pill">18</span></td>
           <td class="l mono">71</td>
           <td class="l driver">Michael McDowell</td>
           <td class="l team">Spire Motorsports</td>
-          <td>3.42</td>
-          <td class="win-cell">7.1%</td>
-          <td>21%</td>
-          <td>40%</td>
-          <td>59%</td>
-          <td>81%</td>
-          <td class="dnf-cell">18.9%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Joey Logano">
           <td class="l"><span class="pos-pill">19</span></td>
           <td class="l mono">22</td>
           <td class="l driver">Joey Logano</td>
           <td class="l team">Team Penske</td>
-          <td>3.23</td>
-          <td class="win-cell">2.6%</td>
-          <td>15%</td>
-          <td>36%</td>
-          <td>62%</td>
-          <td>91%</td>
-          <td class="dnf-cell">9.3%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Brad Keselowski">
           <td class="l"><span class="pos-pill">20</span></td>
           <td class="l mono">6</td>
           <td class="l driver">Brad Keselowski</td>
           <td class="l team">RFK Racing</td>
-          <td>3.02</td>
-          <td class="win-cell">3.2%</td>
-          <td>11%</td>
-          <td>28%</td>
-          <td>60%</td>
-          <td>94%</td>
-          <td class="dnf-cell">6.1%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Zane Smith">
           <td class="l"><span class="pos-pill">21</span></td>
           <td class="l mono">38</td>
           <td class="l driver">Zane Smith</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>2.77</td>
-          <td class="win-cell">1.4%</td>
-          <td>11%</td>
-          <td>24%</td>
-          <td>57%</td>
-          <td>90%</td>
-          <td class="dnf-cell">10.2%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="John Hunter Nemechek">
           <td class="l"><span class="pos-pill">22</span></td>
           <td class="l mono">42</td>
           <td class="l driver">John Hunter Nemechek</td>
           <td class="l team">Legacy Motor Club</td>
-          <td>2.50</td>
-          <td class="win-cell">2.1%</td>
-          <td>9%</td>
-          <td>21%</td>
-          <td>50%</td>
-          <td>83%</td>
-          <td class="dnf-cell">16.7%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Carson Hocevar">
           <td class="l"><span class="pos-pill">23</span></td>
           <td class="l mono">77</td>
           <td class="l driver">Carson Hocevar</td>
           <td class="l team">Spire Motorsports</td>
-          <td>2.39</td>
-          <td class="win-cell">2.0%</td>
-          <td>4%</td>
-          <td>16%</td>
-          <td>54%</td>
-          <td>84%</td>
-          <td class="dnf-cell">15.8%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Austin Cindric">
           <td class="l"><span class="pos-pill">24</span></td>
           <td class="l mono">2</td>
           <td class="l driver">Austin Cindric</td>
           <td class="l team">Team Penske</td>
-          <td>2.35</td>
-          <td class="win-cell">1.1%</td>
-          <td>4%</td>
-          <td>15%</td>
-          <td>52%</td>
-          <td>90%</td>
-          <td class="dnf-cell">10.3%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Austin Dillon">
           <td class="l"><span class="pos-pill">25</span></td>
           <td class="l mono">3</td>
           <td class="l driver">Austin Dillon</td>
           <td class="l team">Richard Childress Racing</td>
-          <td>2.35</td>
-          <td class="win-cell">1.2%</td>
-          <td>8%</td>
-          <td>22%</td>
-          <td>42%</td>
-          <td>87%</td>
-          <td class="dnf-cell">13.3%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Cole Custer">
           <td class="l"><span class="pos-pill">26</span></td>
           <td class="l mono">41</td>
           <td class="l driver">Cole Custer</td>
           <td class="l team">Haas Factory Team</td>
-          <td>2.27</td>
-          <td class="win-cell">2.9%</td>
-          <td>6%</td>
-          <td>17%</td>
-          <td>46%</td>
-          <td>81%</td>
-          <td class="dnf-cell">18.6%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Bubba Wallace">
           <td class="l"><span class="pos-pill">27</span></td>
           <td class="l mono">23</td>
           <td class="l driver">Bubba Wallace</td>
           <td class="l team">23XI Racing</td>
-          <td>2.24</td>
-          <td class="win-cell">1.8%</td>
-          <td>5%</td>
-          <td>17%</td>
-          <td>45%</td>
-          <td>84%</td>
-          <td class="dnf-cell">15.7%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Erik Jones">
           <td class="l"><span class="pos-pill">28</span></td>
           <td class="l mono">43</td>
           <td class="l driver">Erik Jones</td>
           <td class="l team">Legacy Motor Club</td>
-          <td>2.09</td>
-          <td class="win-cell">1.1%</td>
-          <td>6%</td>
-          <td>13%</td>
-          <td>38%</td>
-          <td>92%</td>
-          <td class="dnf-cell">8.4%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ty Dillon">
           <td class="l"><span class="pos-pill">29</span></td>
           <td class="l mono">10</td>
           <td class="l driver">Ty Dillon</td>
           <td class="l team">Kaulig Racing</td>
-          <td>2.02</td>
-          <td class="win-cell">1.4%</td>
-          <td>5%</td>
-          <td>13%</td>
-          <td>39%</td>
-          <td>84%</td>
-          <td class="dnf-cell">16.2%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ricky Stenhouse Jr.">
           <td class="l"><span class="pos-pill">30</span></td>
           <td class="l mono">47</td>
           <td class="l driver">Ricky Stenhouse Jr.</td>
           <td class="l team">Hyak Motorsports</td>
-          <td>1.94</td>
-          <td class="win-cell">1.4%</td>
-          <td>5%</td>
-          <td>17%</td>
-          <td>31%</td>
-          <td>86%</td>
-          <td class="dnf-cell">14.3%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Justin Haley">
           <td class="l"><span class="pos-pill">31</span></td>
           <td class="l mono">7</td>
           <td class="l driver">Justin Haley</td>
           <td class="l team">Spire Motorsports</td>
-          <td>1.85</td>
-          <td class="win-cell">1.1%</td>
-          <td>4%</td>
-          <td>12%</td>
-          <td>33%</td>
-          <td>83%</td>
-          <td class="dnf-cell">17.4%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Josh Berry">
           <td class="l"><span class="pos-pill">32</span></td>
           <td class="l mono">21</td>
           <td class="l driver">Josh Berry</td>
           <td class="l team">Wood Brothers Racing</td>
-          <td>1.84</td>
-          <td class="win-cell">0.9%</td>
-          <td>3%</td>
-          <td>7%</td>
-          <td>37%</td>
-          <td>86%</td>
-          <td class="dnf-cell">13.9%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Riley Herbst">
           <td class="l"><span class="pos-pill">33</span></td>
           <td class="l mono">35</td>
           <td class="l driver">Riley Herbst</td>
           <td class="l team">23XI Racing</td>
-          <td>1.81</td>
-          <td class="win-cell">1.6%</td>
-          <td>5%</td>
-          <td>10%</td>
-          <td>33%</td>
-          <td>80%</td>
-          <td class="dnf-cell">20.1%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Todd Gilliland">
           <td class="l"><span class="pos-pill">34</span></td>
           <td class="l mono">34</td>
           <td class="l driver">Todd Gilliland</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>1.74</td>
-          <td class="win-cell">0.8%</td>
-          <td>3%</td>
-          <td>13%</td>
-          <td>28%</td>
-          <td>84%</td>
-          <td class="dnf-cell">15.5%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Noah Gragson">
           <td class="l"><span class="pos-pill">35</span></td>
           <td class="l mono">4</td>
           <td class="l driver">Noah Gragson</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>1.63</td>
-          <td class="win-cell">0.7%</td>
-          <td>3%</td>
-          <td>7%</td>
-          <td>28%</td>
-          <td>85%</td>
-          <td class="dnf-cell">14.9%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Katherine Legge">
           <td class="l"><span class="pos-pill">36</span></td>
           <td class="l mono">78</td>
           <td class="l driver">Katherine Legge</td>
           <td class="l team">Live Fast Motorsports</td>
-          <td>1.32</td>
-          <td class="win-cell">1.0%</td>
-          <td>2%</td>
-          <td>6%</td>
-          <td>16%</td>
-          <td>79%</td>
-          <td class="dnf-cell">20.7%</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Cody Ware">
           <td class="l"><span class="pos-pill">37</span></td>
           <td class="l mono">51</td>
           <td class="l driver">Cody Ware</td>
           <td class="l team">Rick Ware Racing</td>
-          <td>1.28</td>
-          <td class="win-cell">0.5%</td>
-          <td>2%</td>
-          <td>4%</td>
-          <td>16%</td>
-          <td>82%</td>
-          <td class="dnf-cell">17.6%</td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td class="win-cell"><span data-paid-field="win">—</span></td>
+          <td><span data-paid-field="t5">—</span></td>
+          <td><span data-paid-field="t10">—</span></td>
+          <td><span data-paid-field="t20">—</span></td>
+          <td><span data-paid-field="made">—</span></td>
+          <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
         </tr></tbody>
     </table>
     <table class="proj proj-view" data-proj-view-table="ratings">
@@ -2944,390 +3004,390 @@ window.GW_CFG = {
           <td>21.5</td>
           <td>+15.0</td>
           <td>-4.5</td>
-        </tr><tr class="locked-row">
+        </tr><tr class="locked-row" data-paid-driver="A.J. Allmendinger">
           <td class="l"><span class="pos-pill">6</span></td>
           <td class="l mono">16</td>
           <td class="l driver">A.J. Allmendinger</td>
           <td class="l team">Kaulig Racing</td>
-          <td>P5</td>
-          <td>5.51</td>
-          <td>1512</td>
-          <td>1512</td>
-          <td>18.9</td>
-          <td>+14.0</td>
-          <td>-7.8</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ty Gibbs">
           <td class="l"><span class="pos-pill">7</span></td>
           <td class="l mono">54</td>
           <td class="l driver">Ty Gibbs</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>P6</td>
-          <td>5.32</td>
-          <td>1515</td>
-          <td>1514</td>
-          <td>25.8</td>
-          <td>+13.0</td>
-          <td>-7.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="William Byron">
           <td class="l"><span class="pos-pill">8</span></td>
           <td class="l mono">24</td>
           <td class="l driver">William Byron</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>P3</td>
-          <td>4.72</td>
-          <td>1493</td>
-          <td>1491</td>
-          <td>27.6</td>
-          <td>+16.0</td>
-          <td>+5.3</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Kyle Larson">
           <td class="l"><span class="pos-pill">9</span></td>
           <td class="l mono">5</td>
           <td class="l driver">Kyle Larson</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>P11</td>
-          <td>4.64</td>
-          <td>1508</td>
-          <td>1509</td>
-          <td>27.6</td>
-          <td>+8.0</td>
-          <td>-13.2</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Christopher Bell">
           <td class="l"><span class="pos-pill">10</span></td>
           <td class="l mono">20</td>
           <td class="l driver">Christopher Bell</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>P10</td>
-          <td>4.62</td>
-          <td>1500</td>
-          <td>1500</td>
-          <td>25.8</td>
-          <td>+9.0</td>
-          <td>+3.2</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Chase Elliott">
           <td class="l"><span class="pos-pill">11</span></td>
           <td class="l mono">9</td>
           <td class="l driver">Chase Elliott</td>
           <td class="l team">Hendrick Motorsports</td>
-          <td>P13</td>
-          <td>4.09</td>
-          <td>1508</td>
-          <td>1506</td>
-          <td>27.6</td>
-          <td>+6.0</td>
-          <td>+4.2</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Kyle Busch">
           <td class="l"><span class="pos-pill">12</span></td>
           <td class="l mono">8</td>
           <td class="l driver">Kyle Busch</td>
           <td class="l team">Richard Childress Racing</td>
-          <td>P17</td>
-          <td>4.09</td>
-          <td>1512</td>
-          <td>1513</td>
-          <td>21.5</td>
-          <td>+2.0</td>
-          <td>-5.2</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Denny Hamlin">
           <td class="l"><span class="pos-pill">13</span></td>
           <td class="l mono">11</td>
           <td class="l driver">Denny Hamlin</td>
           <td class="l team">Joe Gibbs Racing</td>
-          <td>P16</td>
-          <td>3.90</td>
-          <td>1512</td>
-          <td>1513</td>
-          <td>25.8</td>
-          <td>+3.0</td>
-          <td>-0.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Chris Buescher">
           <td class="l"><span class="pos-pill">14</span></td>
           <td class="l mono">17</td>
           <td class="l driver">Chris Buescher</td>
           <td class="l team">RFK Racing</td>
-          <td>P14</td>
-          <td>3.87</td>
-          <td>1506</td>
-          <td>1505</td>
-          <td>23.3</td>
-          <td>+5.0</td>
-          <td>+7.3</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ryan Blaney">
           <td class="l"><span class="pos-pill">15</span></td>
           <td class="l mono">12</td>
           <td class="l driver">Ryan Blaney</td>
           <td class="l team">Team Penske</td>
-          <td>P7</td>
-          <td>3.86</td>
-          <td>1510</td>
-          <td>1508</td>
-          <td>23.2</td>
-          <td>+12.0</td>
-          <td>+3.0</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ryan Preece">
           <td class="l"><span class="pos-pill">16</span></td>
           <td class="l mono">60</td>
           <td class="l driver">Ryan Preece</td>
           <td class="l team">RFK Racing</td>
-          <td>P20</td>
-          <td>3.50</td>
-          <td>1512</td>
-          <td>1511</td>
-          <td>23.3</td>
-          <td>-1.0</td>
-          <td>-0.3</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Daniel Suarez">
           <td class="l"><span class="pos-pill">17</span></td>
           <td class="l mono">99</td>
           <td class="l driver">Daniel Suarez</td>
           <td class="l team">Trackhouse Racing</td>
-          <td>P19</td>
-          <td>3.47</td>
-          <td>1500</td>
-          <td>1498</td>
-          <td>21.5</td>
-          <td>+0.0</td>
-          <td>-12.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Michael McDowell">
           <td class="l"><span class="pos-pill">18</span></td>
           <td class="l mono">71</td>
           <td class="l driver">Michael McDowell</td>
           <td class="l team">Spire Motorsports</td>
-          <td>P15</td>
-          <td>3.42</td>
-          <td>1496</td>
-          <td>1496</td>
-          <td>19.2</td>
-          <td>+4.0</td>
-          <td>-3.0</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Joey Logano">
           <td class="l"><span class="pos-pill">19</span></td>
           <td class="l mono">22</td>
           <td class="l driver">Joey Logano</td>
           <td class="l team">Team Penske</td>
-          <td>P22</td>
-          <td>3.23</td>
-          <td>1510</td>
-          <td>1509</td>
-          <td>23.2</td>
-          <td>-3.0</td>
-          <td>-2.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Brad Keselowski">
           <td class="l"><span class="pos-pill">20</span></td>
           <td class="l mono">6</td>
           <td class="l driver">Brad Keselowski</td>
           <td class="l team">RFK Racing</td>
-          <td>P21</td>
-          <td>3.02</td>
-          <td>1494</td>
-          <td>1493</td>
-          <td>23.3</td>
-          <td>-2.0</td>
-          <td>-4.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Zane Smith">
           <td class="l"><span class="pos-pill">21</span></td>
           <td class="l mono">38</td>
           <td class="l driver">Zane Smith</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>P12</td>
-          <td>2.77</td>
-          <td>1508</td>
-          <td>1508</td>
-          <td>19.0</td>
-          <td>+7.0</td>
-          <td>+3.8</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="John Hunter Nemechek">
           <td class="l"><span class="pos-pill">22</span></td>
           <td class="l mono">42</td>
           <td class="l driver">John Hunter Nemechek</td>
           <td class="l team">Legacy Motor Club</td>
-          <td>P18</td>
-          <td>2.50</td>
-          <td>1505</td>
-          <td>1506</td>
-          <td>18.2</td>
-          <td>+1.0</td>
-          <td>+6.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Carson Hocevar">
           <td class="l"><span class="pos-pill">23</span></td>
           <td class="l mono">77</td>
           <td class="l driver">Carson Hocevar</td>
           <td class="l team">Spire Motorsports</td>
-          <td>P23</td>
-          <td>2.39</td>
-          <td>1494</td>
-          <td>1495</td>
-          <td>19.2</td>
-          <td>-4.0</td>
-          <td>-4.8</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Austin Cindric">
           <td class="l"><span class="pos-pill">24</span></td>
           <td class="l mono">2</td>
           <td class="l driver">Austin Cindric</td>
           <td class="l team">Team Penske</td>
-          <td>P24</td>
-          <td>2.35</td>
-          <td>1501</td>
-          <td>1499</td>
-          <td>23.2</td>
-          <td>-5.0</td>
-          <td>+2.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Austin Dillon">
           <td class="l"><span class="pos-pill">25</span></td>
           <td class="l mono">3</td>
           <td class="l driver">Austin Dillon</td>
           <td class="l team">Richard Childress Racing</td>
-          <td>P33</td>
-          <td>2.35</td>
-          <td>1493</td>
-          <td>1493</td>
-          <td>21.5</td>
-          <td>-14.0</td>
-          <td>-10.0</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Cole Custer">
           <td class="l"><span class="pos-pill">26</span></td>
           <td class="l mono">41</td>
           <td class="l driver">Cole Custer</td>
           <td class="l team">Haas Factory Team</td>
-          <td>P27</td>
-          <td>2.27</td>
-          <td>1495</td>
-          <td>1495</td>
-          <td>16.6</td>
-          <td>-8.0</td>
-          <td>+4.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Bubba Wallace">
           <td class="l"><span class="pos-pill">27</span></td>
           <td class="l mono">23</td>
           <td class="l driver">Bubba Wallace</td>
           <td class="l team">23XI Racing</td>
-          <td>P30</td>
-          <td>2.24</td>
-          <td>1498</td>
-          <td>1499</td>
-          <td>21.8</td>
-          <td>-11.0</td>
-          <td>+2.0</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Erik Jones">
           <td class="l"><span class="pos-pill">28</span></td>
           <td class="l mono">43</td>
           <td class="l driver">Erik Jones</td>
           <td class="l team">Legacy Motor Club</td>
-          <td>P31</td>
-          <td>2.09</td>
-          <td>1501</td>
-          <td>1500</td>
-          <td>18.2</td>
-          <td>-12.0</td>
-          <td>+0.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ty Dillon">
           <td class="l"><span class="pos-pill">29</span></td>
           <td class="l mono">10</td>
           <td class="l driver">Ty Dillon</td>
           <td class="l team">Kaulig Racing</td>
-          <td>P26</td>
-          <td>2.02</td>
-          <td>1505</td>
-          <td>1504</td>
-          <td>18.9</td>
-          <td>-7.0</td>
-          <td>+5.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Ricky Stenhouse Jr.">
           <td class="l"><span class="pos-pill">30</span></td>
           <td class="l mono">47</td>
           <td class="l driver">Ricky Stenhouse Jr.</td>
           <td class="l team">Hyak Motorsports</td>
-          <td>P34</td>
-          <td>1.94</td>
-          <td>1497</td>
-          <td>1497</td>
-          <td>21.4</td>
-          <td>-15.0</td>
-          <td>+5.8</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Justin Haley">
           <td class="l"><span class="pos-pill">31</span></td>
           <td class="l mono">7</td>
           <td class="l driver">Justin Haley</td>
           <td class="l team">Spire Motorsports</td>
-          <td>P29</td>
-          <td>1.85</td>
-          <td>1502</td>
-          <td>1501</td>
-          <td>19.2</td>
-          <td>-10.0</td>
-          <td>+5.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Josh Berry">
           <td class="l"><span class="pos-pill">32</span></td>
           <td class="l mono">21</td>
           <td class="l driver">Josh Berry</td>
           <td class="l team">Wood Brothers Racing</td>
-          <td>P25</td>
-          <td>1.84</td>
-          <td>1494</td>
-          <td>1494</td>
-          <td>16.6</td>
-          <td>-6.0</td>
-          <td>+1.8</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Riley Herbst">
           <td class="l"><span class="pos-pill">33</span></td>
           <td class="l mono">35</td>
           <td class="l driver">Riley Herbst</td>
           <td class="l team">23XI Racing</td>
-          <td>P28</td>
-          <td>1.81</td>
-          <td>1505</td>
-          <td>1505</td>
-          <td>21.8</td>
-          <td>-9.0</td>
-          <td>+1.3</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Todd Gilliland">
           <td class="l"><span class="pos-pill">34</span></td>
           <td class="l mono">34</td>
           <td class="l driver">Todd Gilliland</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>P35</td>
-          <td>1.74</td>
-          <td>1492</td>
-          <td>1492</td>
-          <td>19.0</td>
-          <td>-16.0</td>
-          <td>+0.7</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Noah Gragson">
           <td class="l"><span class="pos-pill">35</span></td>
           <td class="l mono">4</td>
           <td class="l driver">Noah Gragson</td>
           <td class="l team">Front Row Motorsports</td>
-          <td>P32</td>
-          <td>1.63</td>
-          <td>1497</td>
-          <td>1498</td>
-          <td>19.0</td>
-          <td>-13.0</td>
-          <td>+3.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Katherine Legge">
           <td class="l"><span class="pos-pill">36</span></td>
           <td class="l mono">78</td>
           <td class="l driver">Katherine Legge</td>
           <td class="l team">Live Fast Motorsports</td>
-          <td>P37</td>
-          <td>1.32</td>
-          <td>1505</td>
-          <td>1505</td>
-          <td>11.8</td>
-          <td>-18.0</td>
-          <td>+9.5</td>
-        </tr><tr class="locked-row">
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
+        </tr><tr class="locked-row" data-paid-driver="Cody Ware">
           <td class="l"><span class="pos-pill">37</span></td>
           <td class="l mono">51</td>
           <td class="l driver">Cody Ware</td>
           <td class="l team">Rick Ware Racing</td>
-          <td>P36</td>
-          <td>1.28</td>
-          <td>1500</td>
-          <td>1501</td>
-          <td>14.5</td>
-          <td>-17.0</td>
-          <td>+7.3</td>
+          <td><span data-paid-field="start">—</span></td>
+          <td><span data-paid-field="ep">—</span></td>
+          <td><span data-paid-field="elo">—</span></td>
+          <td><span data-paid-field="tt_elo">—</span></td>
+          <td><span data-paid-field="org">—</span></td>
+          <td><span data-paid-field="qual_diff">—</span></td>
+          <td><span data-paid-field="rsf">—</span></td>
         </tr></tbody>
     </table>
   </div>
@@ -3969,6 +4029,95 @@ function renderPaidTable(rows) {
   fullPane.appendChild(wrap);
 }
 
+// Hydrate the locked rows in the existing free-rendered tables and pick
+// groups with real values from the paid CSV. Each redacted cell carries
+// data-paid-field; each locked row carries data-paid-driver. Pick-group
+// cells carry data-paid-driver + data-paid-group on the value <span>.
+function hydratePaidCells(rows) {
+  // Build a quick driver -> CSV row index
+  const byDriver = {};
+  rows.forEach(r => { byDriver[r.driver] = r; });
+
+  // 1) Hydrate the projections-table locked rows. Each <tr> with
+  //    data-paid-driver matches a CSV row; each <span data-paid-field>
+  //    within it gets filled with the appropriate formatted value.
+  document.querySelectorAll('tr[data-paid-driver]').forEach(tr => {
+    const drv = tr.getAttribute('data-paid-driver');
+    const r = byDriver[drv];
+    if (!r) return;
+    tr.querySelectorAll('span[data-paid-field]').forEach(span => {
+      const field = span.getAttribute('data-paid-field');
+      span.textContent = formatField(field, r);
+    });
+    // Strip the locked-row class so the CSS blur lifts.
+    tr.classList.remove('locked-row');
+  });
+
+  // 2) Hydrate the pick-group locked rows. Each value cell has
+  //    data-paid-group + data-paid-driver and represents one group's metric
+  //    for that driver. The group key tells us which value to format.
+  document.querySelectorAll('[data-paid-cell][data-paid-group]').forEach(cell => {
+    const drv = cell.getAttribute('data-paid-driver');
+    const group = cell.getAttribute('data-paid-group');
+    const r = byDriver[drv];
+    if (!r) return;
+    cell.textContent = formatGroupValue(group, r);
+  });
+}
+
+function formatField(field, r) {
+  const pw = parseFloat(r.prob_Win) || 0;
+  const pt5 = parseFloat(r.prob_Top5) || 0;
+  const pt10 = parseFloat(r.prob_Top10) || 0;
+  const pt20 = parseFloat(r.prob_Top20) || 0;
+  const pmade = parseFloat(r.prob_Made) || 0;
+  switch (field) {
+    case 'ep':     return fmtNum(r.expected_points, 2);
+    case 'win':    return (pw * 100).toFixed(1) + '%';
+    case 't3':     return ((pw + pt5 * 0.5) * 100).toFixed(1) + '%';
+    case 't5':     return ((pw + pt5) * 100).toFixed(0) + '%';
+    case 't10':    return ((pw + pt5 + pt10) * 100).toFixed(0) + '%';
+    case 't20':    return ((pw + pt5 + pt10 + pt20) * 100).toFixed(0) + '%';
+    case 'made':   return ((pw + pt5 + pt10 + pt20 + pmade) * 100).toFixed(0) + '%';
+    case 'dnf':    return ((parseFloat(r.prob_DNF) || 0) * 100).toFixed(1) + '%';
+    case 'elo':    return fmtNum(r.driver_elo, 0);
+    case 'tt_elo': return fmtNum(r.track_type_elo, 0);
+    case 'org':    return fmtNum(r.org_rating, 1);
+    case 'qual_diff': {
+      const q = parseFloat(r.qual_diff);
+      if (!Number.isFinite(q)) return '—';
+      return (q >= 0 ? '+' : '') + q.toFixed(1);
+    }
+    case 'rsf': {
+      const s = parseFloat(r.rolling_sf_delta);
+      if (!Number.isFinite(s)) return '—';
+      return (s >= 0 ? '+' : '') + s.toFixed(1);
+    }
+    case 'start': return r.start ? ('P' + r.start) : '—';
+    // No paid CSV columns for these — placeholder remains
+    case 'track_avg_finish': return '—';
+    case 'practice_adj':     return '—';
+    default: return '—';
+  }
+}
+
+function formatGroupValue(group, r) {
+  const pw = parseFloat(r.prob_Win) || 0;
+  const pt5 = parseFloat(r.prob_Top5) || 0;
+  const pt10 = parseFloat(r.prob_Top10) || 0;
+  const pdnf = parseFloat(r.prob_DNF) || 0;
+  const ep = parseFloat(r.expected_points) || 0;
+  switch (group) {
+    case 'win':   return (pw * 100).toFixed(1) + '%';
+    case 'top3':  return ((pw + pt5 * 0.5) * 100).toFixed(1) + '%';
+    case 'top5':  return ((pw + pt5) * 100).toFixed(1) + '%';
+    case 'top10': return ((pw + pt5 + pt10) * 100).toFixed(1) + '%';
+    case 'value': return (ep * (1 - pdnf)).toFixed(2);
+    case 'risk':  return (pdnf * 100).toFixed(1) + '%';
+    default: return '—';
+  }
+}
+
 async function tryRenderPaid() {
   const isPaid = await window.GW.refreshTierChrome();
   const skedId = document.body.getAttribute('data-sked-id');
@@ -3992,6 +4141,9 @@ async function tryRenderPaid() {
     _csvCache.set(skedId, rows);
   }
 
+  // Hydrate the in-DOM redacted cells first (zero CLS — same nodes,
+  // just text content updates), then append the bonus paid-only table.
+  hydratePaidCells(rows);
   renderPaidTable(rows);
 }
 
