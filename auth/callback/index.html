@@ -1381,8 +1381,11 @@ window.GW_CFG = {
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const cfg = window.GW_CFG;
+// Implicit flow + detectSessionInUrl: true — Supabase JS auto-consumes the
+// access/refresh tokens from the URL hash on load. No exchangeCodeForSession
+// call needed.
 const supabase = createClient(cfg.supabaseUrl, cfg.supabaseKey, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, flowType: 'pkce' }
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'implicit' }
 });
 
 function show(id, detail) {
@@ -1419,30 +1422,23 @@ function readHashError() {
     return;
   }
 
-  // PKCE code exchange — Supabase JS reads the URL itself.
-  try {
-    const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
-    if (error) {
-      console.error('exchangeCodeForSession', error);
-      // Treat "code already used" / similar as expired-link UX.
-      const msg = (error.message || '').toLowerCase();
-      if (msg.includes('expired') || msg.includes('used') || msg.includes('invalid')) {
-        show('auth-state-expired');
-      } else {
-        show('auth-state-error', error.message);
-      }
+  // Implicit flow: Supabase JS auto-detects #access_token=...&refresh_token=...
+  // in the URL hash on load (detectSessionInUrl: true) and stores the session.
+  // We poll getSession() briefly to confirm it landed before redirecting.
+  const deadline = Date.now() + 5000;
+  while (Date.now() < deadline) {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user) {
+      window.location.replace('/');
       return;
     }
-  } catch (err) {
-    console.error('exchangeCodeForSession threw', err);
-    show('auth-state-error', (err && err.message) || 'Unexpected error.');
-    return;
+    await new Promise(r => setTimeout(r, 100));
   }
 
-  // Recovery sign-in only — no upgrade chaining in the new architecture.
-  // Anonymous upgrade goes through Stripe directly; magic-link is reserved
-  // for paid users returning on a new device.
-  window.location.replace('/');
+  // No session after 5s — link was probably already-used (consumed twice) or
+  // malformed. Surface the expired UX so the user gets a "request another"
+  // affordance instead of a blank page.
+  show('auth-state-expired');
 })();
 </script>
 </body>

@@ -3842,7 +3842,13 @@ const supabase = createClient(cfg.supabaseUrl, cfg.supabaseKey, {
     // its own exchange; we keep detectSessionInUrl on so a misconfigured
     // template that points at "/" still signs the user in.
     detectSessionInUrl: true,
-    flowType: 'pkce',
+    // Implicit flow (tokens in URL hash) instead of PKCE. PKCE requires the
+    // browser that *requested* the link to be the same browser that *clicks*
+    // it, because PKCE stores a code-verifier in localStorage that has to
+    // match. Real users routinely request from laptop and click from phone,
+    // which broke recovery sign-in. Implicit puts the session in the URL
+    // hash directly so any browser that clicks the link gets signed in.
+    flowType: 'implicit',
   }
 });
 window.GW = window.GW || {};
@@ -3950,8 +3956,25 @@ if (signinForm) {
     submitBtn.disabled = false;
     if (error) {
       console.error('signInWithOtp', error);
-      msg.textContent = 'Could not send link. Please try again.';
-      msg.className = 'gw-modal-msg error';
+      // The most common error is the 30-second per-user OTP cooldown.
+      // Default Supabase phrasing ("For security purposes...") is fine but
+      // shipping our own copy: the user has *already* been sent a link, so
+      // pointing them at their inbox is the highest-signal next step.
+      const txt = (error.message || '').toLowerCase();
+      const isCooldown =
+        error.status === 429 ||
+        txt.includes('30 seconds') ||
+        txt.includes('security purposes') ||
+        txt.includes('rate limit');
+      if (isCooldown) {
+        msg.textContent =
+          "We just sent you a sign-in link — check your email. " +
+          "Wait 30 seconds before requesting another.";
+        msg.className = 'gw-modal-msg success';
+      } else {
+        msg.textContent = 'Could not send link. Please try again.';
+        msg.className = 'gw-modal-msg error';
+      }
       return;
     }
     msg.textContent = "Check your email — we sent a sign-in link to " + email + ".";
