@@ -246,6 +246,45 @@ body[data-auth="user"] .auth-anon-only { display: none !important; }
 .breadcrumb a:hover { color: var(--ink-2); }
 .breadcrumb .here { color: var(--accent); }
 
+/* ─── jump-to nav strip ───────────────────────────────── */
+/* Sits between the hero and the first card; lets a fan skip past the
+   editorial overview straight to the Full Table or any other section.
+   Mobile: horizontal scroll. Desktop: wraps if too narrow. */
+.jump-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -6px 0 18px;
+  padding: 8px 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line-soft);
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.jump-nav a {
+  flex: none;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--ink-2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.jump-nav a:hover {
+  color: var(--ink);
+  border-color: var(--ink-3);
+  background: var(--bg-elev);
+}
+@media (max-width: 720px) {
+  .jump-nav { flex-wrap: nowrap; margin: -2px -14px 14px; padding: 8px 14px; }
+  .jump-nav a { font-size: 10.5px; padding: 6px 10px; }
+}
+
 /* ─── race header (compact) ────────────────────────────── */
 .hero {
   border: 1px solid var(--line);
@@ -416,6 +455,21 @@ body[data-auth="user"] .auth-anon-only { display: none !important; }
   font-size: 26px; font-weight: 700; letter-spacing: -.02em;
 }
 .brief-headline-r .why { color: var(--ink-2); font-size: 14px; line-height: 1.55; max-width: 60ch; }
+.brief-alts {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-3);
+  max-width: 60ch;
+}
+.brief-alts b { color: var(--ink); font-weight: 600; }
+.brief-alts a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s;
+}
+.brief-alts a:hover { border-bottom-color: var(--accent); }
 
 /* EP legend: defines Expected Points inline so a casual fan understands the
    ranking metric before reaching the column-key glossary lower on the page. */
@@ -706,6 +760,49 @@ abbr[title] {
 .gd-pct { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-2); text-align: right; }
 .gd-pct.gd-pct-wide { font-size: 11px; color: var(--ink-3); white-space: nowrap; }
 .gd-meta { font-size: 11px; color: var(--ink-3); margin-top: -4px; line-height: 1.4; }
+
+/* Paid pick-group row (name visible, probability redacted for free users) */
+.gd-paid-row .gd-name { color: var(--ink-2); }
+.gd-paid-row .gd-pct { color: var(--ink-4); }
+.gd-sub-chip {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+/* Subscriber teaser card for fully-paid groups (Practice Risers, Track Sleepers).
+   Rendered in the same .groups grid as the regular .group cards but with a
+   vertical layout: title, blurb, Upgrade button. */
+.gd-teaser {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+}
+.gd-teaser .gd-teaser-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.gd-teaser .gd-teaser-body p {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.gd-teaser .gd-teaser-body .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
 .gd-locked {
   margin-top: 6px;
   padding: 8px 10px;
@@ -1135,6 +1232,90 @@ body[data-tier="paid"] .free-only { display: none !important; }
   .home-soon-grid { grid-template-columns: 1fr; }
 }
 
+/* ─── Pricing card (clean, single-CTA) ─────────────────────────── */
+.home-pricing {
+  margin: 36px 0 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.home-pricing::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background-image:
+    linear-gradient(45deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--accent) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--accent) 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+  opacity: .8;
+}
+.home-pricing-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 28px;
+  padding: 28px 32px;
+}
+.home-pricing-head {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  flex: none;
+}
+.home-pricing-tiers {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex: 1;
+}
+.home-pricing-tier {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.home-pricing-tier-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+.home-pricing-tier-price {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -.02em;
+}
+.home-pricing-tier-per {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.home-pricing-sep {
+  color: var(--ink-4);
+  font-size: 18px;
+}
+.home-pricing-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--ink-4);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  flex: none;
+}
+@media (max-width: 720px) {
+  .home-pricing-inner { padding: 22px 20px; gap: 14px; }
+  .home-pricing-tiers { width: 100%; justify-content: space-between; }
+  .home-pricing-meta { width: 100%; text-align: center; }
+}
+
 /* ─── footer ───────────────────────────────────────────── */
 .foot {
   margin-top: 40px;
@@ -1287,6 +1468,14 @@ window.GW_CFG = {
   </div>
 </div>
   
+<nav class="jump-nav" aria-label="Jump to section">
+  <a href="#brief">Brief</a>
+  <a href="#confidence">Confidence</a>
+  <a href="#spotlight">Spotlight</a>
+  <a href="#picks">Quick Picks</a>
+  <a href="#full">Full Table</a>
+</nav>
+  
 <div class="m-sticky">
   <span class="l">Dover Motor Speedway</span>
   <span class="r">Updated 2026-05-16 21:57 • Practice</span>
@@ -1303,9 +1492,10 @@ window.GW_CFG = {
     <div class="brief-headline">
       <div class="brief-num">#1</div>
       <div class="brief-headline-r">
-        <span class="lbl">Model Pick • Win 12.2%</span>
+        <span class="lbl">Best by <abbr title="Expected Points = Σ(bucket prob × bucket points). Higher = better balanced finish profile.">Expected Points</abbr> · Win 12.2%</span>
         <h3>Denny Hamlin <span style="color:var(--ink-3);font-size:16px;font-weight:600">• #11 Joe Gibbs Racing</span></h3>
         <div class="why">Why: front-row start (P1), strong organization rating, recent strong start-finish gain at this track type.</div>
+        <div class="brief-alts">Top by every metric this week — Expected Points, Win odds, and DNF avoidance. <a href="#picks">See full picks →</a></div>
       </div>
     </div>
     <div class="ep-legend" role="note">
@@ -1359,7 +1549,7 @@ window.GW_CFG = {
 </div>
     <div class="row-2up">
       <div>
-<div class="card">
+<div class="card" id="confidence">
   <div class="card-head">
     <h2><span class="num">02</span> Track Confidence</h2>
     <span class="tag">L12 of short track</span>
@@ -1391,7 +1581,7 @@ window.GW_CFG = {
       <div></div>
     </div>
     
-<div class="card">
+<div class="card" id="spotlight">
   <div class="card-head">
     <h2><span class="num">03</span> Driver Spotlight</h2>
     <span class="tag">Top 3 by EP</span>
@@ -1498,7 +1688,7 @@ window.GW_CFG = {
   </div>
 </div>
     
-<div class="card">
+<div class="card" id="picks">
   <div class="card-head">
     <h2><span class="num">04</span> Quick Picks</h2>
     <span class="tag">Top 2 free • full list w/ subscriber</span>
@@ -1524,32 +1714,24 @@ window.GW_CFG = {
           </div>
           
         </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="Ty Gibbs">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="Ty Gibbs">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#45</span>Tyler Reddick</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="Tyler Reddick">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="Tyler Reddick">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#22</span>Joey Logano</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="Joey Logano">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="win" data-paid-driver="Joey Logano">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        
-        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
     </div>
       
@@ -1571,32 +1753,24 @@ window.GW_CFG = {
           </div>
           
         </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="Ty Gibbs">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="Ty Gibbs">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#24</span>William Byron</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="William Byron">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="William Byron">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#12</span>Ryan Blaney</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="Ryan Blaney">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top3" data-paid-driver="Ryan Blaney">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        
-        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
     </div>
       
@@ -1618,32 +1792,24 @@ window.GW_CFG = {
           </div>
           
         </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#24</span>William Byron</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="William Byron">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="William Byron">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="Ty Gibbs">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="Ty Gibbs">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#12</span>Ryan Blaney</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="Ryan Blaney">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top5" data-paid-driver="Ryan Blaney">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        
-        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
     </div>
       
@@ -1665,32 +1831,24 @@ window.GW_CFG = {
           </div>
           
         </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#6</span>Brad Keselowski</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="Brad Keselowski">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="Brad Keselowski">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#24</span>William Byron</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="William Byron">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="William Byron">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#19</span>Chase Briscoe</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="Chase Briscoe">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="top10" data-paid-driver="Chase Briscoe">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        
-        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
     </div>
       
@@ -1712,32 +1870,24 @@ window.GW_CFG = {
           </div>
           
         </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#6</span>Brad Keselowski</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="Brad Keselowski">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="Brad Keselowski">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#23</span>Bubba Wallace</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="Bubba Wallace">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="Bubba Wallace">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#24</span>William Byron</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="William Byron">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="value" data-paid-driver="William Byron">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        
-        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
     </div>
       
@@ -1759,35 +1909,35 @@ window.GW_CFG = {
           </div>
           
         </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#9</span>Chase Elliott</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Chase Elliott">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Chase Elliott">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#45</span>Tyler Reddick</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Tyler Reddick">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Tyler Reddick">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row">
             <div class="gd-name"><span class="num">#8</span>Kyle Busch</div>
-            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Kyle Busch">—</div>
+            <div class="gd-pct" data-paid-cell data-paid-group="risk" data-paid-driver="Kyle Busch">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        
-        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
     </div>
       
+    <div class="group practice gd-teaser free-only">
+      <div class="group-head"><span class="dot"></span>Practice Risers</div>
+      <div class="gd-teaser-body">
+        <p>Drivers who outran their model rank in practice this week — the kind of edge fantasy and bet builders look for.</p>
+        <a class="btn" href="#unlock">Unlock with subscription</a>
+      </div>
+    </div>
+      <div class="paid-only">
     <div class="group practice">
       <div class="group-head"><span class="dot"></span>Practice Risers</div>
       <div class="gd">
@@ -1804,34 +1954,27 @@ window.GW_CFG = {
             <div class="gd-pct gd-pct-wide">Boost • +0.64 (start P4)</div>
           </div>
         </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row gd-row-wide">
             <div class="gd-name"><span class="num">#2</span>Austin Cindric</div>
-            <div class="gd-pct gd-pct-wide" data-paid-cell data-paid-group="practice" data-paid-driver="Austin Cindric">—</div>
+            <div class="gd-pct gd-pct-wide" data-paid-cell data-paid-group="practice" data-paid-driver="Austin Cindric">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row gd-row-wide">
             <div class="gd-name"><span class="num">#8</span>Kyle Busch</div>
-            <div class="gd-pct gd-pct-wide" data-paid-cell data-paid-group="practice" data-paid-driver="Kyle Busch">—</div>
+            <div class="gd-pct gd-pct-wide" data-paid-cell data-paid-group="practice" data-paid-driver="Kyle Busch">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        <div class="paid-only">
-        <div>
+        <div class="gd-paid-row">
           <div class="gd-row gd-row-wide">
             <div class="gd-name"><span class="num">#54</span>Ty Gibbs</div>
-            <div class="gd-pct gd-pct-wide" data-paid-cell data-paid-group="practice" data-paid-driver="Ty Gibbs">—</div>
+            <div class="gd-pct gd-pct-wide" data-paid-cell data-paid-group="practice" data-paid-driver="Ty Gibbs">— <span class="gd-sub-chip free-only">SUB</span></div>
           </div>
         </div>
-        </div>
-        
-        <div class="gd-locked free-only">+3 more <span class="accent">◦ subscriber</span></div>
       </div>
-    </div>
+    </div></div>
+      
       
     </div>
   </div>

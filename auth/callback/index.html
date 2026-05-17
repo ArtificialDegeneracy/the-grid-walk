@@ -247,6 +247,45 @@ body[data-auth="user"] .auth-anon-only { display: none !important; }
 .breadcrumb a:hover { color: var(--ink-2); }
 .breadcrumb .here { color: var(--accent); }
 
+/* ─── jump-to nav strip ───────────────────────────────── */
+/* Sits between the hero and the first card; lets a fan skip past the
+   editorial overview straight to the Full Table or any other section.
+   Mobile: horizontal scroll. Desktop: wraps if too narrow. */
+.jump-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -6px 0 18px;
+  padding: 8px 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line-soft);
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.jump-nav a {
+  flex: none;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--ink-2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.jump-nav a:hover {
+  color: var(--ink);
+  border-color: var(--ink-3);
+  background: var(--bg-elev);
+}
+@media (max-width: 720px) {
+  .jump-nav { flex-wrap: nowrap; margin: -2px -14px 14px; padding: 8px 14px; }
+  .jump-nav a { font-size: 10.5px; padding: 6px 10px; }
+}
+
 /* ─── race header (compact) ────────────────────────────── */
 .hero {
   border: 1px solid var(--line);
@@ -417,6 +456,21 @@ body[data-auth="user"] .auth-anon-only { display: none !important; }
   font-size: 26px; font-weight: 700; letter-spacing: -.02em;
 }
 .brief-headline-r .why { color: var(--ink-2); font-size: 14px; line-height: 1.55; max-width: 60ch; }
+.brief-alts {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-3);
+  max-width: 60ch;
+}
+.brief-alts b { color: var(--ink); font-weight: 600; }
+.brief-alts a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s;
+}
+.brief-alts a:hover { border-bottom-color: var(--accent); }
 
 /* EP legend: defines Expected Points inline so a casual fan understands the
    ranking metric before reaching the column-key glossary lower on the page. */
@@ -707,6 +761,49 @@ abbr[title] {
 .gd-pct { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-2); text-align: right; }
 .gd-pct.gd-pct-wide { font-size: 11px; color: var(--ink-3); white-space: nowrap; }
 .gd-meta { font-size: 11px; color: var(--ink-3); margin-top: -4px; line-height: 1.4; }
+
+/* Paid pick-group row (name visible, probability redacted for free users) */
+.gd-paid-row .gd-name { color: var(--ink-2); }
+.gd-paid-row .gd-pct { color: var(--ink-4); }
+.gd-sub-chip {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+/* Subscriber teaser card for fully-paid groups (Practice Risers, Track Sleepers).
+   Rendered in the same .groups grid as the regular .group cards but with a
+   vertical layout: title, blurb, Upgrade button. */
+.gd-teaser {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+}
+.gd-teaser .gd-teaser-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.gd-teaser .gd-teaser-body p {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.gd-teaser .gd-teaser-body .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
 .gd-locked {
   margin-top: 6px;
   padding: 8px 10px;
@@ -1134,6 +1231,90 @@ body[data-tier="paid"] .free-only { display: none !important; }
 }
 @media (max-width: 720px) {
   .home-soon-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Pricing card (clean, single-CTA) ─────────────────────────── */
+.home-pricing {
+  margin: 36px 0 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.home-pricing::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background-image:
+    linear-gradient(45deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--accent) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--accent) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--accent) 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+  opacity: .8;
+}
+.home-pricing-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 28px;
+  padding: 28px 32px;
+}
+.home-pricing-head {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  flex: none;
+}
+.home-pricing-tiers {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex: 1;
+}
+.home-pricing-tier {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.home-pricing-tier-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+.home-pricing-tier-price {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -.02em;
+}
+.home-pricing-tier-per {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.home-pricing-sep {
+  color: var(--ink-4);
+  font-size: 18px;
+}
+.home-pricing-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--ink-4);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  flex: none;
+}
+@media (max-width: 720px) {
+  .home-pricing-inner { padding: 22px 20px; gap: 14px; }
+  .home-pricing-tiers { width: 100%; justify-content: space-between; }
+  .home-pricing-meta { width: 100%; text-align: center; }
 }
 
 /* ─── footer ───────────────────────────────────────────── */
