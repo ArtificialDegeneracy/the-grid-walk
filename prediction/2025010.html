@@ -3764,25 +3764,56 @@ window.GW_CFG = {
   const buttons = document.querySelectorAll('.hero-tabs button[data-tab]');
   const overview = document.getElementById('overview-pane');
   const full = document.getElementById('full-pane');
+  function setTab(t) {
+    if (!overview || !full) return;
+    buttons.forEach(x => x.classList.toggle('active', x.dataset.tab === t));
+    if (t === 'overview') {
+      overview.classList.add('active');
+      full.classList.remove('active');
+    } else if (t === 'full') {
+      overview.classList.remove('active');
+      full.classList.add('active');
+    }
+  }
   if (buttons.length && overview && full) {
     buttons.forEach(b => {
       b.addEventListener('click', () => {
         if (b.classList.contains('locked')) return;
-        buttons.forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
         const t = b.dataset.tab;
+        setTab(t);
         if (t === 'overview') {
-          overview.classList.add('active');
-          full.classList.remove('active');
           window.scrollTo({top: 0, behavior: 'smooth'});
         } else if (t === 'full') {
-          overview.classList.remove('active');
-          full.classList.add('active');
           full.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
       });
     });
   }
+
+  // ---------- Jump-to nav (cross-tab aware) ----------
+  // The jump-nav pills target anchors that live inside either the overview
+  // pane (#brief, #confidence, #spotlight, #picks) or the full-table pane
+  // (#full). Native anchor scrolling can't reach a target inside a hidden
+  // tab pane, so we intercept clicks, flip the tab if needed, then scroll
+  // smoothly to the target on the next frame (after the pane becomes
+  // visible).
+  const FULL_PANE_ANCHORS = new Set(['#full']);
+  document.querySelectorAll('.jump-nav a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const wantsFull = FULL_PANE_ANCHORS.has(href);
+      setTab(wantsFull ? 'full' : 'overview');
+      // requestAnimationFrame so the pane has time to flip display:block
+      // before we try to scroll; otherwise getBoundingClientRect returns 0.
+      requestAnimationFrame(() => {
+        target.scrollIntoView({behavior: 'smooth', block: 'start'});
+      });
+    });
+  });
 })();
 </script>
 
