@@ -4397,9 +4397,21 @@ function formatField(field, r) {
       return (s >= 0 ? '+' : '') + s.toFixed(1);
     }
     case 'start': return r.start ? ('P' + r.start) : '—';
-    // No paid CSV columns for these — placeholder remains
-    case 'track_avg_finish': return '—';
-    case 'practice_adj':     return '—';
+    case 'track_avg_finish': {
+      const tavg = parseFloat(r.track_avg_finish);
+      const ts = parseInt(r.track_starts || '0', 10);
+      if (!Number.isFinite(tavg) || ts <= 0) return '—';
+      // Plain text — hydrator uses textContent. Server-side rows render
+      // the parenthesized starts count in a muted secondary span; here
+      // we lose that style nuance, which is acceptable for the JS path.
+      return tavg.toFixed(0) + ' (' + ts + ')';
+    }
+    case 'practice_adj': {
+      const pa = parseFloat(r.practice_adj);
+      if (!Number.isFinite(pa)) return '—';
+      const sign = pa >= 0 ? '+' : '';
+      return sign + pa.toFixed(2);
+    }
     default: return '—';
   }
 }
