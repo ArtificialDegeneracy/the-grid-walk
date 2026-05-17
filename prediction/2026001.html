@@ -4391,6 +4391,11 @@ function hydratePaidCells(rows) {
     tr.querySelectorAll('span[data-paid-field]').forEach(span => {
       const field = span.getAttribute('data-paid-field');
       span.textContent = formatField(field, r);
+      // Match the server-side color coding on the parent <td>. Server rows
+      // (free top-5) get inline color styles in Python; JS-hydrated rows
+      // (paid 6+) need the same treatment so the table reads consistently.
+      const td = span.parentElement;
+      if (td && td.tagName === 'TD') applyCellColor(td, field, r);
     });
     // Strip the locked-row class so the CSS blur lifts.
     tr.classList.remove('locked-row');
@@ -4406,6 +4411,39 @@ function hydratePaidCells(rows) {
     if (!r) return;
     cell.textContent = formatGroupValue(group, r);
   });
+}
+
+function applyCellColor(td, field, r) {
+  // Match the server-side coloring rules in overview_row(). Only the
+  // practice and track cells get colored — everything else stays default.
+  if (field === 'practice_adj') {
+    const pa = parseFloat(r.practice_adj);
+    if (!Number.isFinite(pa)) {
+      td.style.color = 'var(--ink-4)';
+      td.title = 'No practice data for this driver';
+      return;
+    }
+    if (pa > 0.02)       td.style.color = 'var(--good)';
+    else if (pa < -0.02) td.style.color = 'var(--risk)';
+    else                 td.style.color = 'var(--ink-3)';
+    const pc = parseFloat(r.practice_conf);
+    if (Number.isFinite(pc)) td.title = 'Confidence: ' + Math.round(pc * 100) + '%';
+  } else if (field === 'track_avg_finish') {
+    const tavg = parseFloat(r.track_avg_finish);
+    const ts = parseInt(r.track_starts || '0', 10);
+    if (!Number.isFinite(tavg) || ts <= 0) {
+      td.style.color = 'var(--ink-4)';
+      td.title = 'No starts at this track';
+      return;
+    }
+    if (tavg <= 12)      td.style.color = 'var(--good)';
+    else if (tavg <= 18) td.style.color = 'var(--accent)';
+    else                 td.style.color = 'var(--ink-3)';
+    const tipBits = [];
+    const tbest = r.track_best;
+    if (tbest !== undefined && tbest !== '') tipBits.push('Best: P' + tbest);
+    if (tipBits.length) td.title = tipBits.join(' | ');
+  }
 }
 
 function formatField(field, r) {
