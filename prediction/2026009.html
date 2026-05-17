@@ -857,6 +857,38 @@ table.proj thead th:first-child,
 table.proj thead th:nth-child(2),
 table.proj thead th:nth-child(3),
 table.proj thead th:nth-child(4) { text-align: left; }
+
+/* Sortable column headers: clickable, with a small arrow on the active
+   sort column. Third click on the same column restores the default order
+   (by EP rank ascending) and removes the arrow. */
+table.proj thead th.sortable-col {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color .15s, background .15s;
+}
+table.proj thead th.sortable-col:hover { color: var(--ink); background: var(--bg); }
+table.proj thead th.sortable-col::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  margin-left: 6px;
+  vertical-align: middle;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  opacity: 0;
+  transition: opacity .15s;
+}
+table.proj thead th.sort-asc::after {
+  border-bottom: 5px solid var(--accent);
+  opacity: 1;
+}
+table.proj thead th.sort-desc::after {
+  border-top: 5px solid var(--accent);
+  opacity: 1;
+}
+table.proj thead th.sort-asc,
+table.proj thead th.sort-desc { color: var(--ink); }
 table.proj tbody td {
   padding: 11px 10px;
   border-bottom: 1px solid var(--line-soft);
@@ -2077,24 +2109,24 @@ window.GW_CFG = {
     </div>
   </details>
   <div class="table-wrap">
-    <table class="proj proj-view active" data-proj-view-table="overview">
+    <table class="proj proj-view active sortable" data-proj-view-table="overview">
       <thead>
         <tr>
-          <th title="Predicted finish rank by Expected Points (model's #1 pick at the top)">Rank</th>
-          <th title="Car number">#</th>
+          <th class="sortable-col" data-sort-kind="rank" data-sort-default="asc" title="Predicted finish rank by Expected Points (model's #1 pick at the top). Click to sort.">Rank</th>
+          <th class="sortable-col" data-sort-kind="num" title="Car number. Click to sort.">#</th>
           <th>Driver</th>
           <th>Team</th>
-          <th title="Qualifying / starting position">Q</th>
-          <th title="Expected Points — Σ(bucket prob × bucket points). Range 0–10.">EP</th>
-          <th title="Probability of winning the race">Win%</th>
-          <th title="Probability of finishing 1st through 3rd (podium)">T3%</th>
-          <th title="Probability of finishing in the top 5">T5%</th>
-          <th title="Probability of finishing in the top 10">T10%</th>
-          <th title="Probability of not finishing (crash, mechanical, etc.)">DNF%</th>
-          <th title="Driver ELO — overall driver rating. 1500 = field average; field spread ~30 points.">ELO</th>
-          <th title="Organization equipment rating (higher = stronger team)">Org</th>
-          <th title="Avg finishing position at this track (career starts in parentheses; hover for best + last 3)">Track</th>
-          <th title="Practice speed adjustment (+ = faster than avg, − = slower; '—' if no practice yet)">Prac</th>
+          <th class="sortable-col" data-sort-kind="qual" title="Qualifying / starting position. Click to sort.">Q</th>
+          <th class="sortable-col" data-sort-kind="num" title="Expected Points — Σ(bucket prob × bucket points). Range 0–10. Click to sort.">EP</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of winning the race. Click to sort.">Win%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of finishing 1st through 3rd (podium). Click to sort.">T3%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of finishing in the top 5. Click to sort.">T5%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of finishing in the top 10. Click to sort.">T10%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of not finishing (crash, mechanical, etc.). Click to sort.">DNF%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Driver ELO — overall driver rating. 1500 = field average; field spread ~30 points. Click to sort.">ELO</th>
+          <th class="sortable-col" data-sort-kind="num" title="Organization equipment rating (higher = stronger team). Click to sort.">Org</th>
+          <th class="sortable-col" data-sort-kind="track" title="Avg finishing position at this track (career starts in parentheses; hover for best + last 3). Click to sort.">Track</th>
+          <th class="sortable-col" data-sort-kind="num" title="Practice speed adjustment (+ = faster than avg, − = slower; '—' if no practice yet). Click to sort.">Prac</th>
         </tr>
       </thead>
       <tbody><tr class="">
@@ -2691,20 +2723,20 @@ window.GW_CFG = {
           <td><span data-paid-field="practice_adj">—</span></td>
         </tr></tbody>
     </table>
-    <table class="proj proj-view" data-proj-view-table="probabilities">
+    <table class="proj proj-view sortable" data-proj-view-table="probabilities">
       <thead>
         <tr>
-          <th title="Predicted finish rank by Expected Points">Rank</th>
-          <th title="Car number">#</th>
+          <th class="sortable-col" data-sort-kind="rank" data-sort-default="asc" title="Predicted finish rank by Expected Points. Click to sort.">Rank</th>
+          <th class="sortable-col" data-sort-kind="num" title="Car number. Click to sort.">#</th>
           <th>Driver</th>
           <th>Team</th>
-          <th title="Expected Points — Σ(bucket prob × bucket points). Range 0–10.">EP</th>
-          <th title="Probability of winning">Win%</th>
-          <th title="Probability of finishing in the top 5">T5%</th>
-          <th title="Probability of finishing in the top 10">T10%</th>
-          <th title="Probability of finishing in the top 20">T20%</th>
-          <th title="Probability of finishing 21st+ (running at the end but not contending)">Made%</th>
-          <th title="Probability of not finishing (DNF)">DNF%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Expected Points — Σ(bucket prob × bucket points). Range 0–10. Click to sort.">EP</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of winning. Click to sort.">Win%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of finishing in the top 5. Click to sort.">T5%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of finishing in the top 10. Click to sort.">T10%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of finishing in the top 20. Click to sort.">T20%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of finishing 21st+ (running at the end but not contending). Click to sort.">Made%</th>
+          <th class="sortable-col" data-sort-kind="num" title="Probability of not finishing (DNF). Click to sort.">DNF%</th>
         </tr>
       </thead>
       <tbody><tr class="">
@@ -3153,20 +3185,20 @@ window.GW_CFG = {
           <td class="dnf-cell"><span data-paid-field="dnf">—</span></td>
         </tr></tbody>
     </table>
-    <table class="proj proj-view" data-proj-view-table="ratings">
+    <table class="proj proj-view sortable" data-proj-view-table="ratings">
       <thead>
         <tr>
-          <th title="Predicted finish rank by Expected Points">Rank</th>
-          <th title="Car number">#</th>
+          <th class="sortable-col" data-sort-kind="rank" data-sort-default="asc" title="Predicted finish rank by Expected Points. Click to sort.">Rank</th>
+          <th class="sortable-col" data-sort-kind="num" title="Car number. Click to sort.">#</th>
           <th>Driver</th>
           <th>Team</th>
-          <th title="Qualifying / starting position">Q</th>
-          <th title="Expected Points — Σ(bucket prob × bucket points). Range 0–10.">EP</th>
-          <th title="Driver ELO — overall driver rating. 1500 = average; field spread is ~30 points.">Drv ELO</th>
-          <th title="Track-type ELO — driver rating at this specific track type">TT ELO</th>
-          <th title="Organization equipment rating (higher = stronger team)">Org</th>
-          <th title="Qualifying delta vs field average (negative = qualified better than average)">QualΔ</th>
-          <th title="Rolling start-finish delta at this track type (negative = gains positions on average)">SFΔ</th>
+          <th class="sortable-col" data-sort-kind="qual" title="Qualifying / starting position. Click to sort.">Q</th>
+          <th class="sortable-col" data-sort-kind="num" title="Expected Points — Σ(bucket prob × bucket points). Range 0–10. Click to sort.">EP</th>
+          <th class="sortable-col" data-sort-kind="num" title="Driver ELO — overall driver rating. 1500 = average; field spread is ~30 points. Click to sort.">Drv ELO</th>
+          <th class="sortable-col" data-sort-kind="num" title="Track-type ELO — driver rating at this specific track type. Click to sort.">TT ELO</th>
+          <th class="sortable-col" data-sort-kind="num" title="Organization equipment rating (higher = stronger team). Click to sort.">Org</th>
+          <th class="sortable-col" data-sort-kind="num" title="Qualifying delta vs field average (negative = qualified better than average). Click to sort.">QualΔ</th>
+          <th class="sortable-col" data-sort-kind="num" title="Rolling start-finish delta at this track type (negative = gains positions on average). Click to sort.">SFΔ</th>
         </tr>
       </thead>
       <tbody><tr class="">
@@ -3752,6 +3784,95 @@ window.GW_CFG = {
       });
     });
   }
+
+  // ---------- Sortable projections tables ----------
+  // Click any .sortable-col header to sort the table by that column.
+  // Sequence per column: 1st click → descending (highest first), 2nd click →
+  // ascending, 3rd click → restore default order (by EP rank ascending).
+  // Sort state is kept per-table so switching tabs doesn't reset other tables.
+  function parseSortValue(text, kind) {
+    if (text == null) return null;
+    // Practice can be '—' (no data). Treat as smallest possible value so it
+    // sorts to the bottom on desc and the top on asc — matches user intent.
+    const stripped = text.trim();
+    if (stripped === '—' || stripped === '') return null;
+    if (kind === 'track') {
+      // "12 (5)" → 12 (use avg finish; ignore starts count)
+      const m = stripped.match(/^([0-9]+(?:\.[0-9]+)?)/);
+      return m ? parseFloat(m[1]) : null;
+    }
+    // 'rank', 'qual', 'num' all parse the leading number, stripping
+    // '%', '+', 'P' prefix, and parentheses.
+    const cleaned = stripped.replace(/[%+pP,()]/g, '').trim();
+    const n = parseFloat(cleaned);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function applySort(table, colIdx, direction, kind) {
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    // Stash original index once so 'default' (3rd click) restores it.
+    rows.forEach((r, i) => { if (!r.dataset.origIndex) r.dataset.origIndex = String(i); });
+
+    if (direction === 'default') {
+      rows.sort((a, b) =>
+        parseInt(a.dataset.origIndex, 10) - parseInt(b.dataset.origIndex, 10));
+    } else {
+      const mult = direction === 'desc' ? -1 : 1;
+      rows.sort((a, b) => {
+        const av = parseSortValue(a.cells[colIdx]?.textContent, kind);
+        const bv = parseSortValue(b.cells[colIdx]?.textContent, kind);
+        // Null values always sort to the bottom regardless of direction
+        if (av === null && bv === null) return 0;
+        if (av === null) return 1;
+        if (bv === null) return -1;
+        return (av - bv) * mult;
+      });
+    }
+    // Re-attach in new order; preserves all attrs + inline styles on <tr>.
+    rows.forEach(r => tbody.appendChild(r));
+  }
+
+  function updateHeaderIndicators(thead, activeTh, direction) {
+    thead.querySelectorAll('th.sortable-col').forEach(th => {
+      th.classList.remove('sort-asc', 'sort-desc');
+    });
+    if (direction === 'asc')  activeTh.classList.add('sort-asc');
+    if (direction === 'desc') activeTh.classList.add('sort-desc');
+  }
+
+  document.querySelectorAll('table.sortable').forEach(table => {
+    const thead = table.querySelector('thead');
+    if (!thead) return;
+    const headerCells = Array.from(thead.querySelectorAll('th'));
+    headerCells.forEach((th, idx) => {
+      if (!th.classList.contains('sortable-col')) return;
+      th.style.cursor = 'pointer';
+      th.addEventListener('click', () => {
+        const kind = th.dataset.sortKind || 'num';
+        // Click sequence per column: prev = null → desc, prev = desc → asc,
+        // prev = asc → default (and clear). Rank/Q columns default-sort
+        // ascending on first click (lower is better), everything else desc.
+        const prev = table.dataset.sortState === idx + ':' + 'desc' ? 'desc' :
+                     table.dataset.sortState === idx + ':' + 'asc'  ? 'asc'  : null;
+        const firstClickDir = th.dataset.sortDefault === 'asc' ? 'asc' : 'desc';
+        let next;
+        if (prev === null)       next = firstClickDir;
+        else if (prev === firstClickDir) next = (firstClickDir === 'desc' ? 'asc' : 'desc');
+        else                              next = 'default';
+
+        applySort(table, idx, next, kind);
+        if (next === 'default') {
+          table.dataset.sortState = '';
+          updateHeaderIndicators(thead, th, null);
+        } else {
+          table.dataset.sortState = idx + ':' + next;
+          updateHeaderIndicators(thead, th, next);
+        }
+      });
+    });
+  });
 
   // ---------- Hero tabs (Overview / Full Table) ----------
   const buttons = document.querySelectorAll('.hero-tabs button[data-tab]');

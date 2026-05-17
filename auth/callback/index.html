@@ -858,6 +858,38 @@ table.proj thead th:first-child,
 table.proj thead th:nth-child(2),
 table.proj thead th:nth-child(3),
 table.proj thead th:nth-child(4) { text-align: left; }
+
+/* Sortable column headers: clickable, with a small arrow on the active
+   sort column. Third click on the same column restores the default order
+   (by EP rank ascending) and removes the arrow. */
+table.proj thead th.sortable-col {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color .15s, background .15s;
+}
+table.proj thead th.sortable-col:hover { color: var(--ink); background: var(--bg); }
+table.proj thead th.sortable-col::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  margin-left: 6px;
+  vertical-align: middle;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  opacity: 0;
+  transition: opacity .15s;
+}
+table.proj thead th.sort-asc::after {
+  border-bottom: 5px solid var(--accent);
+  opacity: 1;
+}
+table.proj thead th.sort-desc::after {
+  border-top: 5px solid var(--accent);
+  opacity: 1;
+}
+table.proj thead th.sort-asc,
+table.proj thead th.sort-desc { color: var(--ink); }
 table.proj tbody td {
   padding: 11px 10px;
   border-bottom: 1px solid var(--line-soft);

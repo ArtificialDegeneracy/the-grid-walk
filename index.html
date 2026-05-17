@@ -857,6 +857,38 @@ table.proj thead th:first-child,
 table.proj thead th:nth-child(2),
 table.proj thead th:nth-child(3),
 table.proj thead th:nth-child(4) { text-align: left; }
+
+/* Sortable column headers: clickable, with a small arrow on the active
+   sort column. Third click on the same column restores the default order
+   (by EP rank ascending) and removes the arrow. */
+table.proj thead th.sortable-col {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color .15s, background .15s;
+}
+table.proj thead th.sortable-col:hover { color: var(--ink); background: var(--bg); }
+table.proj thead th.sortable-col::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  margin-left: 6px;
+  vertical-align: middle;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  opacity: 0;
+  transition: opacity .15s;
+}
+table.proj thead th.sort-asc::after {
+  border-bottom: 5px solid var(--accent);
+  opacity: 1;
+}
+table.proj thead th.sort-desc::after {
+  border-top: 5px solid var(--accent);
+  opacity: 1;
+}
+table.proj thead th.sort-asc,
+table.proj thead th.sort-desc { color: var(--ink); }
 table.proj tbody td {
   padding: 11px 10px;
   border-bottom: 1px solid var(--line-soft);
@@ -1698,6 +1730,95 @@ window.GW_CFG = {
       });
     });
   }
+
+  // ---------- Sortable projections tables ----------
+  // Click any .sortable-col header to sort the table by that column.
+  // Sequence per column: 1st click → descending (highest first), 2nd click →
+  // ascending, 3rd click → restore default order (by EP rank ascending).
+  // Sort state is kept per-table so switching tabs doesn't reset other tables.
+  function parseSortValue(text, kind) {
+    if (text == null) return null;
+    // Practice can be '—' (no data). Treat as smallest possible value so it
+    // sorts to the bottom on desc and the top on asc — matches user intent.
+    const stripped = text.trim();
+    if (stripped === '—' || stripped === '') return null;
+    if (kind === 'track') {
+      // "12 (5)" → 12 (use avg finish; ignore starts count)
+      const m = stripped.match(/^([0-9]+(?:\.[0-9]+)?)/);
+      return m ? parseFloat(m[1]) : null;
+    }
+    // 'rank', 'qual', 'num' all parse the leading number, stripping
+    // '%', '+', 'P' prefix, and parentheses.
+    const cleaned = stripped.replace(/[%+pP,()]/g, '').trim();
+    const n = parseFloat(cleaned);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function applySort(table, colIdx, direction, kind) {
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    // Stash original index once so 'default' (3rd click) restores it.
+    rows.forEach((r, i) => { if (!r.dataset.origIndex) r.dataset.origIndex = String(i); });
+
+    if (direction === 'default') {
+      rows.sort((a, b) =>
+        parseInt(a.dataset.origIndex, 10) - parseInt(b.dataset.origIndex, 10));
+    } else {
+      const mult = direction === 'desc' ? -1 : 1;
+      rows.sort((a, b) => {
+        const av = parseSortValue(a.cells[colIdx]?.textContent, kind);
+        const bv = parseSortValue(b.cells[colIdx]?.textContent, kind);
+        // Null values always sort to the bottom regardless of direction
+        if (av === null && bv === null) return 0;
+        if (av === null) return 1;
+        if (bv === null) return -1;
+        return (av - bv) * mult;
+      });
+    }
+    // Re-attach in new order; preserves all attrs + inline styles on <tr>.
+    rows.forEach(r => tbody.appendChild(r));
+  }
+
+  function updateHeaderIndicators(thead, activeTh, direction) {
+    thead.querySelectorAll('th.sortable-col').forEach(th => {
+      th.classList.remove('sort-asc', 'sort-desc');
+    });
+    if (direction === 'asc')  activeTh.classList.add('sort-asc');
+    if (direction === 'desc') activeTh.classList.add('sort-desc');
+  }
+
+  document.querySelectorAll('table.sortable').forEach(table => {
+    const thead = table.querySelector('thead');
+    if (!thead) return;
+    const headerCells = Array.from(thead.querySelectorAll('th'));
+    headerCells.forEach((th, idx) => {
+      if (!th.classList.contains('sortable-col')) return;
+      th.style.cursor = 'pointer';
+      th.addEventListener('click', () => {
+        const kind = th.dataset.sortKind || 'num';
+        // Click sequence per column: prev = null → desc, prev = desc → asc,
+        // prev = asc → default (and clear). Rank/Q columns default-sort
+        // ascending on first click (lower is better), everything else desc.
+        const prev = table.dataset.sortState === idx + ':' + 'desc' ? 'desc' :
+                     table.dataset.sortState === idx + ':' + 'asc'  ? 'asc'  : null;
+        const firstClickDir = th.dataset.sortDefault === 'asc' ? 'asc' : 'desc';
+        let next;
+        if (prev === null)       next = firstClickDir;
+        else if (prev === firstClickDir) next = (firstClickDir === 'desc' ? 'asc' : 'desc');
+        else                              next = 'default';
+
+        applySort(table, idx, next, kind);
+        if (next === 'default') {
+          table.dataset.sortState = '';
+          updateHeaderIndicators(thead, th, null);
+        } else {
+          table.dataset.sortState = idx + ':' + next;
+          updateHeaderIndicators(thead, th, next);
+        }
+      });
+    });
+  });
 
   // ---------- Hero tabs (Overview / Full Table) ----------
   const buttons = document.querySelectorAll('.hero-tabs button[data-tab]');
