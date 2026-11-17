@@ -3710,14 +3710,14 @@ window.GW_CFG = {
 </div>
 <div id="gw-upgrade-modal" class="gw-modal-backdrop" role="dialog" aria-modal="true" aria-label="Choose a pass">
   <div class="gw-modal">
-    <h3>Unlock the full board</h3>
-    <p>Pick a pass — cancel anytime. We'll set up your account after payment.</p>
-    <div class="gw-tier-choices">
-      <button class="gw-tier-choice" type="button" data-upgrade-tier="weekly">
+    <h3>Paid picks are paused</h3>
+    <p>Off-season. Paid picks reopen for the 2027 season.</p>
+    <div class="gw-tier-choices" style="display:none" data-checkout-paused="2026-11-17">
+      <button class="gw-tier-choice" type="button" data-upgrade-tier="weekly" disabled>
         <span><span class="name">Weekly Pass</span><span class="note">7 days · one-time</span></span>
         <span class="price">$9</span>
       </button>
-      <button class="gw-tier-choice" type="button" data-upgrade-tier="monthly">
+      <button class="gw-tier-choice" type="button" data-upgrade-tier="monthly" disabled>
         <span><span class="name">Monthly</span><span class="note">salute to #3</span></span>
         <span class="price">$25.03</span>
       </button>
@@ -4095,6 +4095,9 @@ if (signinForm) {
 // No auth check. Anyone can hit this; the post-payment exchange handles
 // account creation. This is the central simplification of the rewrite.
 async function startCheckout(tier) {
+  // CHECKOUT PAUSED 2026-11-17 (off-season, Dan). Delete this block to reopen checkout.
+  { const m = document.getElementById('gw-upgrade-msg'); if (m) { m.textContent = 'Paid picks reopen for the 2027 season.'; m.className = 'gw-modal-msg'; } return; }
+  // END CHECKOUT PAUSED
   const upgradeMsg = document.getElementById('gw-upgrade-msg');
   if (upgradeMsg) {
     upgradeMsg.textContent = 'Opening checkout…';
